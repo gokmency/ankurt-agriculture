@@ -9,6 +9,10 @@ export const company = {
   tagline: 'Tarla, Bahçe ve Sera İçin Doğru Ekipman',
   description:
     'Serik / Antalya merkezli tarım makineleri ve ekipmanları. Römork, çizel, kazayağı, çapa, sap çıkarma, traktör sepeti ve sera ekipmanları.',
+  logo: '/images/brand/logo.png',
+  logoPlate: '/images/brand/ankurt_cizel_uzerindeki_logo_referansi.png',
+  heroImage: '/images/hero/hero-bg.jpg',
+  workshopImage: '/images/gallery/ankurt_urun_portfoyu_referans.jpg',
 
   // Location
   location: {
@@ -44,8 +48,8 @@ export const company = {
     instagramHandle: '@ankurt_agriculturalmachinery',
     facebook: 'https://www.facebook.com/umit.kurt.54/',
     sahibinden: 'https://ankurttarimmakinalari.sahibinden.com/',
-    // YouTube — architecture ready, no verified active channel yet
-    youtube: '',
+    youtube: 'https://www.youtube.com',
+    tiktok: 'https://www.tiktok.com',
   },
 
   // SEO
@@ -81,7 +85,7 @@ export const company = {
   // Footer credit
   digitalPartner: {
     name: 'GRAINZ DIGITAL',
-    url: 'https://grainz.digital',
+    url: 'https://grainzdigital.com',
   },
 } as const;
 

@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Colors from DESIGN.md */
+  --color-pale-sage: #eef2e3;
+  --color-paper-white: #fcfcfc;
+  --color-ink-black: #000000;
+  --color-charcoal: #242423;
+  --color-deep-forest: #043f2e;
+  --color-chartreuse-lime: #c8f169;
+  --color-forest-mid: #2a6f2b;
+  --color-vivid-green: #78c51c;
+
+  /* Typography */
+  --font-serif: var(--font-fraunces), serif;
+  --font-sans: var(--font-inter), sans-serif;
+
+  /* Border Radii (Strictly 4px, 16px, 9999px) */
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 16px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-canvas: #eef2e3;
+    --surface-paper: #fcfcfc;
+    --text-forest: #043f2e;
+    --text-charcoal: #242423;
+    --accent-chartreuse: #c8f169;
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-forest);
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+  }
+
+  /* Headlines 36px+ strictly use Serif with tight tracking as specified in DESIGN.md */
+  h1, h2, h3, .font-editorial {
+    font-family: var(--font-serif);
+    font-weight: 400;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Eyebrow Label utility (Uppercase 12-14px with 0.06em positive tracking) */
+.eyebrow-label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Custom editorial scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #eef2e3;
+}
+::-webkit-scrollbar-thumb {
+  background: #043f2e30;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #043f2e60;
+}
+
+/* Text selection in Chartreuse */
+::selection {
+  background-color: #c8f169;
+  color: #000000;
 }
