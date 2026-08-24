@@ -3,6 +3,8 @@ import { company } from '@/data/company';
 import { getActiveProducts } from '@/data/products';
 import { getAllGuides } from '@/data/guides';
 
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = company.seo.siteUrl;
 
