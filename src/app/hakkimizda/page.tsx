@@ -1,176 +1,148 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Breadcrumb } from '@/components/layout/Breadcrumb';
-import { company } from '@/data/company';
-import { MapPin, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { ArrowUpRight, CheckCircle2, MapPin, Ruler, ShieldCheck, Wrench } from 'lucide-react';
+import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { Button } from '@/components/ui/Button';
 import { JsonLd, localBusinessJsonLd } from '@/components/seo/JsonLd';
+import { company } from '@/data/company';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Hakkımızda | ANKURT Tarım Makinaları',
-  description: `${company.name} — Antalya Serik / Yukarıkocayatak'ta tarla, bahçe ve sera için tarım makinaları imalatı ve satışı.`,
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Hakkımızda ve Üretim Yaklaşımımız',
+  description: `${company.nameFull} — Antalya Serik / Yukarıkocayatak'ta tarla, bahçe ve sera için tarım makinaları imalatı ve satışı.`,
+  path: '/hakkimizda/',
+});
+
+const capabilities = [
+  'Bahçe ve tarım römorkları',
+  'Çizel ve patlatma ekipmanları',
+  'Devirmeli traktör sepetleri',
+  'Sap çıkarma ve pasaf toplama',
+  'Sera tipi sürgü ekipmanları',
+  'Diskaro, rotovatör ve çapa',
+];
 
 export default function AboutPage() {
   const breadcrumbItems = [
     { label: 'Ana Sayfa', href: '/' },
-    { label: 'Hakkımızda', href: '/hakkimizda' }
+    { label: 'Hakkımızda', href: '/hakkimizda' },
   ];
 
   return (
-    <div className="bg-[#eef2e3] min-h-screen py-8 sm:py-12">
+    <main className="min-h-screen bg-[#f2f0e9] py-8 sm:py-12">
       <JsonLd data={localBusinessJsonLd()} />
-      
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="section-shell">
         <Breadcrumb items={breadcrumbItems} />
-        
-        <div className="mt-4 bg-[#fcfcfc] rounded-[16px] border border-[#000000]/10 overflow-hidden">
-          {/* Header Area (Deep Forest Section) */}
-          <div className="relative bg-[#043f2e] px-6 sm:px-12 py-16 sm:py-20 text-center overflow-hidden text-[#fcfcfc]">
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <div className="eyebrow-label text-[#c8f169] mb-3 inline-flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 stroke-[1.5]" />
-                Yukarıkocayatak, Serik / Antalya
+
+        <section className="mt-4 overflow-hidden rounded-[12px] bg-[#121713] text-white">
+          <div className="grid lg:grid-cols-12">
+            <div className="engineering-grid relative flex min-h-[420px] flex-col justify-center px-6 py-14 sm:px-12 lg:col-span-7 lg:min-h-[520px] lg:px-16">
+              <div className="relative z-10 max-w-2xl">
+                <span className="eyebrow-label inline-flex items-center gap-2 text-[#e7b23f]">
+                  <MapPin className="h-4 w-4" /> Yukarıkocayatak, Serik / Antalya
+                </span>
+                <h1 className="mt-5 text-[52px] uppercase leading-[.88] text-white sm:text-[72px]">
+                  Sahadaki ihtiyacı,
+                  <span className="block text-[#e7b23f]">atölyede çözüyoruz.</span>
+                </h1>
+                <p className="mt-7 max-w-xl text-base leading-7 text-white/70">
+                  ANKURT, tarla, bahçe ve sera koşullarını bilen; doğru ölçü, sağlam gövde ve doğrudan destek üzerine çalışan yerel bir mühendislik ve tarım makinaları merkezidir.
+                </p>
               </div>
-              <h1 className="font-editorial text-[36px] sm:text-[56px] text-[#fcfcfc] leading-tight mb-4">
-                ANKURT Tarım Makinaları
-              </h1>
-              <p className="text-base sm:text-lg text-[#fcfcfc]/80 leading-relaxed">
-                Antalya Serik’te çiftçilerimize ve sera üreticilerimize doğrudan hizmet sunan güvenilir tarım ekipmanı ve makine merkezi.
+            </div>
+
+            <div className="relative min-h-[340px] lg:col-span-5 lg:min-h-[520px]">
+              <Image
+                src={company.workshopImage}
+                alt="ANKURT atölyesinde üretilen tarım ekipmanları"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#121713]/70 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                <p className="eyebrow-label text-[#e7b23f]">Atölye & ürün alanı</p>
+                <p className="mt-2 max-w-sm font-editorial text-3xl uppercase leading-none text-white">
+                  Serik&apos;ten sahaya doğrudan üretim ve teslimat.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="grid gap-10 py-16 sm:py-24 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <span className="eyebrow-label text-[#0f5d35]">Faaliyetimiz & yaklaşımımız</span>
+            <h2 className="mt-4 max-w-2xl text-[44px] uppercase leading-[.92] text-[#1c211d] sm:text-[60px]">
+              Bölgenin tarım dinamiklerini biliyoruz.
+            </h2>
+            <div className="mt-7 max-w-3xl space-y-5 text-sm leading-7 text-[#626760] sm:text-base">
+              <p>
+                Antalya Serik&apos;te faaliyet gösteren ekibimiz; örtü altı sera üreticilerinin, açık alan çiftçilerinin ve narenciye yetiştiricilerinin günlük kullanım ihtiyaçlarına odaklanır.
+              </p>
+              <p>
+                Kendi markamızla ürettiğimiz ANKURT ekipmanlarının yanında Sevsan, Volkan, Ata Makina, Torunoğlu ve Öz-Akın gibi sektörde bilinen markaların satış ve tedariğini de sağlarız.
               </p>
             </div>
-          </div>
-          
-          <div className="p-6 sm:p-12 lg:p-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-              
-              {/* Content Main Column */}
-              <div className="lg:col-span-7 space-y-8 text-[#043f2e]">
-                <div>
-                  <span className="eyebrow-label text-[#043f2e]">Faaliyetimiz & Konumumuz</span>
-                  <h2 className="font-editorial text-[32px] text-[#043f2e] mt-1 mb-4 leading-tight">
-                    Bölgenin Tarım Dinamiklerini Biliyoruz
-                  </h2>
-                  
-                  <p className="text-[#242423] leading-relaxed mb-4 text-sm sm:text-base">
-                    ANKURT Tarım Makinaları olarak, tarımın kalbi Antalya Serik’te (Yukarıkocayatak bölgesi) faaliyet göstermekteyiz. Çalışmalarımız; bölgedeki örtü altı sera üreticilerinin, açık alan çiftçilerinin ve narenciye yetiştiricilerinin günlük kullanım ihtiyaçlarına doğrudan yanıt verecek şekilde şekillenmiştir.
-                  </p>
-                  
-                  <p className="text-[#242423] leading-relaxed text-sm sm:text-base">
-                    Kendi markamızla ürettiğimiz dayanıklı ANKURT tarım ekipmanlarının yanı sıra, sektörde kendini kanıtlamış Sevsan, Volkan, Ata Makina, Torunoğlu ve Öz-Akın gibi markaların da satış ve tedariğini sağlamaktayız.
-                  </p>
-                </div>
 
-                {/* Workshop Real Image Box (16px radius) */}
-                <div className="relative aspect-[16/9] rounded-[16px] overflow-hidden bg-[#eef2e3] border border-[#000000]/10">
-                  <Image
-                    src={company.workshopImage}
-                    alt="ANKURT Tarım Makinaları Ürünleri Serik"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute bottom-3 left-3 text-xs font-medium text-[#fcfcfc] bg-[#043f2e]/90 px-3 py-1 rounded-[4px]">
-                    Yukarıkocayatak Atölye ve Ürün Alanımız
+            <div className="mt-10 border-t border-[#1c211d]/15 pt-8">
+              <h3 className="text-3xl uppercase text-[#1c211d]">Ürün ve imalat yelpazemiz</h3>
+              <div className="mt-5 grid gap-x-8 sm:grid-cols-2">
+                {capabilities.map((capability) => (
+                  <div key={capability} className="flex items-center gap-3 border-b border-[#1c211d]/10 py-4 text-sm font-bold text-[#1c211d]">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0f5d35]" />
+                    <span>{capability}</span>
                   </div>
-                </div>
-
-                <div>
-                  <h3 className="font-editorial text-[24px] text-[#043f2e] mb-4">Ürün ve İmalat Yelpazemiz</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-medium">
-                    <div className="flex items-center p-3 rounded-[4px] bg-[#eef2e3]">
-                      <CheckCircle2 className="w-4 h-4 text-[#043f2e] mr-2 shrink-0 stroke-[1.5]" />
-                      <span>Bahçe & Tarım Römorkları</span>
-                    </div>
-                    <div className="flex items-center p-3 rounded-[4px] bg-[#eef2e3]">
-                      <CheckCircle2 className="w-4 h-4 text-[#043f2e] mr-2 shrink-0 stroke-[1.5]" />
-                      <span>7'li Çizel & Patlatma Aletleri</span>
-                    </div>
-                    <div className="flex items-center p-3 rounded-[4px] bg-[#eef2e3]">
-                      <CheckCircle2 className="w-4 h-4 text-[#043f2e] mr-2 shrink-0 stroke-[1.5]" />
-                      <span>Devirmeli Traktör Sepetleri</span>
-                    </div>
-                    <div className="flex items-center p-3 rounded-[4px] bg-[#eef2e3]">
-                      <CheckCircle2 className="w-4 h-4 text-[#043f2e] mr-2 shrink-0 stroke-[1.5]" />
-                      <span>Sap Çıkarma & Pasaf Toplama</span>
-                    </div>
-                    <div className="flex items-center p-3 rounded-[4px] bg-[#eef2e3]">
-                      <CheckCircle2 className="w-4 h-4 text-[#043f2e] mr-2 shrink-0 stroke-[1.5]" />
-                      <span>Sera Tipi 220 cm Sürgüler</span>
-                    </div>
-                    <div className="flex items-center p-3 rounded-[4px] bg-[#eef2e3]">
-                      <CheckCircle2 className="w-4 h-4 text-[#043f2e] mr-2 shrink-0 stroke-[1.5]" />
-                      <span>Diskaro, Rotovatör & Çapa</span>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
-
-              {/* Sidebar Cards */}
-              <div className="lg:col-span-5 space-y-6">
-                {/* Brand Plate Reference Box */}
-                <div className="bg-[#eef2e3] p-6 rounded-[16px] border border-[#000000]/8">
-                  <span className="eyebrow-label text-[#043f2e] text-[11px]">İmalat Güvencesi</span>
-                  <h3 className="font-editorial text-[22px] text-[#043f2e] mt-1 mb-4 flex items-center">
-                    <ShieldCheck className="w-5 h-5 text-[#043f2e] mr-2 stroke-[1.5]" />
-                    ANKURT Tescilli İmalat
-                  </h3>
-                  
-                  <div className="relative aspect-[4/3] rounded-[16px] overflow-hidden mb-4 border border-[#000000]/10">
-                    <Image
-                      src={company.logoPlate}
-                      alt="ANKURT Logo ve İletişim Plakası"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 35vw"
-                    />
-                  </div>
-
-                  <p className="text-xs text-[#242423] leading-relaxed">
-                    Makinelerimizin üzerindeki ANKURT seri plakası ve doğrudan iletişim bilgileri, ürünlerimizin atölye güvencesini temsil eder.
-                  </p>
-                </div>
-
-                {/* Location & Contact Box */}
-                <div className="bg-[#fcfcfc] p-6 rounded-[16px] border border-[#000000]/10">
-                  <h3 className="font-editorial text-[22px] text-[#043f2e] mb-3 flex items-center">
-                    <MapPin className="w-5 h-5 text-[#043f2e] mr-2 stroke-[1.5]" />
-                    Ziyaret & İletişim
-                  </h3>
-                  
-                  <div className="space-y-2.5 mb-6 text-xs text-[#242423] bg-[#eef2e3] p-4 rounded-[4px]">
-                    <div>
-                      <span className="font-medium text-[#043f2e] block">Adres:</span>
-                      <span>{company.location.formatted}</span>
-                    </div>
-                    <div>
-                      <span className="font-medium text-[#043f2e] block">Sabit Hat:</span>
-                      <a href={company.contact.phoneHref} className="text-[#043f2e] font-medium hover:underline">{company.contact.phone}</a>
-                    </div>
-                    <div>
-                      <span className="font-medium text-[#043f2e] block">Mobil:</span>
-                      <a href={company.contact.mobileHref} className="text-[#043f2e] font-medium hover:underline">{company.contact.mobile}</a>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2.5">
-                    <Button asChild variant="primary" size="md" className="w-full">
-                      <a href={company.location.directionsUrl} target="_blank" rel="noopener noreferrer">
-                        Haritada Yol Tarifi Al
-                      </a>
-                    </Button>
-                    <Button asChild variant="outline" size="md" className="w-full">
-                      <Link href="/iletisim">İletişim & Teklif Formu</Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              
             </div>
           </div>
-        </div>
+
+          <aside className="space-y-5 lg:col-span-5">
+            <div className="engineering-grid rounded-[12px] bg-[#0f5d35] p-7 text-white sm:p-9">
+              <div className="flex items-start justify-between gap-6">
+                <div>
+                  <span className="eyebrow-label text-[#e7b23f]">İmalat güvencesi</span>
+                  <h3 className="mt-3 text-4xl uppercase leading-none text-white">ANKURT atölye standardı</h3>
+                </div>
+                <ShieldCheck className="h-7 w-7 shrink-0 text-[#e7b23f]" />
+              </div>
+              <div className="mt-7 divide-y divide-white/15 border-y border-white/15">
+                {[
+                  { icon: Ruler, title: 'Ölçü ve uyum', text: 'Traktör, arazi ve kullanım amacına göre değerlendirme' },
+                  { icon: Wrench, title: 'Sağlam gövde', text: 'Sahadaki çalışma yüküne uygun şasi ve bağlantılar' },
+                  { icon: ShieldCheck, title: 'Doğrudan destek', text: 'Satış öncesi ve sonrasında atölyeyle doğrudan iletişim' },
+                ].map((item) => (
+                  <div key={item.title} className="grid grid-cols-[36px_1fr] gap-3 py-5">
+                    <item.icon className="mt-1 h-5 w-5 text-[#e7b23f]" />
+                    <div>
+                      <p className="text-sm font-bold text-white">{item.title}</p>
+                      <p className="mt-1 text-xs leading-5 text-white/65">{item.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[12px] border border-[#121713]/10 bg-[#fbfaf6] p-7 sm:p-9">
+              <span className="eyebrow-label text-[#0f5d35]">Ziyaret & iletişim</span>
+              <p className="mt-4 text-sm leading-6 text-[#626760]">{company.location.formatted}</p>
+              <div className="mt-6 flex flex-col gap-3">
+                <Button asChild size="md">
+                  <a href={company.location.directionsUrl} target="_blank" rel="noopener noreferrer">
+                    Yol Tarifi Al <ArrowUpRight className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="md">
+                  <Link href="/iletisim">İletişim & Teklif Formu</Link>
+                </Button>
+              </div>
+            </div>
+          </aside>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

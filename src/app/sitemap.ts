@@ -7,70 +7,55 @@ export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = company.seo.siteUrl;
+  const siteReleaseDate = new Date('2026-08-27T00:00:00+03:00');
 
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}`,
-      lastModified: new Date(),
+      url: `${baseUrl}/`,
+      lastModified: siteReleaseDate,
       changeFrequency: 'weekly',
       priority: 1,
+      images: [`${baseUrl}${company.heroImage}`],
     },
     {
-      url: `${baseUrl}/urunler`,
-      lastModified: new Date(),
+      url: `${baseUrl}/urunler/`,
+      lastModified: siteReleaseDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/hakkimizda`,
-      lastModified: new Date(),
+      url: `${baseUrl}/hakkimizda/`,
+      lastModified: siteReleaseDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/iletisim`,
-      lastModified: new Date(),
+      url: `${baseUrl}/iletisim/`,
+      lastModified: siteReleaseDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/rehber`,
-      lastModified: new Date(),
+      url: `${baseUrl}/rehber/`,
+      lastModified: siteReleaseDate,
       changeFrequency: 'weekly',
       priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/gizlilik-politikasi`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/kvkk`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/cerez-politikasi`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
     },
   ];
 
   const products = getActiveProducts();
   const productPages: MetadataRoute.Sitemap = products.map((product) => ({
-    url: `${baseUrl}/urunler/${product.slug}`,
-    lastModified: new Date(),
+    url: `${baseUrl}/urunler/${product.slug}/`,
+    lastModified: siteReleaseDate,
     changeFrequency: 'weekly',
     priority: 0.8,
+    images: (product.images || []).map((image) => `${baseUrl}${image}`),
   }));
 
   const guides = getAllGuides();
   const guidePages: MetadataRoute.Sitemap = guides.map((guide) => ({
-    url: `${baseUrl}/rehber/${guide.slug}`,
-    lastModified: new Date(),
+    url: `${baseUrl}/rehber/${guide.slug}/`,
+    lastModified: new Date(`${guide.publishedDate}T00:00:00+03:00`),
     changeFrequency: 'monthly',
     priority: 0.6,
   }));

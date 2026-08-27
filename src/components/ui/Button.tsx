@@ -11,30 +11,23 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  // Primary: Filled Chartreuse Lime (#c8f169) with Ink Black (#000000) text (the only filled chromatic button in the system)
-  primary: 'bg-[#c8f169] text-[#000000] hover:bg-[#b8e552] active:bg-[#a6d43e] font-medium border-0 transition-colors',
-  
-  // Secondary / Forest: Deep Forest (#043f2e) background with Paper White (#fcfcfc) text
-  secondary: 'bg-[#043f2e] text-[#fcfcfc] hover:bg-[#2a6f2b] active:bg-[#1f5420] font-medium border-0 transition-colors',
-  
-  // Ghost / Outline on light surfaces: Transparent with 1px Ink Black hairline border
-  outline: 'bg-transparent border border-[#000000] text-[#000000] hover:bg-[#000000]/5 active:bg-[#000000]/10 font-medium transition-colors',
-  ghost: 'bg-transparent text-[#043f2e] hover:bg-[#043f2e]/8 active:bg-[#043f2e]/12 font-medium transition-colors',
-  
-  // Ghost on dark forest sections: Transparent with 1px Paper White border
-  'ghost-dark': 'bg-transparent border border-[#fcfcfc] text-[#fcfcfc] hover:bg-[#fcfcfc]/10 active:bg-[#fcfcfc]/15 font-medium transition-colors',
+  primary: 'bg-[#e7b23f] text-[#121713] hover:bg-[#f0c45a] active:bg-[#d69e2f] font-bold border border-[#e7b23f] transition-all',
+  secondary: 'bg-[#0f5d35] text-white hover:bg-[#184f31] active:bg-[#103c28] font-bold border border-[#0f5d35] transition-all',
+  outline: 'bg-transparent border border-[#1c211d]/35 text-[#1c211d] hover:border-[#0f5d35] hover:text-[#0f5d35] font-bold transition-all',
+  ghost: 'bg-transparent text-[#0f5d35] hover:bg-[#0f5d35]/8 font-bold transition-all',
+  'ghost-dark': 'bg-transparent border border-white/35 text-white hover:border-[#e7b23f] hover:text-[#e7b23f] font-bold transition-all',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'text-[13px] h-8 px-3.5 rounded-[4px]',
-  md: 'text-[15px] h-10 px-5 rounded-[4px]',
-  lg: 'text-[16px] h-12 px-6 rounded-[4px]',
+  sm: 'text-[12px] h-10 px-4 rounded-[6px]',
+  md: 'text-[13px] h-12 px-5 rounded-[6px]',
+  lg: 'text-[14px] h-14 px-7 rounded-[6px]',
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', asChild = false, children, ...props }, ref) => {
     const classes = cn(
-      'inline-flex items-center justify-center font-sans select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c8f169] disabled:opacity-50 disabled:pointer-events-none cursor-pointer',
+      'inline-flex items-center justify-center font-sans uppercase tracking-[0.06em] select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e7b23f] disabled:opacity-50 disabled:pointer-events-none cursor-pointer',
       variantStyles[variant],
       sizeStyles[size],
       className

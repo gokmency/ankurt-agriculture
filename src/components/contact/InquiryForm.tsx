@@ -1,51 +1,40 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '../ui/Button';
 import { trackFormSubmission } from '@/lib/analytics';
 import { Product, getActiveProducts } from '@/data/products';
-import { CheckCircle2, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
+import Link from 'next/link';
+import { company } from '@/data/company';
 
 export function InquiryForm() {
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    setProducts(getActiveProducts());
-  }, []);
+  const [products] = useState<Product[]>(() => getActiveProducts());
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('submitting');
-    
-    setTimeout(() => {
-      setStatus('success');
-      trackFormSubmission('inquiry_form');
-    }, 600);
-  };
+    const formData = new FormData(e.currentTarget);
+    const productId = String(formData.get('product') || '');
+    const productTitle = products.find((product) => product.id === productId)?.title || 'Genel bilgi';
+    const message = [
+      'Merhaba ANKURT, web siteniz üzerinden bilgi ve teklif almak istiyorum.',
+      '',
+      `Ad Soyad: ${String(formData.get('name') || '')}`,
+      `Telefon: ${String(formData.get('phone') || '')}`,
+      `İl / İlçe: ${String(formData.get('location') || 'Belirtilmedi')}`,
+      `Ekipman: ${productTitle}`,
+      `Not: ${String(formData.get('message') || 'Belirtilmedi')}`,
+    ].join('\n');
 
-  if (status === 'success') {
-    return (
-      <div className="bg-[#eef2e3] p-8 rounded-[16px] border border-[#000000]/10 text-center flex flex-col items-center justify-center min-h-[340px]">
-        <div className="w-12 h-12 bg-[#043f2e]/10 rounded-[4px] flex items-center justify-center mb-4 text-[#043f2e]">
-          <CheckCircle2 className="w-7 h-7 stroke-[1.5]" />
-        </div>
-        <h3 className="font-editorial text-2xl text-[#043f2e] mb-2">Talebiniz Alındı</h3>
-        <p className="text-sm text-[#242423] mb-6 max-w-xs leading-relaxed">
-          Mesajınız yetkilimize iletilmiştir. Belirttiğiniz telefon numarası üzerinden en kısa sürede dönüş sağlanacaktır.
-        </p>
-        <Button onClick={() => setStatus('idle')} variant="outline" size="sm">
-          Yeni Mesaj Gönder
-        </Button>
-      </div>
-    );
-  }
+    trackFormSubmission(productId || 'general');
+    window.open(`${company.contact.whatsappUrl}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className="block text-xs font-medium text-[#043f2e] uppercase tracking-wider mb-1.5">
+          <label htmlFor="name" className="block text-xs font-medium text-[#0f5d35] uppercase tracking-wider mb-1.5">
             Ad Soyad <span className="text-[#9c4a28]">*</span>
           </label>
           <input
@@ -53,13 +42,14 @@ export function InquiryForm() {
             id="name"
             name="name"
             required
-            className="w-full px-3.5 py-2.5 border border-[#000000]/15 rounded-[4px] focus:border-[#043f2e] outline-none bg-[#eef2e3]/40 text-[#043f2e] text-sm"
+            autoComplete="name"
+            className="w-full px-3.5 py-2.5 border border-[#121713]/15 rounded-[4px] focus:border-[#0f5d35] outline-none bg-[#f2f0e9]/40 text-[#0f5d35] text-sm"
             placeholder="Adınız Soyadınız"
           />
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-xs font-medium text-[#043f2e] uppercase tracking-wider mb-1.5">
+          <label htmlFor="phone" className="block text-xs font-medium text-[#0f5d35] uppercase tracking-wider mb-1.5">
             Telefon Numarası <span className="text-[#9c4a28]">*</span>
           </label>
           <input
@@ -67,7 +57,9 @@ export function InquiryForm() {
             id="phone"
             name="phone"
             required
-            className="w-full px-3.5 py-2.5 border border-[#000000]/15 rounded-[4px] focus:border-[#043f2e] outline-none bg-[#eef2e3]/40 text-[#043f2e] text-sm"
+            autoComplete="tel"
+            inputMode="tel"
+            className="w-full px-3.5 py-2.5 border border-[#121713]/15 rounded-[4px] focus:border-[#0f5d35] outline-none bg-[#f2f0e9]/40 text-[#0f5d35] text-sm"
             placeholder="05XX XXX XX XX"
           />
         </div>
@@ -75,26 +67,27 @@ export function InquiryForm() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="location" className="block text-xs font-medium text-[#043f2e] uppercase tracking-wider mb-1.5">
+          <label htmlFor="location" className="block text-xs font-medium text-[#0f5d35] uppercase tracking-wider mb-1.5">
             Bulunduğunuz İl / İlçe
           </label>
           <input
             type="text"
             id="location"
             name="location"
-            className="w-full px-3.5 py-2.5 border border-[#000000]/15 rounded-[4px] focus:border-[#043f2e] outline-none bg-[#eef2e3]/40 text-[#043f2e] text-sm"
+            autoComplete="address-level2"
+            className="w-full px-3.5 py-2.5 border border-[#121713]/15 rounded-[4px] focus:border-[#0f5d35] outline-none bg-[#f2f0e9]/40 text-[#0f5d35] text-sm"
             placeholder="Örn: Serik / Antalya"
           />
         </div>
 
         <div>
-          <label htmlFor="product" className="block text-xs font-medium text-[#043f2e] uppercase tracking-wider mb-1.5">
+          <label htmlFor="product" className="block text-xs font-medium text-[#0f5d35] uppercase tracking-wider mb-1.5">
             İlgilendiğiniz Ekipman
           </label>
           <select
             id="product"
             name="product"
-            className="w-full px-3.5 py-2.5 border border-[#000000]/15 rounded-[4px] focus:border-[#043f2e] outline-none bg-[#eef2e3]/40 text-[#043f2e] text-sm"
+            className="w-full px-3.5 py-2.5 border border-[#121713]/15 rounded-[4px] focus:border-[#0f5d35] outline-none bg-[#f2f0e9]/40 text-[#0f5d35] text-sm"
           >
             <option value="">Lütfen seçiniz (İsteğe bağlı)</option>
             {products.length > 0 ? (
@@ -104,7 +97,7 @@ export function InquiryForm() {
             ) : (
               <>
                 <option value="romork">Bahçe Tipi Römork</option>
-                <option value="cizel">7'li Çizel Patlatma</option>
+                <option value="cizel">7&apos;li Çizel Patlatma</option>
                 <option value="sepet">Devirmeli Traktör Sepeti</option>
                 <option value="diger">Diğer / Genel Bilgi</option>
               </>
@@ -114,17 +107,32 @@ export function InquiryForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-xs font-medium text-[#043f2e] uppercase tracking-wider mb-1.5">
+        <label htmlFor="message" className="block text-xs font-medium text-[#0f5d35] uppercase tracking-wider mb-1.5">
           Talebiniz / Araziniz Hakkında Not
         </label>
         <textarea
           id="message"
           name="message"
           rows={3}
-          className="w-full px-3.5 py-2.5 border border-[#000000]/15 rounded-[4px] focus:border-[#043f2e] outline-none bg-[#eef2e3]/40 text-[#043f2e] text-sm resize-y placeholder:text-[#242423]/50"
+          className="w-full px-3.5 py-2.5 border border-[#121713]/15 rounded-[4px] focus:border-[#0f5d35] outline-none bg-[#f2f0e9]/40 text-[#0f5d35] text-sm resize-y placeholder:text-[#464c47]/50"
           placeholder="Traktör modelinizi, arazi tipinizi veya sormak istediğiniz detayları belirtebilirsiniz..."
         ></textarea>
       </div>
+
+      <label className="flex cursor-pointer items-start gap-3 rounded-[6px] border border-[#121713]/10 bg-[#f2f0e9]/55 p-3.5 text-xs leading-5 text-[#464c47]">
+        <input
+          type="checkbox"
+          name="privacyConsent"
+          required
+          className="mt-0.5 h-4 w-4 shrink-0 accent-[#0f5d35]"
+        />
+        <span>
+          İletişim bilgilerimin talebimin yanıtlanması amacıyla kullanılmasını kabul ediyorum.{' '}
+          <Link href="/kvkk" className="font-bold text-[#0f5d35] underline underline-offset-2">
+            KVKK Aydınlatma Metni
+          </Link>
+        </span>
+      </label>
 
       <div className="pt-2">
         <Button 
@@ -132,11 +140,13 @@ export function InquiryForm() {
           variant="primary" 
           size="md"
           className="w-full"
-          disabled={status === 'submitting'}
         >
           <Send className="w-3.5 h-3.5 mr-2 stroke-[1.5]" />
-          {status === 'submitting' ? 'Talebiniz Gönderiliyor...' : 'Teklif Talebini Gönder'}
+          WhatsApp&apos;ta Talep Oluştur
         </Button>
+        <p className="mt-2 text-center text-[11px] leading-4 text-[#464c47]/70">
+          Bilgileriniz WhatsApp&apos;ta hazır mesaj olarak açılır; göndermeden önce kontrol edebilirsiniz.
+        </p>
       </div>
     </form>
   );

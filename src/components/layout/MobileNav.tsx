@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -19,49 +19,78 @@ interface MobileNavProps {
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const pathname = usePathname();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      closeButtonRef.current?.focus();
     } else {
       document.body.style.overflow = '';
     }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen]);
-
-  useEffect(() => {
-    onClose();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end md:hidden">
+    <div className="fixed inset-0 z-50 flex justify-end lg:hidden">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-[#000000]/40 backdrop-blur-2xs transition-opacity"
+        className="absolute inset-0 bg-[#121713]/40 backdrop-blur-2xs transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
       
       {/* Drawer */}
-      <div className="relative w-5/6 max-w-sm bg-[#fcfcfc] h-full flex flex-col border-l border-[#000000]/10 z-10">
-        <div className="flex items-center justify-between p-5 border-b border-[#000000]/10">
+      <aside
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobil menü"
+        className="relative z-10 flex h-full w-5/6 max-w-sm flex-col border-l border-[#121713]/10 bg-[#fbfaf6]"
+      >
+        <div className="flex items-center justify-between p-5 border-b border-[#121713]/10">
           <div className="relative h-10 w-44">
             <Image
               src="/images/brand/ankurt_official_logo.png"
-              alt="ANKURT Tarım Makinaları"
+              alt={company.nameFull}
               fill
               className="object-contain object-left"
               sizes="180px"
             />
           </div>
           <button 
+            ref={closeButtonRef}
             onClick={onClose}
-            className="p-1.5 text-[#043f2e] hover:bg-[#eef2e3] rounded-[4px]"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-[6px] text-[#0f5d35] hover:bg-[#f2f0e9]"
             aria-label="Menüyü kapat"
           >
             <X className="w-5 h-5 stroke-[1.5]" />
@@ -77,9 +106,10 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                 <Link
                   key={item.label}
                   href={item.href}
+                  onClick={onClose}
                   className={cn(
                     'text-[16px] font-medium py-2.5 px-3 rounded-[4px] transition-colors',
-                    isActive ? 'bg-[#eef2e3] text-[#043f2e] font-semibold' : 'text-[#242423] hover:bg-[#eef2e3]/50'
+                    isActive ? 'bg-[#f2f0e9] text-[#0f5d35] font-semibold' : 'text-[#464c47] hover:bg-[#f2f0e9]/50'
                   )}
                 >
                   {item.label}
@@ -88,16 +118,16 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             })}
           </nav>
 
-          <div className="mt-8 pt-6 border-t border-[#000000]/10 space-y-3 text-xs text-[#242423]">
+          <div className="mt-8 pt-6 border-t border-[#121713]/10 space-y-3 text-xs text-[#464c47]">
             <div className="flex items-start space-x-2">
-              <MapPin className="w-4 h-4 text-[#043f2e] shrink-0 mt-0.5 stroke-[1.5]" />
-              <span>{company.location.full}</span>
+              <MapPin className="w-4 h-4 text-[#0f5d35] shrink-0 mt-0.5 stroke-[1.5]" />
+              <span>{company.location.short}</span>
             </div>
           </div>
         </div>
 
         {/* Action Bottom Area */}
-        <div className="p-5 border-t border-[#000000]/10 space-y-3 bg-[#eef2e3]/40">
+        <div className="p-5 border-t border-[#121713]/10 space-y-3 bg-[#f2f0e9]/40">
           <Button asChild variant="primary" size="md" className="w-full justify-center">
             <Link href="/iletisim">Bilgi & Teklif Al</Link>
           </Button>
@@ -105,7 +135,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             <a
               href={company.contact.phoneHref}
               onClick={() => trackPhoneClick('main')}
-              className="flex items-center justify-center px-3 py-2 text-xs text-[#043f2e] font-medium border border-[#000000]/15 rounded-[4px] hover:bg-white transition-colors"
+              className="flex items-center justify-center px-3 py-2 text-xs text-[#0f5d35] font-medium border border-[#121713]/15 rounded-[4px] hover:bg-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5 mr-1 stroke-[1.5]" />
               Sabit Ara
@@ -124,7 +154,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             )}
           </div>
         </div>
-      </div>
+      </aside>
     </div>
   );
 }

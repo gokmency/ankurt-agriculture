@@ -1,204 +1,122 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import type { Metadata } from 'next';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
+  MapPin,
+  Phone,
+  Ruler,
+  ShieldCheck,
+  Wrench,
+} from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { ProductCard } from '@/components/products/ProductCard';
 import { categories } from '@/data/categories';
 import { getAnkurtProducts, getProductsByCategory } from '@/data/products';
-import { getAllGuides } from '@/data/guides';
-import { MapPin, Phone, ArrowRight, ArrowUpRight, CheckCircle2, Navigation } from 'lucide-react';
 import { company } from '@/data/company';
-import { WhatsAppIcon } from '@/components/ui/BrandIcons';
+import { JsonLd, websiteJsonLd } from '@/components/seo/JsonLd';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'Tarım Makinaları ve Ekipmanları',
+  description: company.seo.defaultDescription,
+  path: '/',
+  keywords: [...company.seo.defaultKeywords],
+});
 
 export default function Home() {
   const ankurtProducts = getAnkurtProducts();
-  const featuredProducts = ankurtProducts.slice(0, 6);
-  const guides = getAllGuides().slice(0, 3);
-  
-  const applications = [
-    {
-      badge: 'ÖRTÜ ALTI & SERA',
-      title: 'Sera Toprak Hazırlığı',
-      desc: 'Sera direk aralarına uyumlu 220 cm sürgüler ve 7 ayaklı sera patlatmaları.',
-      href: '/urunler?kategori=sera-ekipmanlari',
-      image: '/images/products/ankurt_sera_surgu.jpg',
-    },
-    {
-      badge: 'MEYVE BAHÇESİ',
-      title: 'Bahçe Römorku & Çapa',
-      desc: 'Ağaç aralarından rahat geçen alçak şasili bahçe römorkları ve çapa grubu.',
-      href: '/urunler?kategori=romorklar',
-      image: '/images/products/ankurt_bahce_romork.jpg',
-    },
-    {
-      badge: 'AÇIK ALAN & TARLA',
-      title: 'Ağır Toprak İşleme',
-      desc: 'Sert tabaka kırma için derin çizeller, ofset diskarolar ve rotovatörler.',
-      href: '/urunler?kategori=toprak-isleme',
-      image: '/images/products/sevsan_ofset_diskaro.jpg',
-    },
-    {
-      badge: 'HASAT & NAKLİYE',
-      title: 'Sap Temizliği & Taşıma',
-      desc: 'Hasat sonrası tarla temizleyen sap toplama makineleri ve su tankerleri.',
-      href: '/urunler?kategori=tasima',
-      image: '/images/products/ankurt_sap_cikarma.jpg',
-    }
-  ];
-
-  const otherBrands = [
-    { name: 'Sevsan', desc: 'Ofset & Tandem Diskaro' },
-    { name: 'Torunoğlu', desc: 'Özel Tasarım Rotovatör' },
-    { name: 'Ata Makina', desc: 'Sap Parçalama & Rotovatör' },
-    { name: 'Volkan', desc: 'Tarımsal Römork Çeşitleri' },
-    { name: 'Öz-Akın', desc: '3 Yana Devirmeli Römork' },
-  ];
+  const featuredProducts = ankurtProducts.slice(0, 3);
 
   return (
-    <div className="w-full bg-[#eef2e3] text-[#043f2e]">
-      
-      {/* ═══════════════════════════════════════════
-          1. HERO: SUNLIT GREENHOUSE EDITORIAL SPREAD
-      ═══════════════════════════════════════════ */}
-      <section className="relative w-full py-12 sm:py-20 lg:py-24 border-b border-[#000000]/8">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            
-            {/* Hero Left Column (Pure Editorial Typography) */}
-            <div className="lg:col-span-6 flex flex-col items-start">
-              <span className="eyebrow-label text-[#043f2e] mb-4 tracking-wider">
-                SERİK / ANTALYA • ATÖLYE İMALATI
-              </span>
-              
-              <h1 className="font-editorial text-[48px] sm:text-[68px] lg:text-[80px] text-[#043f2e] leading-[0.95] tracking-[-0.03em] mb-6 text-balance">
-                Tarla, bahçe ve sera için doğru ekipman.
-              </h1>
-              
-              <p className="text-[17px] sm:text-[19px] text-[#242423] mb-8 max-w-lg leading-relaxed text-balance">
-                Antalya Serik'te imal ettiğimiz sağlam gövdeli bahçe römorkları, sera çizelleri, traktör sepetleri ve toprak işleme makineleri.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3.5 w-full sm:w-auto mb-8">
-                <Button asChild variant="primary" size="lg" className="w-full sm:w-auto">
-                  <Link href="/urunler">Ürün Kataloğunu İncele</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                  <Link href="/iletisim">Fiyat & Bilgi Al</Link>
-                </Button>
-              </div>
+    <main className="overflow-hidden bg-[#f2f0e9]">
+      <JsonLd data={websiteJsonLd()} />
+      <section className="relative min-h-[720px] bg-[#121713] text-white lg:min-h-[760px]">
+        <Image
+          src={company.heroImage}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[58%_center] opacity-90"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,23,19,.98)_0%,rgba(18,23,19,.90)_42%,rgba(18,23,19,.35)_68%,rgba(18,23,19,.08)_100%)]" />
+        <div className="engineering-grid absolute inset-0 opacity-30" />
+        <div className="absolute inset-x-0 top-0 h-px bg-white/15" />
 
-              <div className="flex items-center space-x-6 text-xs text-[#242423] pt-2">
-                <a href={company.contact.phoneHref} className="inline-flex items-center text-[#043f2e] hover:text-[#2a6f2b] font-medium">
-                  <Phone className="w-3.5 h-3.5 mr-1.5 stroke-[1.5]" />
-                  {company.contact.phone}
-                </a>
-                <a href={company.contact.mobileHref} className="inline-flex items-center text-[#043f2e] hover:text-[#2a6f2b] font-medium">
-                  <Phone className="w-3.5 h-3.5 mr-1.5 stroke-[1.5]" />
-                  {company.contact.mobile}
-                </a>
-              </div>
+        <div className="section-shell relative flex min-h-[720px] items-center py-20 lg:min-h-[760px]">
+          <div className="max-w-[770px] pt-4">
+            <div className="mb-7 flex items-center gap-4">
+              <span className="eyebrow-label text-[#e7b23f]">ANKURT / Serik, Antalya</span>
+              <span className="h-px w-20 bg-[#e7b23f]/60" />
             </div>
 
-            {/* Hero Right Column: Redesigned Sunlit Editorial Visual Showcase Mat */}
-            <div className="lg:col-span-6 w-full">
-              <div className="relative rounded-[16px] bg-[#fcfcfc] border border-[#000000]/10 p-3 sm:p-4 overflow-hidden">
-                {/* Hero Showcase Photo */}
-                <div className="relative aspect-[4/3] rounded-[12px] overflow-hidden bg-[#eef2e3]">
-                  <Image
-                    src="/images/products/ankurt_bahce_romork.jpg"
-                    alt="ANKURT Bahçe ve Tarla Tarım Römorku"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#043f2e]/70 via-transparent to-transparent" />
-                  
-                  {/* Floating Overlay Badge on the Image */}
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[#fcfcfc]">
-                    <div>
-                      <span className="eyebrow-label text-[#c8f169] text-[10px] block mb-0.5">ÖNE ÇIKAN SERİ</span>
-                      <h3 className="font-editorial text-[20px] sm:text-[22px] leading-tight text-[#fcfcfc]">
-                        ANKURT Bahçe Tipi Römork
-                      </h3>
-                      <p className="text-xs text-[#fcfcfc]/80 mt-0.5">
-                        2,5 – 3 Ton • Dar Alan & Sera Uyumu
-                      </p>
-                    </div>
-                    <Link
-                      href="/urunler/bahce-tipi-romork"
-                      className="shrink-0 p-2.5 rounded-[4px] bg-[#c8f169] text-[#000000] hover:bg-[#b8e552] transition-colors"
-                      aria-label="Ürün detayını gör"
-                    >
-                      <ArrowRight className="w-4 h-4 stroke-[2]" />
-                    </Link>
-                  </div>
-                </div>
+            <h1 className="max-w-[760px] text-[58px] font-semibold uppercase leading-[.85] tracking-[-.04em] text-white sm:text-[78px] lg:text-[104px]">
+              Toprağa göre tasarlanır.
+              <span className="block text-[#e7b23f]">Yıllarca çalışır.</span>
+            </h1>
 
-                {/* Sub Mat Highlights */}
-                <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs text-[#242423]">
-                  <div className="p-2.5 rounded-[4px] bg-[#eef2e3]/60">
-                    <span className="font-editorial text-[16px] text-[#043f2e] block">100%</span>
-                    <span className="text-[11px] text-[#242423]/70">Yerli İmalat</span>
-                  </div>
-                  <div className="p-2.5 rounded-[4px] bg-[#eef2e3]/60">
-                    <span className="font-editorial text-[16px] text-[#043f2e] block">Ağır Hizmet</span>
-                    <span className="text-[11px] text-[#242423]/70">Çelik Şasi</span>
-                  </div>
-                  <div className="p-2.5 rounded-[4px] bg-[#eef2e3]/60">
-                    <span className="font-editorial text-[16px] text-[#043f2e] block">Serik / Antalya</span>
-                    <span className="text-[11px] text-[#242423]/70">Doğrudan Sevkiyat</span>
-                  </div>
-                </div>
-              </div>
+            <p className="mt-8 max-w-[610px] text-base leading-7 text-white/72 sm:text-lg">
+              Tarla, bahçe ve sera koşullarına uygun tarım ekipmanlarını; doğru şasi, doğru ölçü ve sahada işe yarayan detaylarla üretiyor ve temin ediyoruz.
+            </p>
+
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg">
+                <Link href="/urunler">
+                  Ürünleri İncele <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="ghost-dark">
+                <Link href="/iletisim">İhtiyacını Anlat</Link>
+              </Button>
             </div>
 
+            <div className="mt-12 grid max-w-[660px] grid-cols-1 gap-px overflow-hidden rounded-[8px] border border-white/15 bg-white/15 sm:grid-cols-3">
+              {[
+                ['Yerli İmalat', 'Serik atölye üretimi'],
+                ['Doğru Eşleşme', 'Arazi ve traktöre göre'],
+                ['Doğrudan İrtibat', 'Usta ve satış ekibiyle'],
+              ].map(([title, detail]) => (
+                <div key={title} className="bg-[#121713]/80 px-5 py-4 backdrop-blur-sm">
+                  <div className="text-[12px] font-bold uppercase tracking-[.08em] text-white">{title}</div>
+                  <div className="mt-1 text-[11px] text-white/55">{detail}</div>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+
+        <div className="absolute bottom-0 right-0 hidden w-[360px] border-l border-t border-white/15 bg-[#0f5d35]/95 p-7 backdrop-blur-md xl:block">
+          <div className="flex items-start justify-between">
+            <span className="eyebrow-label text-[#e7b23f]">Mühendislik yaklaşımı</span>
+            <Ruler className="h-5 w-5 text-white/60" />
+          </div>
+          <p className="mt-4 font-editorial text-3xl uppercase leading-none text-white">
+            Ölçü, dayanım ve kullanım amacı tek gövdede buluşur.
+          </p>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          2. APPLICATION SELECTOR (With Rich Machinery Photos)
-      ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-20 border-b border-[#000000]/8">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <span className="eyebrow-label text-[#043f2e]">İhtiyaca Göre Ekipman</span>
-            <h2 className="font-editorial text-[36px] text-[#043f2e] tracking-[-0.02em] mt-1">
-              Tarımsal Alanınıza Uygun Çözümler
-            </h2>
+      <section className="border-b border-[#1c211d]/12 bg-[#fbfaf6]">
+        <div className="section-shell grid grid-cols-1 lg:grid-cols-[.75fr_2.25fr]">
+          <div className="flex items-center border-b border-[#1c211d]/12 py-6 lg:border-b-0 lg:border-r lg:pr-10">
+            <span className="eyebrow-label text-[#626760]">Ürün grupları</span>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {applications.map((app, i) => (
-              <Link 
-                key={i} 
-                href={app.href}
-                className="group bg-[#fcfcfc] p-4 rounded-[16px] border border-[#000000]/10 hover:border-[#043f2e]/40 transition-all flex flex-col justify-between"
+          <div className="grid grid-cols-2 sm:grid-cols-4">
+            {categories.map((category) => (
+              <Link
+                key={category.id}
+                href={`/urunler?kategori=${category.slug}`}
+                className="group flex min-h-28 flex-col justify-between border-r border-[#1c211d]/10 p-4 transition-colors last:border-r-0 hover:bg-[#e7b23f] sm:p-6"
               >
-                <div>
-                  <div className="relative aspect-[16/10] rounded-[10px] overflow-hidden bg-[#eef2e3] mb-4">
-                    <Image
-                      src={app.image}
-                      alt={app.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-103"
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                    />
-                  </div>
-                  <div className="eyebrow-label text-[#043f2e] text-[10px] mb-1">
-                    {app.badge}
-                  </div>
-                  <h3 className="font-editorial text-[20px] text-[#043f2e] mb-1.5 leading-snug group-hover:text-[#2a6f2b] transition-colors">
-                    {app.title}
-                  </h3>
-                  <p className="text-xs text-[#242423] leading-relaxed">
-                    {app.desc}
-                  </p>
-                </div>
-
-                <div className="mt-5 pt-3 border-t border-[#000000]/6 flex items-center text-xs font-medium text-[#043f2e] group-hover:translate-x-0.5 transition-transform">
-                  <span>Ekipmanları Listele</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                <span className="text-[10px] font-bold uppercase tracking-[.09em] text-[#626760] group-hover:text-[#121713]/65">
+                  {getProductsByCategory(category.id).length} ekipman
+                </span>
+                <div className="flex items-end justify-between gap-3">
+                  <span className="font-editorial text-xl uppercase leading-none text-[#1c211d] sm:text-2xl">{category.name}</span>
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-[#0f5d35] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#121713]" />
                 </div>
               </Link>
             ))}
@@ -206,83 +124,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          3. CATEGORIES TAXONOMY
-      ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-20 bg-[#fcfcfc] border-b border-[#000000]/8">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+      <section className="py-20 sm:py-28">
+        <div className="section-shell">
+          <div className="grid gap-8 border-b border-[#1c211d]/15 pb-9 lg:grid-cols-[1fr_.8fr] lg:items-end">
             <div>
-              <span className="eyebrow-label text-[#043f2e]">Katalog Grupları</span>
-              <h2 className="font-editorial text-[36px] text-[#043f2e] tracking-[-0.02em] mt-1">
-                4 Ana Ürün Kategorisi
+              <span className="eyebrow-label text-[#0f5d35]">Atölyeden çıkanlar</span>
+              <h2 className="mt-4 max-w-3xl text-[48px] uppercase leading-[.9] text-[#1c211d] sm:text-[64px]">
+                Sahada iş yapan ekipmanlar.
               </h2>
             </div>
-            <p className="text-sm text-[#242423] max-w-sm mt-3 md:mt-0">
-              ANKURT imalatı ekipmanlar ve yetkili satışını yaptığımız marka ürünler.
-            </p>
+            <div className="lg:justify-self-end">
+              <p className="max-w-md text-sm leading-6 text-[#626760]">
+                Bahçe römorkundan çizel patlatmaya, traktör sepetinden sera ekipmanlarına kadar ANKURT imalatı ürünleri inceleyin.
+              </p>
+              <Link href="/urunler?marka=ankurt" className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35] hover:text-[#121713]">
+                Tüm ANKURT ürünleri ({ankurtProducts.length}) <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category) => {
-              const count = getProductsByCategory(category.id).length;
-              return (
-                <Link 
-                  key={category.id} 
-                  href={`/urunler?kategori=${category.slug}`}
-                  className="group bg-[#eef2e3] p-6 rounded-[16px] border border-[#000000]/8 hover:border-[#043f2e]/30 transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="text-2xl p-2.5 bg-[#fcfcfc] rounded-[4px] text-[#043f2e]">
-                        {category.icon || '⚙️'}
-                      </div>
-                      <span className="text-xs font-medium text-[#043f2e] bg-[#fcfcfc] px-2.5 py-1 rounded-[4px]">
-                        {count} Ürün
-                      </span>
-                    </div>
-                    
-                    <h3 className="font-editorial text-[22px] text-[#043f2e] mb-2 group-hover:text-[#2a6f2b] transition-colors">
-                      {category.name}
-                    </h3>
-                    <p className="text-[#242423] text-xs sm:text-sm leading-relaxed mb-6">
-                      {category.description}
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center text-xs font-medium text-[#043f2e] group-hover:translate-x-0.5 transition-transform">
-                    <span>Kataloğu Görüntüle</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
-      {/* ═══════════════════════════════════════════
-          4. FEATURED PRODUCTS GRID
-      ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 border-b border-[#000000]/8">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
-            <div>
-              <span className="eyebrow-label text-[#043f2e]">Atölye İmalatı</span>
-              <h2 className="font-editorial text-[36px] text-[#043f2e] tracking-[-0.02em] mt-1">
-                Öne Çıkan ANKURT Ürünleri
-              </h2>
-            </div>
-            <Link 
-              href="/urunler?marka=ankurt" 
-              className="mt-4 sm:mt-0 inline-flex items-center text-sm font-medium text-[#043f2e] hover:text-[#2a6f2b] transition-colors"
-            >
-              <span>Tüm ANKURT İmalatını Gör ({ankurtProducts.length})</span>
-              <ArrowRight className="w-4 h-4 ml-1.5" />
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -290,245 +151,114 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          5. AUTHENTIC WORKSHOP & FABRICATION (Deep Forest Section with Clean Machinery Visuals)
-      ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 bg-[#043f2e] text-[#fcfcfc] relative overflow-hidden">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
-            {/* Visual Mosaic with Modern Clean Visuals */}
-            <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-              <div className="relative aspect-[4/3] rounded-[16px] overflow-hidden bg-[#eef2e3] col-span-2">
-                <Image
-                  src="/images/products/ankurt_kazayagi.jpg"
-                  alt="ANKURT Tarım Makinaları İmalat ve Tarla Çözümleri"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div className="absolute bottom-3 left-3 text-xs font-medium text-[#fcfcfc] bg-[#043f2e]/90 px-3 py-1 rounded-[4px]">
-                  Yukarıkocayatak, Serik İmalat Sahamız
-                </div>
-              </div>
-
-              <div className="relative aspect-square rounded-[16px] overflow-hidden bg-[#eef2e3] p-1">
-                <Image
-                  src="/images/products/torunoglu_rotovator.jpg"
-                  alt="Toprak İşleme ve Rotovatör Grubu"
-                  fill
-                  className="object-cover rounded-[14px]"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
-              </div>
-
-              <div className="relative aspect-square rounded-[16px] overflow-hidden bg-[#eef2e3] p-1">
-                <Image
-                  src="/images/products/sevsan_ofset_diskaro.jpg"
-                  alt="Ağır Hizmet Diskaro Grubu"
-                  fill
-                  className="object-cover rounded-[14px]"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
-              </div>
-            </div>
-
-            {/* Copy */}
-            <div className="lg:col-span-6 space-y-6">
-              <div>
-                <span className="eyebrow-label text-[#c8f169]">İmalat & Atölye Esasları</span>
-                <h2 className="font-editorial text-[36px] sm:text-[44px] text-[#fcfcfc] leading-tight mt-1">
-                  Toprakla, çelikle ve ustalıkla şekillenen tarım makineleri.
-                </h2>
-              </div>
-
-              <p className="text-[#fcfcfc]/80 text-sm leading-relaxed">
-                Tarımsal aletlerde toprağın direncine dayanan çelik kalınlığı, doğru kaynak nüfuziyeti ve aşınmaya dayanıklı bıçak kalitesi belirleyicidir. Serik'teki yerimizde her makine bu ilkeyle hazırlanır.
-              </p>
-
-              <div className="pt-2 flex flex-wrap gap-3">
-                <Button asChild variant="primary" size="sm">
-                  <Link href="/hakkimizda">Hakkımızda Detayları</Link>
-                </Button>
-                <Button asChild variant="ghost-dark" size="sm">
-                  <a href={company.location.directionsUrl} target="_blank" rel="noopener noreferrer">
-                    <MapPin className="w-3.5 h-3.5 mr-1.5 stroke-[1.5]" /> Atölye Konumu
-                  </a>
-                </Button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          6. OTHER BRANDS IN STORE
-      ═══════════════════════════════════════════ */}
-      <section className="py-16 bg-[#fcfcfc] border-b border-[#000000]/8">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#000000]/8">
-            <div>
-              <span className="eyebrow-label text-[#043f2e]">Anlaşmalı Ekipmanlar</span>
-              <h2 className="font-editorial text-[36px] text-[#043f2e] tracking-[-0.02em] mt-1">
-                Satışını Yaptığımız Diğer Markalar
-              </h2>
-            </div>
-            <p className="text-xs sm:text-sm text-[#242423] max-w-sm mt-2 sm:mt-0">
-              Diskaro, rotovatör ve özel römorklarda sektörün güvenilir markalarını temin ediyoruz.
+      <section className="relative bg-[#121713] py-20 text-white sm:py-28">
+        <div className="engineering-grid absolute inset-0 opacity-40" />
+        <div className="section-shell relative grid gap-12 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-5">
+            <span className="eyebrow-label text-[#e7b23f]">Neden ANKURT</span>
+            <h2 className="mt-5 text-[52px] uppercase leading-[.88] sm:text-[68px]">
+              Katalogdan önce ihtiyacı dinleriz.
+            </h2>
+            <p className="mt-6 max-w-lg text-sm leading-7 text-white/65">
+              Her arazi, her traktör ve her kullanım senaryosu aynı değildir. Ürün yönlendirmesini sahadaki gerçek ihtiyaca göre yaparız.
             </p>
+            <Button asChild variant="ghost-dark" size="md" className="mt-8">
+              <Link href="/hakkimizda">Üretim yaklaşımımız</Link>
+            </Button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {otherBrands.map((brand, index) => (
-              <Link 
-                key={index}
-                href="/urunler?marka=diger"
-                className="group p-5 rounded-[16px] bg-[#eef2e3] border border-[#000000]/8 hover:border-[#043f2e]/30 transition-all flex flex-col justify-between"
-              >
+          <div className="lg:col-span-7 lg:pl-10">
+            {[
+              { icon: Ruler, title: 'Ölçü ve uyum', text: 'Traktör gücü, çalışma genişliği ve arazi yapısı birlikte değerlendirilir.' },
+              { icon: Wrench, title: 'Sağlam gövde', text: 'Şasi, bağlantı ve çalışan parçalar kullanım yüküne göre ele alınır.' },
+              { icon: ShieldCheck, title: 'Doğrudan destek', text: 'Satış öncesi sorular ve satış sonrası ihtiyaçlar için doğrudan ulaşabilirsiniz.' },
+            ].map((item, index) => (
+              <div key={item.title} className="grid grid-cols-[54px_1fr] gap-5 border-t border-white/15 py-7 first:border-t-0">
+                <div className="flex h-12 w-12 items-center justify-center rounded-[6px] border border-[#e7b23f]/45 text-[#e7b23f]">
+                  <item.icon className="h-5 w-5" />
+                </div>
                 <div>
-                  <div className="font-editorial text-xl text-[#043f2e] group-hover:text-[#2a6f2b] transition-colors">{brand.name}</div>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-[10px] font-bold text-white/35">0{index + 1}</span>
+                    <h3 className="text-3xl uppercase text-white">{item.title}</h3>
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-white/60">{item.text}</p>
                 </div>
-                <div className="text-xs text-[#242423] mt-3 pt-3 border-t border-[#000000]/8 leading-tight">
-                  {brand.desc}
-                </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          7. LOCAL GEOGRAPHY & GUIDES
-      ═══════════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 border-b border-[#000000]/8">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            
-            {/* Local Serik Info Card */}
-            <div className="lg:col-span-5 bg-[#fcfcfc] p-8 rounded-[16px] border border-[#000000]/10 flex flex-col justify-between">
-              <div>
-                <span className="eyebrow-label text-[#043f2e]">Yerel İrtibat</span>
-                <h2 className="font-editorial text-[28px] text-[#043f2e] tracking-[-0.02em] mt-1 mb-3">
-                  Serik & Antalya Teslimat
-                </h2>
-                
-                <p className="text-xs sm:text-sm text-[#242423] leading-relaxed mb-6">
-                  Yukarıkocayatak mevkiinde bulunan satış ve imalat noktamızdan Antalya merkez, Aksu, Serik, Manavgat ve Kumluca bölgelerine doğrudan ekipman teslimatı sağlıyoruz.
-                </p>
-
-                <div className="space-y-3 mb-6 bg-[#eef2e3] p-4 rounded-[4px] text-xs">
-                  <div className="flex items-start">
-                    <MapPin className="w-4 h-4 text-[#043f2e] mt-0.5 mr-2 shrink-0 stroke-[1.5]" />
-                    <span className="text-[#043f2e] font-medium">{company.location.full}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Phone className="w-4 h-4 text-[#043f2e] mr-2 shrink-0 stroke-[1.5]" />
-                    <span className="text-[#043f2e] font-medium">{company.contact.phone}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <Button asChild variant="outline" size="sm" className="flex-1">
-                  <a href={company.location.directionsUrl} target="_blank" rel="noopener noreferrer">
-                    <Navigation className="w-3.5 h-3.5 mr-1.5 stroke-[2]" />
-                    Yol Tarifi Al
-                  </a>
-                </Button>
-                <Button asChild variant="primary" size="sm" className="flex-1">
-                  <Link href="/iletisim">İletişim</Link>
-                </Button>
+      <section className="bg-[#fbfaf6] py-20 sm:py-28">
+        <div className="section-shell grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <div className="relative min-h-[520px] overflow-hidden rounded-[8px] bg-[#d8d6cf]">
+              <Image
+                src="/images/products/ankurt_cizel_patlatma_1246074839.jpg"
+                alt="ANKURT çizel patlatma ekipmanları"
+                fill
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#121713]/80 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-7 text-white">
+                <span className="eyebrow-label text-[#e7b23f]">Serik / Antalya</span>
+                <p className="mt-3 font-editorial text-3xl uppercase leading-none">İmalat, satış ve doğrudan teslimat noktası</p>
               </div>
             </div>
-            
-            {/* Guides Section */}
-            <div className="lg:col-span-7 flex flex-col justify-between">
-              <div>
-                <div className="flex items-end justify-between mb-6 pb-3 border-b border-[#000000]/8">
-                  <div>
-                    <span className="eyebrow-label text-[#043f2e]">Tarım & Ekipman Blogu</span>
-                    <h2 className="font-editorial text-[28px] text-[#043f2e] tracking-[-0.02em] mt-0.5">
-                      Çiftçi ve Üretici Rehberleri
-                    </h2>
-                  </div>
-                  <Link href="/rehber" className="text-xs font-medium text-[#043f2e] hover:underline">
-                    Tüm Blog Yazıları &rarr;
-                  </Link>
-                </div>
+          </div>
 
-                <div className="space-y-3">
-                  {guides.map((guide) => (
-                    <Link 
-                      href={`/rehber/${guide.slug}`} 
-                      key={guide.slug}
-                      className="block group bg-[#fcfcfc] p-5 rounded-[16px] border border-[#000000]/10 hover:border-[#043f2e]/30 transition-all"
-                    >
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <span className="text-[11px] text-[#242423]/60">{guide.publishedDate}</span>
-                          <h3 className="font-editorial text-[18px] text-[#043f2e] group-hover:text-[#2a6f2b] transition-colors mt-0.5 mb-1">
-                            {guide.title}
-                          </h3>
-                          <p className="text-xs text-[#242423] line-clamp-2 leading-relaxed">
-                            {guide.shortDescription}
-                          </p>
-                        </div>
-                        <ArrowUpRight className="w-4 h-4 text-[#043f2e] group-hover:text-[#2a6f2b] transition-all shrink-0 mt-2 ml-4 stroke-[1.5]" />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+          <div className="flex flex-col justify-center lg:col-span-7 lg:pl-10">
+            <span className="eyebrow-label text-[#0f5d35]">Doğrudan iletişim</span>
+            <h2 className="mt-4 text-[50px] uppercase leading-[.9] text-[#1c211d] sm:text-[66px]">
+              Doğru ekipmanı birlikte belirleyelim.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#626760]">
+              Traktör modelinizi, arazinizin yapısını ve yapmak istediğiniz işi anlatın. Uygun ürün grubu, ölçü ve güncel fiyat için sizi yönlendirelim.
+            </p>
+
+            <div className="mt-8 space-y-3 border-y border-[#1c211d]/15 py-6">
+              <a href={company.contact.phoneHref} className="group flex items-center justify-between py-2">
+                <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><Phone className="h-4 w-4 text-[#0f5d35]" /> Sabit hat</span>
+                <span className="font-editorial text-2xl text-[#1c211d] group-hover:text-[#0f5d35]">{company.contact.phone}</span>
+              </a>
+              <a href={company.contact.mobileHref} className="group flex items-center justify-between py-2">
+                <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><Phone className="h-4 w-4 text-[#0f5d35]" /> Mobil hat</span>
+                <span className="font-editorial text-2xl text-[#1c211d] group-hover:text-[#0f5d35]">{company.contact.mobile}</span>
+              </a>
+              <a href={company.location.directionsUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between py-2">
+                <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><MapPin className="h-4 w-4 text-[#0f5d35]" /> Atölye konumu</span>
+                <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35]">Yol tarifi <ArrowUpRight className="h-4 w-4" /></span>
+              </a>
+              <a href={company.location.businessProfileUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between py-2">
+                <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><MapPin className="h-4 w-4 text-[#0f5d35]" /> Google işletme profili</span>
+                <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35]">Profili aç <ArrowUpRight className="h-4 w-4" /></span>
+              </a>
             </div>
-            
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" variant="secondary"><Link href="/iletisim">Teklif Formu</Link></Button>
+              <Button asChild size="lg" variant="outline"><Link href="/urunler">Kataloğa Dön</Link></Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          8. BOTTOM CONVERSION CTA
-      ═══════════════════════════════════════════ */}
-      <section className="bg-[#043f2e] text-[#fcfcfc] py-16 text-center">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="eyebrow-label text-[#c8f169] mb-2 block">
-            DOĞRUDAN TELEFON HATTI
-          </span>
-          <h2 className="font-editorial text-[36px] sm:text-[44px] text-[#fcfcfc] leading-tight mb-4">
-            Doğru ekipmanı belirlemek için bizi arayın.
-          </h2>
-          <p className="text-sm text-[#fcfcfc]/80 mb-8 max-w-xl mx-auto leading-relaxed">
-            Traktör modelinize ve kullanım alanınıza en uygun makine ve güncel fiyat bilgisi için doğrudan atölyemizle görüşebilirsiniz.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-            <Button asChild variant="primary" size="lg" className="w-full sm:w-auto">
-              <a href={company.contact.phoneHref}>
-                <Phone className="w-4 h-4 mr-2 stroke-[1.5]" />
-                Sabit: {company.contact.phone}
-              </a>
-            </Button>
-            <Button asChild variant="ghost-dark" size="lg" className="w-full sm:w-auto">
-              <a href={company.contact.mobileHref}>
-                <Phone className="w-4 h-4 mr-2 text-[#c8f169] stroke-[1.5]" />
-                Mobil: {company.contact.mobile}
-              </a>
-            </Button>
-            {company.contact.whatsappUrl && (
-              <a
-                href={company.contact.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-3.5 rounded-[4px] bg-[#25D366] text-white text-base font-semibold hover:bg-[#20bd5a] transition-colors shadow-xs w-full sm:w-auto"
-              >
-                <WhatsAppIcon className="w-5 h-5 mr-2 fill-white" />
-                WhatsApp Hattı
-              </a>
-            )}
+      <section className="bg-[#e7b23f] py-12">
+        <div className="section-shell flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+          <div className="flex items-center gap-5">
+            <CheckCircle2 className="hidden h-9 w-9 text-[#121713] sm:block" />
+            <div>
+              <p className="eyebrow-label text-[#121713]/60">Bir sonraki adım</p>
+              <h2 className="mt-1 text-4xl uppercase leading-none text-[#121713]">Arazinize uygun ekipmanı soralım mı?</h2>
+            </div>
           </div>
+          <Link href="/iletisim" className="inline-flex h-14 shrink-0 items-center justify-center gap-3 rounded-[6px] bg-[#121713] px-7 text-xs font-bold uppercase tracking-[.08em] text-white transition-colors hover:bg-[#0f5d35]">
+            Bize Ulaşın <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
-
-    </div>
+    </main>
   );
 }

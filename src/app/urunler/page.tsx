@@ -44,19 +44,19 @@ function ProductListContent() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-[#000000]/8 text-xs">
-        <span className="text-[#242423]">
-          Toplam <strong className="text-[#043f2e] text-sm font-medium">{filteredProducts.length}</strong> ekipman listeleniyor
+      <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-[#121713]/8 text-xs">
+        <span className="text-[#464c47]">
+          Toplam <strong className="text-[#0f5d35] text-sm font-medium">{filteredProducts.length}</strong> ekipman listeleniyor
         </span>
-        <span className="text-[#242423]/60 hidden sm:inline">
+        <span className="text-[#464c47]/60 hidden sm:inline">
           Serik / Antalya Envanteri
         </span>
       </div>
 
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+          {filteredProducts.map((product, index) => (
+            <ProductCard key={product.id} product={product} preload={index < 3} />
           ))}
         </div>
       ) : (
@@ -76,20 +76,20 @@ export default function ProductsPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#eef2e3] pt-4 sm:pt-6 pb-12">
+    <main className="min-h-screen bg-[#f2f0e9] pt-4 sm:pt-6 pb-12">
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
       
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-4">
-          <h1 className="font-editorial text-[28px] sm:text-[36px] text-[#043f2e] tracking-[-0.02em] leading-tight">
+          <h1 className="font-editorial text-[28px] sm:text-[36px] text-[#0f5d35] tracking-[-0.02em] leading-tight">
             Tarım Makinaları Kataloğu
           </h1>
-          <span className="text-xs text-[#242423]/70">
+          <span className="text-xs text-[#464c47]/70">
             ANKURT İmalatı & Anlaşmalı Markalar
           </span>
         </div>
 
-        <Suspense fallback={<div className="py-8 text-center text-xs text-[#242423]">Katalog yükleniyor...</div>}>
+        <Suspense fallback={<div className="py-8 text-center text-xs text-[#464c47]">Katalog yükleniyor...</div>}>
           <ProductFilter />
           <ProductListContent />
         </Suspense>

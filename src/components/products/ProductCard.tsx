@@ -10,38 +10,40 @@ import { getCategoryById } from '@/data/categories';
 interface ProductCardProps {
   product: Product;
   className?: string;
+  preload?: boolean;
 }
 
-export function ProductCard({ product, className }: ProductCardProps) {
+export function ProductCard({ product, className, preload = false }: ProductCardProps) {
   const hasImage = product.images && product.images.length > 0;
   const isAnkurt = product.brandType === 'ankurt' || product.brand === 'ANKURT';
   const category = getCategoryById(product.categoryId);
 
   return (
-    <div className={cn(
-      "group flex flex-col bg-[#fcfcfc] border border-[#000000]/10 rounded-[16px] overflow-hidden transition-all duration-200 hover:border-[#043f2e]/40",
+    <article className={cn(
+      "group flex flex-col overflow-hidden rounded-[8px] border border-[#1c211d]/12 bg-[#fbfaf6] transition-all duration-300 hover:-translate-y-1 hover:border-[#0f5d35]/45 hover:shadow-[0_20px_50px_rgba(18,23,19,.10)]",
       className
     )}>
       {/* Image Area */}
-      <Link href={`/urunler/${product.slug}`} className="block relative aspect-[4/3] bg-[#eef2e3] overflow-hidden">
+      <Link href={`/urunler/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-[#deddd7]">
         {hasImage ? (
           <Image
             src={product.images[0]}
             alt={product.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-103"
+            preload={preload}
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-[#eef2e3] flex flex-col items-center justify-center p-6 text-center">
-            <span className="eyebrow-label text-[#043f2e] text-[11px]">{category?.name || 'Tarım Ekipmanı'}</span>
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#deddd7] p-6 text-center">
+            <span className="eyebrow-label text-[#0f5d35]">{category?.name || 'Tarım Ekipmanı'}</span>
           </div>
         )}
 
         {/* Top Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
           {isAnkurt ? (
-            <Badge variant="chartreuse">
+            <Badge variant="forest">
               ANKURT İMALATI
             </Badge>
           ) : (
@@ -53,37 +55,37 @@ export function ProductCard({ product, className }: ProductCardProps) {
       </Link>
 
       {/* Card Content */}
-      <div className="flex-1 p-6 flex flex-col justify-between">
+      <div className="flex flex-1 flex-col justify-between p-6">
         <div>
-          <div className="eyebrow-label text-[#043f2e] text-[11px] mb-1.5">
+          <div className="eyebrow-label mb-2 text-[#0f5d35]">
             {category?.name || product.categoryId}
           </div>
 
-          <h3 className="font-editorial text-[20px] text-[#043f2e] mb-2 leading-snug group-hover:text-[#2a6f2b] transition-colors line-clamp-2">
+          <h3 className="font-editorial mb-3 line-clamp-2 text-[28px] uppercase leading-[1.02] text-[#1c211d] transition-colors group-hover:text-[#0f5d35]">
             <Link href={`/urunler/${product.slug}`}>
               {product.title}
             </Link>
           </h3>
 
-          <p className="text-sm text-[#242423] line-clamp-2 mb-4 leading-relaxed">
+          <p className="mb-5 line-clamp-2 text-sm leading-6 text-[#626760]">
             {product.shortDescription}
           </p>
         </div>
 
         {/* Bottom Actions */}
-        <div className="pt-4 border-t border-[#000000]/8 flex items-center justify-between">
+        <div className="flex items-center justify-between border-t border-[#1c211d]/10 pt-4">
           <Link 
             href={`/urunler/${product.slug}`}
-            className="inline-flex items-center text-sm font-medium text-[#043f2e] group-hover:text-[#2a6f2b] transition-colors"
+            className="inline-flex items-center text-[11px] font-bold uppercase tracking-[.08em] text-[#0f5d35] transition-colors group-hover:text-[#121713]"
           >
             <span>Detayları İncele</span>
             <ArrowUpRight className="w-4 h-4 ml-1 stroke-[1.5]" />
           </Link>
-          <span className="text-xs font-medium text-[#043f2e] bg-[#eef2e3] px-2.5 py-1 rounded-[4px]">
+          <span className="rounded-[4px] bg-[#f2f0e9] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[.05em] text-[#626760]">
             Fiyat Sorunuz
           </span>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

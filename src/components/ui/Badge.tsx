@@ -9,19 +9,19 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const badgeStyles: Record<BadgeVariant, string> = {
-  // Chartreuse Lime (#c8f169) with Ink Black text
-  chartreuse: 'bg-[#c8f169] text-[#000000]',
+  // Chartreuse Lime (#e7b23f) with Ink Black text
+  chartreuse: 'bg-[#e7b23f] text-[#121713]',
   
-  // Pale Sage (#eef2e3) with Deep Forest text
-  sage: 'bg-[#eef2e3] text-[#043f2e]',
+  // Pale Sage (#f2f0e9) with Deep Forest text
+  sage: 'bg-[#f2f0e9] text-[#0f5d35]',
   
-  // Deep Forest (#043f2e) with Paper White text
-  forest: 'bg-[#043f2e] text-[#fcfcfc]',
+  // Deep Forest (#0f5d35) with Paper White text
+  forest: 'bg-[#0f5d35] text-[#fbfaf6]',
   
   // Outline with hairline Ink Black border
-  outline: 'bg-transparent border border-[#000000]/20 text-[#043f2e]',
+  outline: 'bg-transparent border border-[#121713]/20 text-[#0f5d35]',
   
-  default: 'bg-[#c8f169] text-[#000000]',
+  default: 'bg-[#e7b23f] text-[#121713]',
 };
 
 export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(

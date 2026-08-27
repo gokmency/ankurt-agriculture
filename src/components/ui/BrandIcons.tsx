@@ -23,7 +23,7 @@ export function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) 
 export function SahibindenBadge({ className = "", showArrow = false }: { className?: string; showArrow?: boolean }) {
   return (
     <span 
-      className={`inline-flex items-center justify-center bg-[#FFE800] hover:bg-[#ffd900] text-[#000000] px-3 py-1.5 rounded-[4px] border border-[#E6CF00] transition-transform hover:scale-102 font-sans font-black text-xs tracking-tight shadow-xs select-none ${className}`}
+      className={`inline-flex items-center justify-center bg-[#FFE800] hover:bg-[#ffd900] text-[#121713] px-3 py-1.5 rounded-[4px] border border-[#E6CF00] transition-transform hover:scale-102 font-sans font-black text-xs tracking-tight shadow-xs select-none ${className}`}
     >
       <span className="tracking-tighter font-extrabold text-[13px] leading-none">
         sahibinden<span className="font-medium text-[11px]">.com</span>

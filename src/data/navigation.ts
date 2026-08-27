@@ -18,7 +18,7 @@ export const mainNavigation: NavItem[] = [
     ],
   },
   { label: 'Hakkımızda', href: '/hakkimizda' },
-  { label: 'Blog', href: '/rehber' },
+  { label: 'Rehber', href: '/rehber' },
   { label: 'İletişim', href: '/iletisim' },
 ];
 
@@ -33,7 +33,7 @@ export const footerNavigation = {
   ],
   company: [
     { label: 'Hakkımızda', href: '/hakkimizda' },
-    { label: 'Blog & Rehber', href: '/rehber' },
+    { label: 'Ekipman Rehberi', href: '/rehber' },
     { label: 'İletişim', href: '/iletisim' },
   ],
   legal: [

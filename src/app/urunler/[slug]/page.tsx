@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { Phone, ShieldCheck, CheckCircle2, ArrowLeft, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppIcon, SahibindenBadge } from '@/components/ui/BrandIcons';
+import { createPageMetadata } from '@/lib/seo';
 
 interface ProductPageProps {
   params: Promise<{
@@ -33,14 +34,26 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   
   if (!product) {
     return {
-      title: 'Ürün Bulunamadı | ANKURT Tarım Makinaları',
+      title: 'Ürün Bulunamadı',
+      robots: { index: false, follow: false },
     };
   }
 
-  return {
-    title: `${product.title} | ANKURT Tarım Makinaları`,
+  const category = getCategoryById(product.categoryId);
+
+  return createPageMetadata({
+    title: product.title,
     description: product.shortDescription || product.description.substring(0, 160),
-  };
+    path: `/urunler/${product.slug}/`,
+    image: product.images[0],
+    keywords: [
+      product.title,
+      product.brand,
+      category?.name || 'tarım ekipmanı',
+      'Serik tarım makinaları',
+      'Antalya tarım ekipmanları',
+    ],
+  });
 }
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
@@ -65,7 +78,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   const whatsappMessage = encodeURIComponent(`Merhaba, ${product.title} hakkında teknik detay ve fiyat bilgisi almak istiyorum.`);
 
   return (
-    <div className="bg-[#eef2e3] min-h-screen py-8 sm:py-12">
+    <div className="bg-[#f2f0e9] min-h-screen py-8 sm:py-12">
       <JsonLd data={productJsonLd(product)} />
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
       
@@ -74,14 +87,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <Breadcrumb items={breadcrumbItems} />
           <Link 
             href="/urunler" 
-            className="hidden sm:inline-flex items-center text-xs text-[#043f2e] hover:underline font-medium"
+            className="hidden sm:inline-flex items-center text-xs text-[#0f5d35] hover:underline font-medium"
           >
             <ArrowLeft className="w-3.5 h-3.5 mr-1 stroke-[1.5]" /> TÜM KATALOG
           </Link>
         </div>
 
         {/* Main Product Box (Paper White with 16px radius, no shadow) */}
-        <div className="bg-[#fcfcfc] rounded-[16px] p-6 sm:p-10 border border-[#000000]/10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+        <div className="bg-[#fbfaf6] rounded-[16px] p-6 sm:p-10 border border-[#121713]/10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
           
           {/* Left Column: Gallery */}
           <div className="lg:col-span-6 space-y-4">
@@ -89,9 +102,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
             {/* Authentic Workshop Badge */}
             {isAnkurt && (
-              <div className="p-4 rounded-[16px] bg-[#eef2e3] border border-[#000000]/8 flex items-center space-x-3 text-xs">
-                <ShieldCheck className="w-5 h-5 text-[#043f2e] shrink-0 stroke-[1.5]" />
-                <span className="text-[#043f2e] leading-snug">
+              <div className="p-4 rounded-[16px] bg-[#f2f0e9] border border-[#121713]/8 flex items-center space-x-3 text-xs">
+                <ShieldCheck className="w-5 h-5 text-[#0f5d35] shrink-0 stroke-[1.5]" />
+                <span className="text-[#0f5d35] leading-snug">
                   Bu ekipman, <strong>Serik / Yukarıkocayatak</strong> atölyemizde imal edilmiş veya doğrudan tesisimizden sevk edilmektedir.
                 </span>
               </div>
@@ -108,45 +121,45 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 {category && <Badge variant="outline">{category.name}</Badge>}
               </div>
               
-              <h1 className="font-editorial text-[32px] sm:text-[40px] text-[#043f2e] tracking-[-0.02em] leading-[1.05] mb-3">
+              <h1 className="font-editorial text-[32px] sm:text-[40px] text-[#0f5d35] tracking-[-0.02em] leading-[1.05] mb-3">
                 {product.title}
               </h1>
               
-              <p className="text-sm sm:text-base text-[#242423] leading-relaxed">
+              <p className="text-sm sm:text-base text-[#464c47] leading-relaxed">
                 {product.shortDescription}
               </p>
             </div>
 
             {/* Technical Specification Table */}
-            <div className="rounded-[16px] bg-[#eef2e3] p-5 border border-[#000000]/8">
-              <div className="eyebrow-label text-[#043f2e] text-[11px] mb-3 flex items-center">
+            <div className="rounded-[16px] bg-[#f2f0e9] p-5 border border-[#121713]/8">
+              <div className="eyebrow-label text-[#0f5d35] text-[11px] mb-3 flex items-center">
                 <Compass className="w-3.5 h-3.5 mr-1.5 stroke-[1.5]" />
                 Teknik Özet
               </div>
               <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="p-3 bg-[#fcfcfc] rounded-[4px] border border-[#000000]/6">
-                  <span className="text-[#242423]/60 block text-[10px] uppercase font-medium">İMALATÇI / MARKA</span>
-                  <span className="font-medium text-[#043f2e]">{product.brand || 'ANKURT'}</span>
+                <div className="p-3 bg-[#fbfaf6] rounded-[4px] border border-[#121713]/6">
+                  <span className="text-[#464c47]/60 block text-[10px] uppercase font-medium">İMALATÇI / MARKA</span>
+                  <span className="font-medium text-[#0f5d35]">{product.brand || 'ANKURT'}</span>
                 </div>
-                <div className="p-3 bg-[#fcfcfc] rounded-[4px] border border-[#000000]/6">
-                  <span className="text-[#242423]/60 block text-[10px] uppercase font-medium">KATEGORİ</span>
-                  <span className="font-medium text-[#043f2e]">{category?.name || 'Tarım Ekipmanı'}</span>
+                <div className="p-3 bg-[#fbfaf6] rounded-[4px] border border-[#121713]/6">
+                  <span className="text-[#464c47]/60 block text-[10px] uppercase font-medium">KATEGORİ</span>
+                  <span className="font-medium text-[#0f5d35]">{category?.name || 'Tarım Ekipmanı'}</span>
                 </div>
-                <div className="p-3 bg-[#fcfcfc] rounded-[4px] border border-[#000000]/6">
-                  <span className="text-[#242423]/60 block text-[10px] uppercase font-medium">SEVKİYAT NOKTASI</span>
-                  <span className="font-medium text-[#043f2e]">Serik / Antalya</span>
+                <div className="p-3 bg-[#fbfaf6] rounded-[4px] border border-[#121713]/6">
+                  <span className="text-[#464c47]/60 block text-[10px] uppercase font-medium">SEVKİYAT NOKTASI</span>
+                  <span className="font-medium text-[#0f5d35]">Serik / Antalya</span>
                 </div>
-                <div className="p-3 bg-[#fcfcfc] rounded-[4px] border border-[#000000]/6">
-                  <span className="text-[#242423]/60 block text-[10px] uppercase font-medium">FİYAT & BİLGİ</span>
-                  <span className="font-medium text-[#043f2e]">Doğrudan İletişim</span>
+                <div className="p-3 bg-[#fbfaf6] rounded-[4px] border border-[#121713]/6">
+                  <span className="text-[#464c47]/60 block text-[10px] uppercase font-medium">FİYAT & BİLGİ</span>
+                  <span className="font-medium text-[#0f5d35]">Doğrudan İletişim</span>
                 </div>
               </div>
             </div>
 
             {/* Full Technical Description */}
             <div className="space-y-2">
-              <h2 className="font-editorial text-[20px] text-[#043f2e]">Ürün Açıklaması</h2>
-              <p className="text-xs sm:text-sm text-[#242423] leading-relaxed">
+              <h2 className="font-editorial text-[20px] text-[#0f5d35]">Ürün Açıklaması</h2>
+              <p className="text-xs sm:text-sm text-[#464c47] leading-relaxed">
                 {product.description}
               </p>
             </div>
@@ -154,12 +167,12 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             {/* Key Features */}
             {product.features && product.features.length > 0 && (
               <div>
-                <h2 className="font-editorial text-[20px] text-[#043f2e] mb-2.5">Öne Çıkan Özellikler</h2>
+                <h2 className="font-editorial text-[20px] text-[#0f5d35] mb-2.5">Öne Çıkan Özellikler</h2>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
                   {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start bg-[#eef2e3] p-2.5 rounded-[4px]">
-                      <CheckCircle2 className="w-4 h-4 text-[#043f2e] mr-2 mt-0.5 shrink-0 stroke-[1.5]" />
-                      <span className="text-[#043f2e] font-medium">{feature}</span>
+                    <li key={index} className="flex items-start bg-[#f2f0e9] p-2.5 rounded-[4px]">
+                      <CheckCircle2 className="w-4 h-4 text-[#0f5d35] mr-2 mt-0.5 shrink-0 stroke-[1.5]" />
+                      <span className="text-[#0f5d35] font-medium">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -169,10 +182,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             {/* Usage Areas */}
             {product.usageAreas && product.usageAreas.length > 0 && (
               <div>
-                <h2 className="font-editorial text-[20px] text-[#043f2e] mb-2">Tavsiye Edilen Kullanım Alanları</h2>
+                <h2 className="font-editorial text-[20px] text-[#0f5d35] mb-2">Tavsiye Edilen Kullanım Alanları</h2>
                 <div className="flex flex-wrap gap-1.5">
                   {product.usageAreas.map((area, index) => (
-                    <span key={index} className="text-xs font-medium bg-[#eef2e3] text-[#043f2e] px-2.5 py-1 rounded-[4px]">
+                    <span key={index} className="text-xs font-medium bg-[#f2f0e9] text-[#0f5d35] px-2.5 py-1 rounded-[4px]">
                       {area}
                     </span>
                   ))}
@@ -181,7 +194,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             )}
 
             {/* Action Bar (Direct Phone + WhatsApp in Official Brand Colors) */}
-            <div className="pt-4 border-t border-[#000000]/8 space-y-3">
+            <div className="pt-4 border-t border-[#121713]/8 space-y-3">
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button asChild variant="outline" size="lg" className="flex-1">
                   <a href={company.contact.phoneHref}>
@@ -202,8 +215,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 )}
               </div>
 
-              <div className="flex items-center justify-between text-xs text-[#242423] pt-1">
-                <span>Mobil Hat: <a href={company.contact.mobileHref} className="font-medium text-[#043f2e] hover:underline">{company.contact.mobile}</a></span>
+              <div className="flex items-center justify-between text-xs text-[#464c47] pt-1">
+                <span>Mobil Hat: <a href={company.contact.mobileHref} className="font-medium text-[#0f5d35] hover:underline">{company.contact.mobile}</a></span>
                 {product.sahibindenUrl && (
                   <a 
                     href={product.sahibindenUrl} 
@@ -223,14 +236,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-16 sm:mt-20">
-            <div className="flex items-end justify-between mb-8 pb-3 border-b border-[#000000]/8">
+            <div className="flex items-end justify-between mb-8 pb-3 border-b border-[#121713]/8">
               <div>
-                <span className="eyebrow-label text-[#043f2e]">Tamamlayıcı Ekipmanlar</span>
-                <h2 className="font-editorial text-[28px] text-[#043f2e] tracking-[-0.02em] mt-0.5">
+                <span className="eyebrow-label text-[#0f5d35]">Tamamlayıcı Ekipmanlar</span>
+                <h2 className="font-editorial text-[28px] text-[#0f5d35] tracking-[-0.02em] mt-0.5">
                   İlgili Diğer Tarım Makineleri
                 </h2>
               </div>
-              <Link href="/urunler" className="text-xs font-medium text-[#043f2e] hover:underline">
+              <Link href="/urunler" className="text-xs font-medium text-[#0f5d35] hover:underline">
                 Tüm Ürünler &rarr;
               </Link>
             </div>
@@ -244,14 +257,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         )}
 
         {/* Inquiry Form Section */}
-        <div className="mt-16 sm:mt-20 max-w-3xl mx-auto bg-[#fcfcfc] p-8 sm:p-12 rounded-[16px] border border-[#000000]/10">
+        <div className="mt-16 sm:mt-20 max-w-3xl mx-auto bg-[#fbfaf6] p-8 sm:p-12 rounded-[16px] border border-[#121713]/10">
           <div className="text-center mb-8">
-            <span className="eyebrow-label text-[#043f2e]">Teklif & Danışma</span>
-            <h2 className="font-editorial text-[32px] text-[#043f2e] mt-1 mb-2">
+            <span className="eyebrow-label text-[#0f5d35]">Teklif & Danışma</span>
+            <h2 className="font-editorial text-[32px] text-[#0f5d35] mt-1 mb-2">
               Detaylı Bilgi ve Fiyat Talebi
             </h2>
-            <p className="text-xs sm:text-sm text-[#242423]">
-              <strong className="text-[#043f2e]">{product.title}</strong> hakkında model seçenekleri ve sevkiyat detayları için formu iletebilirsiniz.
+            <p className="text-xs sm:text-sm text-[#464c47]">
+              <strong className="text-[#0f5d35]">{product.title}</strong> hakkında model seçenekleri ve sevkiyat detayları için formu iletebilirsiniz.
             </p>
           </div>
           <InquiryForm />

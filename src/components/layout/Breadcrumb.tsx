@@ -17,7 +17,7 @@ export interface BreadcrumbProps {
 export function Breadcrumb({ items, className }: BreadcrumbProps) {
   return (
     <nav aria-label="Breadcrumb" className={cn('py-2', className)}>
-      <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[#242423]">
+      <ol className="flex flex-wrap items-center gap-1.5 text-xs text-[#464c47]">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           const href = item.href || item.path;
@@ -25,16 +25,16 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
           return (
             <li key={index} className="inline-flex items-center">
               {index > 0 && (
-                <ChevronRight className="w-3.5 h-3.5 mx-1 text-[#043f2e]/30 stroke-[1.5]" />
+                <ChevronRight className="w-3.5 h-3.5 mx-1 text-[#0f5d35]/30 stroke-[1.5]" />
               )}
               {isLast || !href ? (
-                <span className="text-[#043f2e] font-medium" aria-current="page">
+                <span className="text-[#0f5d35] font-medium" aria-current="page">
                   {item.label}
                 </span>
               ) : (
                 <Link
                   href={href}
-                  className="text-[#242423] hover:text-[#043f2e] transition-colors"
+                  className="text-[#464c47] hover:text-[#0f5d35] transition-colors"
                 >
                   {item.label}
                 </Link>

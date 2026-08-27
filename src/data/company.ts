@@ -3,31 +3,34 @@
 
 export const company = {
   // Brand
-  name: 'ANKURT TARIM MAKİNALARI',
+  name: 'ANKURT MÜHENDİSLİK VE TARIM MAKİNALARI',
   nameShort: 'ANKURT',
-  nameFull: 'Ankurt Tarım Makinaları',
+  nameFull: 'Ankurt Mühendislik ve Tarım Makinaları',
   tagline: 'Tarla, Bahçe ve Sera İçin Doğru Ekipman',
   description:
-    'Serik / Antalya merkezli tarım makineleri ve ekipmanları. Römork, çizel, kazayağı, çapa, sap çıkarma, traktör sepeti ve sera ekipmanları.',
-  logo: '/images/brand/logo.png',
+    'Serik / Antalya merkezli mühendislik, tarım makineleri ve ekipmanları merkezi. Römork, çizel, kazayağı, çapa, sap çıkarma, traktör sepeti ve sera ekipmanları.',
+  logo: '/images/brand/ankurt_official_logo.png',
   logoPlate: '/images/brand/ankurt_cizel_uzerindeki_logo_referansi.png',
-  heroImage: '/images/hero/hero-bg.jpg',
-  workshopImage: '/images/gallery/ankurt_urun_portfoyu_referans.jpg',
+  heroImage: '/images/hero/ankurt-industrial-hero-v2.jpg',
+  workshopImage: '/images/products/ankurt_bahce_romork.jpg',
 
   // Location
   location: {
-    neighborhood: 'Yukarıkocayatak',
+    neighborhood: 'Yukarıkocayatak Mah.',
+    streetAddress: 'Poyrazlı Kümesi Küme Evler No: 14/Z102',
     district: 'Serik',
     province: 'Antalya',
     postalCode: '07535',
     country: 'Türkiye',
-    full: 'Yukarıkocayatak, Serik / Antalya',
-    formatted: 'Yukarıkocayatak, 07535 Serik/Antalya, Türkiye',
-    // Map embed placeholder — replace with actual Google Maps embed URL
-    mapEmbedUrl: '',
-    // Google Maps directions link placeholder
+    short: 'Yukarıkocayatak, Serik / Antalya',
+    full: 'YUKARIKOCAYATAK MAH. POYRAZLI KÜMESİ KÜME EVLER NO: 14/Z102, Serik / Antalya',
+    formatted: 'Yukarıkocayatak Mah., Poyrazlı Kümesi Küme Evler No: 14/Z102, 07535 Serik / Antalya, Türkiye',
+    mapEmbedUrl:
+      'https://maps.google.com/maps?cid=10618117550608184619&t=&z=16&ie=UTF8&iwloc=&output=embed',
     directionsUrl:
-      'https://www.google.com/maps/search/Ankurt+Tarım+Makinaları+Yukarıkocayatak+Serik+Antalya',
+      'https://www.google.com/maps/dir/?api=1&destination=YUKARIKOCAYATAK%20MAH.%20POYRAZLI%20K%C3%9CMES%C4%B0%20K%C3%9CME%20EVLER%20NO%3A14%2FZ102%20SER%C4%B0K%20ANTALYA',
+    businessProfileName: 'Ankurt Mühendislik ve Tarım Makinaları',
+    businessProfileUrl: 'https://share.google/HQAy0TeZh42PM1TQH',
   },
 
   // Contact
@@ -48,17 +51,17 @@ export const company = {
     instagramHandle: '@ankurt_agriculturalmachinery',
     facebook: 'https://www.facebook.com/umit.kurt.54/',
     sahibinden: 'https://ankurttarimmakinalari.sahibinden.com/',
-    youtube: 'https://www.youtube.com',
-    tiktok: 'https://www.tiktok.com',
+    youtube: '',
+    tiktok: '',
   },
 
   // SEO
   seo: {
-    siteUrl: 'https://ankurttarim.com', // Placeholder — update with actual domain
-    defaultTitle: 'ANKURT Tarım Makinaları | Serik / Antalya',
-    titleSuffix: ' | ANKURT Tarım Makinaları',
+    siteUrl: 'https://ankurt.com',
+    defaultTitle: 'ANKURT Mühendislik ve Tarım Makinaları | Serik / Antalya',
+    titleSuffix: ' | ANKURT Mühendislik ve Tarım Makinaları',
     defaultDescription:
-      'ANKURT Tarım Makinaları — Serik / Antalya. Bahçe tipi römork, çizel, kazayağı, çapa, sap çıkarma, traktör sepeti ve sera ekipmanları. Tarla, bahçe ve sera için doğru ekipman.',
+      'ANKURT Mühendislik ve Tarım Makinaları — Yukarıkocayatak, Serik / Antalya. Bahçe tipi römork, çizel, kazayağı, çapa, sap çıkarma, traktör sepeti ve sera ekipmanları.',
     defaultKeywords: [
       'tarım makinaları',
       'serik tarım makinaları',
@@ -71,7 +74,8 @@ export const company = {
       'traktör sepeti',
       'ankurt',
     ],
-    ogImage: '/og-image.jpg',
+    ogImage: '/opengraph-image',
+    googleSiteVerification: '',
   },
 
   // Analytics — Replace with actual IDs when ready
