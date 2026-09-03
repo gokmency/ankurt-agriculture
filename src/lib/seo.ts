@@ -35,7 +35,7 @@ export function createPageMetadata({
     : `${title} | ANKURT Tarım Makinaları`;
 
   return {
-    title,
+    title: title.includes('ANKURT') ? { absolute: title } : title,
     description,
     keywords,
     alternates: { canonical },

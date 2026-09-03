@@ -24,12 +24,12 @@ export default function ContactPage() {
         <Breadcrumb items={breadcrumbItems} />
         
         <div className="mt-4 mb-8">
-          <span className="eyebrow-label text-[#0f5d35]">Doğrudan İrtibat</span>
+          <span className="eyebrow-label text-[#0f5d35]">Bize Ulaşın</span>
           <h1 className="font-editorial text-[36px] sm:text-[48px] text-[#0f5d35] tracking-[-0.02em] mt-1 mb-2">
-            İletişim ve Konum Bilgileri
+            Atölye ve İletişim Bilgileri
           </h1>
           <p className="text-sm sm:text-base text-[#464c47] max-w-2xl leading-relaxed">
-            Makinelerimiz, model uyumluluğu ve güncel fiyatlar için atölyemize telefonla ulaşabilir veya Serik&apos;teki yerimizi ziyaret edebilirsiniz.
+            Makinelerimizin ölçüleri, traktörünüze uyumu veya güncel atölye fiyatları için doğrudan telefonla arayabilir, WhatsApp&apos;tan yazabilir veya atölyemizi ziyaret edebilirsiniz.
           </p>
         </div>
 
@@ -187,12 +187,12 @@ export default function ContactPage() {
           <div className="lg:col-span-6 space-y-6">
             <div className="bg-[#fbfaf6] p-6 sm:p-8 rounded-[16px] border border-[#121713]/10">
               <div className="mb-5">
-                <span className="eyebrow-label text-[#0f5d35]">Teklif & Soru</span>
+                <span className="eyebrow-label text-[#0f5d35]">Fiyat & Danışma</span>
                 <h2 className="font-editorial text-[26px] text-[#0f5d35] mt-0.5 mb-1">
-                  Bilgi ve Teklif Talep Formu
+                  Fiyat ve Bilgi Alın
                 </h2>
                 <p className="text-xs sm:text-sm text-[#464c47]">
-                  İlgilendiğiniz makineyi iletin, en kısa sürede size dönüş yapalım.
+                  İlgilendiğiniz makineyi ve sormak istediklerinizi iletin, WhatsApp üzerinden hızlıca bilgi verelim.
                 </p>
               </div>
               <InquiryForm />
@@ -203,7 +203,7 @@ export default function ContactPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <span className="eyebrow-label text-[#e7b23f] text-[11px] block">ATÖLYE VE KONUM</span>
-                  <div className="font-editorial text-xl mt-0.5">Serik Satış & İmalat Sahası</div>
+                  <div className="font-editorial text-xl mt-0.5">Yukarıkocayatak Atölyemiz</div>
                 </div>
               </div>
 

@@ -58,7 +58,7 @@ export default function GuidesPage() {
             {guides.map((guide, index) => (
               <li key={guide.slug} className="border-t border-[#1c211d]/15">
                 <Link
-                  href={`/rehber/${guide.slug}`}
+                  href={`/rehber/${guide.slug}/`}
                   className="group grid gap-4 py-7 transition-colors hover:bg-[#fbfaf6] sm:px-5 md:grid-cols-[74px_1fr_170px_44px] md:items-center"
                 >
                   <span className="font-editorial text-3xl text-[#0f5d35]/45">0{index + 1}</span>
@@ -84,7 +84,7 @@ export default function GuidesPage() {
               <p className="eyebrow-label text-[#121713]/60">Sorunuzun yanıtını bulamadınız mı?</p>
               <p className="mt-2 font-editorial text-3xl uppercase leading-none text-[#121713]">Arazinizi anlatın, birlikte değerlendirelim.</p>
             </div>
-            <Link href="/iletisim" className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-[6px] bg-[#121713] px-6 text-xs font-bold uppercase tracking-[.08em] text-white hover:bg-[#0f5d35]">
+            <Link href="/iletisim/" className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-[6px] bg-[#121713] px-6 text-xs font-bold uppercase tracking-[.08em] text-white hover:bg-[#0f5d35]">
               Bize Ulaşın <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

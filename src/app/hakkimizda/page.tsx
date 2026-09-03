@@ -43,11 +43,11 @@ export default function AboutPage() {
                   <MapPin className="h-4 w-4" /> Yukarıkocayatak, Serik / Antalya
                 </span>
                 <h1 className="mt-5 text-[52px] uppercase leading-[.88] text-white sm:text-[72px]">
-                  Sahadaki ihtiyacı,
-                  <span className="block text-[#e7b23f]">atölyede çözüyoruz.</span>
+                  Sahadaki ihtiyacı biliyor,
+                  <span className="block text-[#e7b23f]">çözümü atölyemizde üretiyoruz.</span>
                 </h1>
                 <p className="mt-7 max-w-xl text-base leading-7 text-white/70">
-                  ANKURT, tarla, bahçe ve sera koşullarını bilen; doğru ölçü, sağlam gövde ve doğrudan destek üzerine çalışan yerel bir mühendislik ve tarım makinaları merkezidir.
+                  ANKURT olarak Antalya Serik&apos;te, bölge üreticisinin toprağını ve serasını yakından tanıyoruz. Çiftçimizin tarlada yarı yolda kalmaması için esnemeyen şasiler, dayanıklı parçalar ve tam ölçüsünde makineler yapıyoruz.
                 </p>
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function AboutPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#121713]/70 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                <p className="eyebrow-label text-[#e7b23f]">Atölye & ürün alanı</p>
+                <p className="eyebrow-label text-[#e7b23f]">Atölye & Üretim Alanı</p>
                 <p className="mt-2 max-w-sm font-editorial text-3xl uppercase leading-none text-white">
                   Serik&apos;ten sahaya doğrudan üretim ve teslimat.
                 </p>
@@ -74,21 +74,21 @@ export default function AboutPage() {
 
         <section className="grid gap-10 py-16 sm:py-24 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
-            <span className="eyebrow-label text-[#0f5d35]">Faaliyetimiz & yaklaşımımız</span>
+            <span className="eyebrow-label text-[#0f5d35]">Neler Yapıyoruz?</span>
             <h2 className="mt-4 max-w-2xl text-[44px] uppercase leading-[.92] text-[#1c211d] sm:text-[60px]">
-              Bölgenin tarım dinamiklerini biliyoruz.
+              Antalya ve Serik&apos;in toprağını da serasını da iyi biliyoruz.
             </h2>
             <div className="mt-7 max-w-3xl space-y-5 text-sm leading-7 text-[#626760] sm:text-base">
               <p>
-                Antalya Serik&apos;te faaliyet gösteren ekibimiz; örtü altı sera üreticilerinin, açık alan çiftçilerinin ve narenciye yetiştiricilerinin günlük kullanım ihtiyaçlarına odaklanır.
+                Yukarıkocayatak&apos;taki atölyemizde özellikle örtü altı seracılar, narenciye üreticileri ve açık tarla çiftçileriyle birebir çalışıyoruz. Standart fabrikasyon ölçüler her seraya ya da her bahçeye uymaz; bu yüzden ölçüyü ve şasiyi ihtiyaca göre uyarlıyoruz.
               </p>
               <p>
-                Kendi markamızla ürettiğimiz ANKURT ekipmanlarının yanında Sevsan, Volkan, Ata Makina, Torunoğlu ve Öz-Akın gibi sektörde bilinen markaların satış ve tedariğini de sağlarız.
+                Kendi imalatımız olan ANKURT makinelerinin yanı sıra; çiftçilerimizin ihtiyaç duyduğu Sevsan, Volkan, Ata Makina, Torunoğlu ve Öz-Akın gibi güvenilir markaların da bayilik ve satışını yapıyoruz.
               </p>
             </div>
 
             <div className="mt-10 border-t border-[#1c211d]/15 pt-8">
-              <h3 className="text-3xl uppercase text-[#1c211d]">Ürün ve imalat yelpazemiz</h3>
+              <h3 className="text-3xl uppercase text-[#1c211d]">Ürün ve İmalat Yelpazemiz</h3>
               <div className="mt-5 grid gap-x-8 sm:grid-cols-2">
                 {capabilities.map((capability) => (
                   <div key={capability} className="flex items-center gap-3 border-b border-[#1c211d]/10 py-4 text-sm font-bold text-[#1c211d]">
@@ -104,16 +104,16 @@ export default function AboutPage() {
             <div className="engineering-grid rounded-[12px] bg-[#0f5d35] p-7 text-white sm:p-9">
               <div className="flex items-start justify-between gap-6">
                 <div>
-                  <span className="eyebrow-label text-[#e7b23f]">İmalat güvencesi</span>
-                  <h3 className="mt-3 text-4xl uppercase leading-none text-white">ANKURT atölye standardı</h3>
+                  <span className="eyebrow-label text-[#e7b23f]">İmalat İlkelerimiz</span>
+                  <h3 className="mt-3 text-4xl uppercase leading-none text-white">Atölyemizde Nelere Dikkat Ederiz?</h3>
                 </div>
                 <ShieldCheck className="h-7 w-7 shrink-0 text-[#e7b23f]" />
               </div>
               <div className="mt-7 divide-y divide-white/15 border-y border-white/15">
                 {[
-                  { icon: Ruler, title: 'Ölçü ve uyum', text: 'Traktör, arazi ve kullanım amacına göre değerlendirme' },
-                  { icon: Wrench, title: 'Sağlam gövde', text: 'Sahadaki çalışma yüküne uygun şasi ve bağlantılar' },
-                  { icon: ShieldCheck, title: 'Doğrudan destek', text: 'Satış öncesi ve sonrasında atölyeyle doğrudan iletişim' },
+                  { icon: Ruler, title: 'Tam Uyumlu Ölçü', text: 'Traktör beygirine ve seranın/tarlanın yapısına göre doğru boyut seçimi yapıyoruz.' },
+                  { icon: Wrench, title: 'Sağlam Şasi ve Kaynak', text: 'Ağır yüke, taşa ve zorlu arazi koşullarına dayanıklı sağlam profil ve dikiş kaynağı.' },
+                  { icon: ShieldCheck, title: 'Doğrudan Usta Desteği', text: 'Satış öncesinde de sonrasında da bakım veya kullanım konusunda doğrudan ustaya ulaşırsınız.' },
                 ].map((item) => (
                   <div key={item.title} className="grid grid-cols-[36px_1fr] gap-3 py-5">
                     <item.icon className="mt-1 h-5 w-5 text-[#e7b23f]" />
@@ -127,7 +127,7 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-[12px] border border-[#121713]/10 bg-[#fbfaf6] p-7 sm:p-9">
-              <span className="eyebrow-label text-[#0f5d35]">Ziyaret & iletişim</span>
+              <span className="eyebrow-label text-[#0f5d35]">Ziyaret & İletişim</span>
               <p className="mt-4 text-sm leading-6 text-[#626760]">{company.location.formatted}</p>
               <div className="mt-6 flex flex-col gap-3">
                 <Button asChild size="md">
@@ -136,7 +136,7 @@ export default function AboutPage() {
                   </a>
                 </Button>
                 <Button asChild variant="outline" size="md">
-                  <Link href="/iletisim">İletişim & Teklif Formu</Link>
+                  <Link href="/iletisim">Fiyat ve Bilgi Alın</Link>
                 </Button>
               </div>
             </div>

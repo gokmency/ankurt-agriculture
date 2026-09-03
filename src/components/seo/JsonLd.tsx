@@ -28,8 +28,29 @@ function localBusinessNode() {
     url: company.seo.siteUrl,
     hasMap: company.location.businessProfileUrl,
     telephone: '+902427297256',
+    priceRange: '₺₺',
+    currenciesAccepted: 'TRY',
+    paymentAccepted: 'Nakit, Banka Havalesi, Kredi Kartı',
     description: company.seo.defaultDescription,
     sameAs,
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 36.9388,
+      longitude: 31.0256,
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '08:00',
+        closes: '18:00',
+      },
+    ],
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Antalya' },
+      { '@type': 'AdministrativeArea', name: 'Serik' },
+      { '@type': 'Country', name: 'Türkiye' },
+    ],
     address: {
       '@type': 'PostalAddress',
       streetAddress: `${company.location.neighborhood} ${company.location.streetAddress}`,
@@ -82,6 +103,20 @@ export function productJsonLd(product: Product) {
     brand: {
       '@type': 'Brand',
       name: product.brand || company.nameShort,
+    },
+    offers: {
+      '@type': 'Offer',
+      url: `${company.seo.siteUrl}/urunler/${product.slug}/`,
+      priceCurrency: 'TRY',
+      price: '0',
+      priceValidUntil: '2026-12-31',
+      availability: 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
+      seller: {
+        '@type': 'Organization',
+        name: company.nameFull,
+        url: company.seo.siteUrl,
+      },
     },
   };
 }

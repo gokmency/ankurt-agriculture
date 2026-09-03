@@ -2,13 +2,13 @@ import { ImageResponse } from 'next/og';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-export const alt = 'ANKURT Mühendislik ve Tarım Makinaları — Tarla, bahçe ve sera için doğru ekipman';
+export const alt = 'ANKURT Tarım Makinaları — Toprağınıza uygun. Yıllarca çalışır. Serik / Antalya';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 export const dynamic = 'force-static';
 
 const heroData = await readFile(
-  join(process.cwd(), 'public/images/hero/ankurt-industrial-hero-v2.jpg'),
+  join(process.cwd(), 'public/images/hero/ankurt-storefront-hero.jpg'),
   'base64'
 );
 const logoData = await readFile(
@@ -43,7 +43,7 @@ export default function OpenGraphImage() {
             position: 'absolute',
             inset: 0,
             display: 'flex',
-            background: 'linear-gradient(90deg, rgba(18,23,19,.98) 0%, rgba(18,23,19,.9) 48%, rgba(18,23,19,.25) 100%)',
+            background: 'linear-gradient(90deg, rgba(14,20,16,.96) 0%, rgba(14,20,16,.85) 45%, rgba(14,20,16,.20) 100%)',
           }}
         />
         <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', padding: '62px 72px', width: '760px' }}>
@@ -56,16 +56,15 @@ export default function OpenGraphImage() {
               style={{ width: '274px', height: '91px', objectFit: 'contain' }}
             />
           </div>
-          <div style={{ display: 'flex', marginTop: '64px', color: '#e7b23f', fontSize: 18, fontWeight: 700, letterSpacing: '3px' }}>
+          <div style={{ display: 'flex', marginTop: '54px', color: '#e7b23f', fontSize: 18, fontWeight: 700, letterSpacing: '3px' }}>
             SERİK / ANTALYA
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px', fontSize: 68, fontWeight: 800, lineHeight: .93, letterSpacing: '-2px' }}>
-            <span>TOPRAĞA GÖRE</span>
-            <span>TASARLANIR.</span>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px', fontSize: 64, fontWeight: 800, lineHeight: .95, letterSpacing: '-2px' }}>
+            <span>TOPRAĞINIZA UYGUN.</span>
             <span style={{ color: '#e7b23f' }}>YILLARCA ÇALIŞIR.</span>
           </div>
-          <div style={{ display: 'flex', marginTop: '34px', fontSize: 22, color: 'rgba(255,255,255,.78)' }}>
-            Tarla, bahçe ve sera için doğru ekipman.
+          <div style={{ display: 'flex', marginTop: '30px', fontSize: 22, color: 'rgba(255,255,255,.82)' }}>
+            Antalya Serik İmalatı Tarım Makineleri ve Ekipmanları
           </div>
         </div>
         <div style={{ position: 'absolute', right: 0, bottom: 0, display: 'flex', background: '#0f5d35', color: '#fff', padding: '22px 32px', fontSize: 18, fontWeight: 700 }}>

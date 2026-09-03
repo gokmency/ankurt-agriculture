@@ -17,13 +17,13 @@ export function InquiryForm() {
     const productId = String(formData.get('product') || '');
     const productTitle = products.find((product) => product.id === productId)?.title || 'Genel bilgi';
     const message = [
-      'Merhaba ANKURT, web siteniz üzerinden bilgi ve teklif almak istiyorum.',
+      'Selamlar ANKURT, web siteniz üzerinden yazıyorum.',
       '',
       `Ad Soyad: ${String(formData.get('name') || '')}`,
       `Telefon: ${String(formData.get('phone') || '')}`,
-      `İl / İlçe: ${String(formData.get('location') || 'Belirtilmedi')}`,
-      `Ekipman: ${productTitle}`,
-      `Not: ${String(formData.get('message') || 'Belirtilmedi')}`,
+      `Konum: ${String(formData.get('location') || 'Belirtilmedi')}`,
+      `İlgilendiğim Makine: ${productTitle}`,
+      `Not / Sorularım: ${String(formData.get('message') || 'Yok')}`,
     ].join('\n');
 
     trackFormSubmission(productId || 'general');
@@ -108,14 +108,14 @@ export function InquiryForm() {
 
       <div>
         <label htmlFor="message" className="block text-xs font-medium text-[#0f5d35] uppercase tracking-wider mb-1.5">
-          Talebiniz / Araziniz Hakkında Not
+          Traktörünüz veya Araziniz Hakkında Not
         </label>
         <textarea
           id="message"
           name="message"
           rows={3}
           className="w-full px-3.5 py-2.5 border border-[#121713]/15 rounded-[4px] focus:border-[#0f5d35] outline-none bg-[#f2f0e9]/40 text-[#0f5d35] text-sm resize-y placeholder:text-[#464c47]/50"
-          placeholder="Traktör modelinizi, arazi tipinizi veya sormak istediğiniz detayları belirtebilirsiniz..."
+          placeholder="Örn: 55 beygir traktörüm var, sera içi için 7'li patlatma sormak istiyorum..."
         ></textarea>
       </div>
 
@@ -127,7 +127,7 @@ export function InquiryForm() {
           className="mt-0.5 h-4 w-4 shrink-0 accent-[#0f5d35]"
         />
         <span>
-          İletişim bilgilerimin talebimin yanıtlanması amacıyla kullanılmasını kabul ediyorum.{' '}
+          İletişim bilgilerimin talebime yanıt verilmesi amacıyla kullanılmasını kabul ediyorum.{' '}
           <Link href="/kvkk" className="font-bold text-[#0f5d35] underline underline-offset-2">
             KVKK Aydınlatma Metni
           </Link>
@@ -142,10 +142,10 @@ export function InquiryForm() {
           className="w-full"
         >
           <Send className="w-3.5 h-3.5 mr-2 stroke-[1.5]" />
-          WhatsApp&apos;ta Talep Oluştur
+          WhatsApp ile Mesaj Gönder
         </Button>
         <p className="mt-2 text-center text-[11px] leading-4 text-[#464c47]/70">
-          Bilgileriniz WhatsApp&apos;ta hazır mesaj olarak açılır; göndermeden önce kontrol edebilirsiniz.
+          Bilgileriniz WhatsApp uygulamasında hazır mesaj olarak açılır; göndermeden önce düzenleyebilirsiniz.
         </p>
       </div>
     </form>

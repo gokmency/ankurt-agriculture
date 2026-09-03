@@ -20,7 +20,7 @@ import { JsonLd, websiteJsonLd } from '@/components/seo/JsonLd';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Tarım Makinaları ve Ekipmanları',
+  title: 'ANKURT Tarım Makinaları | Serik Antalya İmalat ve Satış',
   description: company.seo.defaultDescription,
   path: '/',
   keywords: [...company.seo.defaultKeywords],
@@ -33,69 +33,81 @@ export default function Home() {
   return (
     <main className="overflow-hidden bg-[#f2f0e9]">
       <JsonLd data={websiteJsonLd()} />
-      <section className="relative min-h-[720px] bg-[#121713] text-white lg:min-h-[760px]">
+      <section className="relative min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] flex items-center bg-[#0e1410] text-white overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 border-b border-white/10">
+        {/* Direct Full-Bleed Background Image */}
         <Image
           src={company.heroImage}
-          alt=""
+          alt="ANKURT Tarım Market ve Tarım Makineleri İmalatı - Serik Antalya"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[58%_center] opacity-90"
+          className="object-cover object-[78%_center] lg:object-[72%_center]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,23,19,.98)_0%,rgba(18,23,19,.90)_42%,rgba(18,23,19,.35)_68%,rgba(18,23,19,.08)_100%)]" />
-        <div className="engineering-grid absolute inset-0 opacity-30" />
-        <div className="absolute inset-x-0 top-0 h-px bg-white/15" />
 
-        <div className="section-shell relative flex min-h-[720px] items-center py-20 lg:min-h-[760px]">
-          <div className="max-w-[770px] pt-4">
-            <div className="mb-7 flex items-center gap-4">
+        {/* Directional Daylight-Preserving Gradient: Dark on text area, 100% transparent over the building & machines */}
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#0e1410_0%,rgba(14,20,16,0.95)_34%,rgba(14,20,16,0.60)_52%,rgba(14,20,16,0.15)_70%,transparent_85%)] max-lg:bg-[linear-gradient(180deg,#0e1410_0%,rgba(14,20,16,0.92)_50%,rgba(14,20,16,0.40)_80%,transparent_100%)]" />
+
+        {/* Subtle engineering grid accent */}
+        <div className="engineering-grid absolute inset-0 opacity-15 pointer-events-none" />
+
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
+          <div className="max-w-[660px]">
+            
+            {/* Eyebrow */}
+            <div className="mb-6 flex items-center gap-3">
               <span className="eyebrow-label text-[#e7b23f]">ANKURT / Serik, Antalya</span>
-              <span className="h-px w-20 bg-[#e7b23f]/60" />
+              <span className="h-px w-14 bg-[#e7b23f]/60" />
             </div>
 
-            <h1 className="max-w-[760px] text-[58px] font-semibold uppercase leading-[.85] tracking-[-.04em] text-white sm:text-[78px] lg:text-[104px]">
-              Toprağa göre tasarlanır.
+            {/* Main Headline - Sade, Güçlü, Net */}
+            <h1 className="text-[46px] sm:text-[66px] lg:text-[84px] font-semibold uppercase leading-[.88] tracking-[-.035em] text-white">
+              Toprağınıza uygun.
               <span className="block text-[#e7b23f]">Yıllarca çalışır.</span>
             </h1>
 
-            <p className="mt-8 max-w-[610px] text-base leading-7 text-white/72 sm:text-lg">
-              Tarla, bahçe ve sera koşullarına uygun tarım ekipmanlarını; doğru şasi, doğru ölçü ve sahada işe yarayan detaylarla üretiyor ve temin ediyoruz.
+            {/* Subtitle - Doğal ve net */}
+            <p className="mt-6 max-w-[540px] text-base leading-relaxed text-white/80 sm:text-lg">
+              Antalya Serik&apos;teki atölyemizde; tarlanıza, bahçenize ve seranıza özel ölçülerde tarım makineleri üretiyor, doğrudan teslim ediyoruz.
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            {/* Action Buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button asChild size="lg">
                 <Link href="/urunler">
                   Ürünleri İncele <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="ghost-dark">
-                <Link href="/iletisim">İhtiyacını Anlat</Link>
+                <Link href="/iletisim">Ustamıza Danışın</Link>
               </Button>
             </div>
 
-            <div className="mt-12 grid max-w-[660px] grid-cols-1 gap-px overflow-hidden rounded-[8px] border border-white/15 bg-white/15 sm:grid-cols-3">
-              {[
-                ['Yerli İmalat', 'Serik atölye üretimi'],
-                ['Doğru Eşleşme', 'Arazi ve traktöre göre'],
-                ['Doğrudan İrtibat', 'Usta ve satış ekibiyle'],
-              ].map(([title, detail]) => (
-                <div key={title} className="bg-[#121713]/80 px-5 py-4 backdrop-blur-sm">
-                  <div className="text-[12px] font-bold uppercase tracking-[.08em] text-white">{title}</div>
-                  <div className="mt-1 text-[11px] text-white/55">{detail}</div>
-                </div>
-              ))}
+            {/* Minimalist Trust Features Bar */}
+            <div className="mt-10 flex flex-wrap items-center gap-y-3 gap-x-6 border-t border-white/15 pt-6 text-xs text-white/70">
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#e7b23f]" />
+                <span className="font-semibold text-white">Kendi İmalatımız</span>
+                <span className="text-white/40">Serik atölyesi</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#e7b23f]" />
+                <span className="font-semibold text-white">Ölçüye Özel</span>
+                <span className="text-white/40">Traktör & sera uyumu</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#e7b23f]" />
+                <span className="font-semibold text-white">Doğrudan İletişim</span>
+                <span className="text-white/40">Ustayla görüşme</span>
+              </div>
             </div>
+
           </div>
         </div>
 
-        <div className="absolute bottom-0 right-0 hidden w-[360px] border-l border-t border-white/15 bg-[#0f5d35]/95 p-7 backdrop-blur-md xl:block">
-          <div className="flex items-start justify-between">
-            <span className="eyebrow-label text-[#e7b23f]">Mühendislik yaklaşımı</span>
-            <Ruler className="h-5 w-5 text-white/60" />
-          </div>
-          <p className="mt-4 font-editorial text-3xl uppercase leading-none text-white">
-            Ölçü, dayanım ve kullanım amacı tek gövdede buluşur.
-          </p>
+        {/* Discreet Location Pin Badge on bottom-right */}
+        <div className="absolute bottom-6 right-8 hidden xl:flex items-center gap-2 rounded-full border border-white/20 bg-[#0e1410]/80 px-4 py-2 text-xs text-white/85 backdrop-blur-md shadow-lg">
+          <span className="h-2 w-2 rounded-full bg-[#e7b23f]" />
+          <span>Ankurt Tarım Market • Serik Satış ve İmalat Sahamız</span>
         </div>
       </section>
 
@@ -128,17 +140,17 @@ export default function Home() {
         <div className="section-shell">
           <div className="grid gap-8 border-b border-[#1c211d]/15 pb-9 lg:grid-cols-[1fr_.8fr] lg:items-end">
             <div>
-              <span className="eyebrow-label text-[#0f5d35]">Atölyeden çıkanlar</span>
+              <span className="eyebrow-label text-[#0f5d35]">Atölye İmalatı</span>
               <h2 className="mt-4 max-w-3xl text-[48px] uppercase leading-[.9] text-[#1c211d] sm:text-[64px]">
-                Sahada iş yapan ekipmanlar.
+                Arazide ve Serada Çalışan Sağlam Ekipmanlar
               </h2>
             </div>
             <div className="lg:justify-self-end">
               <p className="max-w-md text-sm leading-6 text-[#626760]">
-                Bahçe römorkundan çizel patlatmaya, traktör sepetinden sera ekipmanlarına kadar ANKURT imalatı ürünleri inceleyin.
+                Bahçe römorku, 7&apos;li çizel patlatma, traktör sepeti ve sap toplama başta olmak üzere atölyemizde ürettiğimiz modelleri inceleyin.
               </p>
               <Link href="/urunler?marka=ankurt" className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35] hover:text-[#121713]">
-                Tüm ANKURT ürünleri ({ankurtProducts.length}) <ArrowRight className="h-4 w-4" />
+                Tüm ANKURT modelleri ({ankurtProducts.length}) <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -155,23 +167,23 @@ export default function Home() {
         <div className="engineering-grid absolute inset-0 opacity-40" />
         <div className="section-shell relative grid gap-12 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
-            <span className="eyebrow-label text-[#e7b23f]">Neden ANKURT</span>
+            <span className="eyebrow-label text-[#e7b23f]">Neden ANKURT?</span>
             <h2 className="mt-5 text-[52px] uppercase leading-[.88] sm:text-[68px]">
-              Katalogdan önce ihtiyacı dinleriz.
+              Ezbere makine satmıyoruz.
             </h2>
             <p className="mt-6 max-w-lg text-sm leading-7 text-white/65">
-              Her arazi, her traktör ve her kullanım senaryosu aynı değildir. Ürün yönlendirmesini sahadaki gerçek ihtiyaca göre yaparız.
+              Her arazinin toprağı, her seranın direk aralığı ve her traktörün gücü farklıdır. İhtiyacınıza tam uyan doğru ölçüyü belirleyip öyle imalat yapıyoruz.
             </p>
             <Button asChild variant="ghost-dark" size="md" className="mt-8">
-              <Link href="/hakkimizda">Üretim yaklaşımımız</Link>
+              <Link href="/hakkimizda">Atölyemiz ve Çalışma Şeklimiz</Link>
             </Button>
           </div>
 
           <div className="lg:col-span-7 lg:pl-10">
             {[
-              { icon: Ruler, title: 'Ölçü ve uyum', text: 'Traktör gücü, çalışma genişliği ve arazi yapısı birlikte değerlendirilir.' },
-              { icon: Wrench, title: 'Sağlam gövde', text: 'Şasi, bağlantı ve çalışan parçalar kullanım yüküne göre ele alınır.' },
-              { icon: ShieldCheck, title: 'Doğrudan destek', text: 'Satış öncesi sorular ve satış sonrası ihtiyaçlar için doğrudan ulaşabilirsiniz.' },
+              { icon: Ruler, title: 'Tam Uyumlu Ölçü', text: 'Traktörünüzün beygir gücüne ve seranızın çalışma genişliğine göre doğru boyutlandırma yapıyoruz.' },
+              { icon: Wrench, title: 'Ağır Hizmet Şasi', text: 'Zorlu ve taşlı arazide çatlama, esneme yapmayan sağlam çelik profil ve kaliteli kaynak kullanıyoruz.' },
+              { icon: ShieldCheck, title: 'Doğrudan Usta Desteği', text: 'Almadan önce de aldıktan sonra da doğrudan atölyeyi arar, birinci elden ustamızla görüşürsünüz.' },
             ].map((item, index) => (
               <div key={item.title} className="grid grid-cols-[54px_1fr] gap-5 border-t border-white/15 py-7 first:border-t-0">
                 <div className="flex h-12 w-12 items-center justify-center rounded-[6px] border border-[#e7b23f]/45 text-[#e7b23f]">
@@ -204,18 +216,18 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#121713]/80 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7 text-white">
                 <span className="eyebrow-label text-[#e7b23f]">Serik / Antalya</span>
-                <p className="mt-3 font-editorial text-3xl uppercase leading-none">İmalat, satış ve doğrudan teslimat noktası</p>
+                <p className="mt-3 font-editorial text-3xl uppercase leading-none">Atölyemize gelin, makineleri yerinde inceleyin</p>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col justify-center lg:col-span-7 lg:pl-10">
-            <span className="eyebrow-label text-[#0f5d35]">Doğrudan iletişim</span>
+            <span className="eyebrow-label text-[#0f5d35]">Doğrudan İletişim</span>
             <h2 className="mt-4 text-[50px] uppercase leading-[.9] text-[#1c211d] sm:text-[66px]">
-              Doğru ekipmanı birlikte belirleyelim.
+              Hangi makinenin uygun olduğunu ustamıza danışın.
             </h2>
             <p className="mt-6 max-w-xl text-base leading-7 text-[#626760]">
-              Traktör modelinizi, arazinizin yapısını ve yapmak istediğiniz işi anlatın. Uygun ürün grubu, ölçü ve güncel fiyat için sizi yönlendirelim.
+              Traktörünüzün modelini, seranızın veya arazinizin durumunu söyleyin; size en uygun modeli ve net atölye fiyatını hemen iletelim.
             </p>
 
             <div className="mt-8 space-y-3 border-y border-[#1c211d]/15 py-6">
@@ -224,22 +236,22 @@ export default function Home() {
                 <span className="font-editorial text-2xl text-[#1c211d] group-hover:text-[#0f5d35]">{company.contact.phone}</span>
               </a>
               <a href={company.contact.mobileHref} className="group flex items-center justify-between py-2">
-                <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><Phone className="h-4 w-4 text-[#0f5d35]" /> Mobil hat</span>
+                <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><Phone className="h-4 w-4 text-[#0f5d35]" /> Mobil hat & WhatsApp</span>
                 <span className="font-editorial text-2xl text-[#1c211d] group-hover:text-[#0f5d35]">{company.contact.mobile}</span>
               </a>
               <a href={company.location.directionsUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between py-2">
                 <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><MapPin className="h-4 w-4 text-[#0f5d35]" /> Atölye konumu</span>
-                <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35]">Yol tarifi <ArrowUpRight className="h-4 w-4" /></span>
+                <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35]">Yol tarifi al <ArrowUpRight className="h-4 w-4" /></span>
               </a>
               <a href={company.location.businessProfileUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between py-2">
                 <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><MapPin className="h-4 w-4 text-[#0f5d35]" /> Google işletme profili</span>
-                <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35]">Profili aç <ArrowUpRight className="h-4 w-4" /></span>
+                <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35]">Haritada aç <ArrowUpRight className="h-4 w-4" /></span>
               </a>
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" variant="secondary"><Link href="/iletisim">Teklif Formu</Link></Button>
-              <Button asChild size="lg" variant="outline"><Link href="/urunler">Kataloğa Dön</Link></Button>
+              <Button asChild size="lg" variant="secondary"><Link href="/iletisim">Fiyat ve Bilgi Alın</Link></Button>
+              <Button asChild size="lg" variant="outline"><Link href="/urunler">Tüm Makineleri Gör</Link></Button>
             </div>
           </div>
         </div>
@@ -250,8 +262,8 @@ export default function Home() {
           <div className="flex items-center gap-5">
             <CheckCircle2 className="hidden h-9 w-9 text-[#121713] sm:block" />
             <div>
-              <p className="eyebrow-label text-[#121713]/60">Bir sonraki adım</p>
-              <h2 className="mt-1 text-4xl uppercase leading-none text-[#121713]">Arazinize uygun ekipmanı soralım mı?</h2>
+              <p className="eyebrow-label text-[#121713]/60">Atölyemiz her zaman açık</p>
+              <h2 className="mt-1 text-4xl uppercase leading-none text-[#121713]">Makineleri yerinde görmek ister misiniz?</h2>
             </div>
           </div>
           <Link href="/iletisim" className="inline-flex h-14 shrink-0 items-center justify-center gap-3 rounded-[6px] bg-[#121713] px-7 text-xs font-bold uppercase tracking-[.08em] text-white transition-colors hover:bg-[#0f5d35]">

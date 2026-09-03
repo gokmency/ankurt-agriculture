@@ -105,7 +105,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               <div className="p-4 rounded-[16px] bg-[#f2f0e9] border border-[#121713]/8 flex items-center space-x-3 text-xs">
                 <ShieldCheck className="w-5 h-5 text-[#0f5d35] shrink-0 stroke-[1.5]" />
                 <span className="text-[#0f5d35] leading-snug">
-                  Bu ekipman, <strong>Serik / Yukarıkocayatak</strong> atölyemizde imal edilmiş veya doğrudan tesisimizden sevk edilmektedir.
+                  Bu ürün, <strong>Serik / Yukarıkocayatak</strong> atölyemizde imal edilmektedir.
                 </span>
               </div>
             )}
@@ -134,7 +134,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <div className="rounded-[16px] bg-[#f2f0e9] p-5 border border-[#121713]/8">
               <div className="eyebrow-label text-[#0f5d35] text-[11px] mb-3 flex items-center">
                 <Compass className="w-3.5 h-3.5 mr-1.5 stroke-[1.5]" />
-                Teknik Özet
+                Temel Bilgiler
               </div>
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="p-3 bg-[#fbfaf6] rounded-[4px] border border-[#121713]/6">
@@ -150,8 +150,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   <span className="font-medium text-[#0f5d35]">Serik / Antalya</span>
                 </div>
                 <div className="p-3 bg-[#fbfaf6] rounded-[4px] border border-[#121713]/6">
-                  <span className="text-[#464c47]/60 block text-[10px] uppercase font-medium">FİYAT & BİLGİ</span>
-                  <span className="font-medium text-[#0f5d35]">Doğrudan İletişim</span>
+                  <span className="text-[#464c47]/60 block text-[10px] uppercase font-medium">GÜNCEL FİYAT</span>
+                  <span className="font-medium text-[#0f5d35]">Atölyeden Sorunuz</span>
                 </div>
               </div>
             </div>
@@ -210,7 +210,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                     className="flex-1 inline-flex items-center justify-center px-4 py-3 bg-[#25D366] text-white text-sm font-semibold rounded-[4px] hover:bg-[#20bd5a] transition-colors shadow-xs"
                   >
                     <WhatsAppIcon className="w-4 h-4 mr-2 fill-white" />
-                    WhatsApp&apos;tan Fiyat İste
+                    WhatsApp&apos;tan Fiyat ve Detay Sorun
                   </a>
                 )}
               </div>
@@ -259,12 +259,12 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         {/* Inquiry Form Section */}
         <div className="mt-16 sm:mt-20 max-w-3xl mx-auto bg-[#fbfaf6] p-8 sm:p-12 rounded-[16px] border border-[#121713]/10">
           <div className="text-center mb-8">
-            <span className="eyebrow-label text-[#0f5d35]">Teklif & Danışma</span>
+            <span className="eyebrow-label text-[#0f5d35]">Fiyat & Danışma</span>
             <h2 className="font-editorial text-[32px] text-[#0f5d35] mt-1 mb-2">
-              Detaylı Bilgi ve Fiyat Talebi
+              Bu Makine İçin Fiyat ve Bilgi Alın
             </h2>
             <p className="text-xs sm:text-sm text-[#464c47]">
-              <strong className="text-[#0f5d35]">{product.title}</strong> hakkında model seçenekleri ve sevkiyat detayları için formu iletebilirsiniz.
+              <strong className="text-[#0f5d35]">{product.title}</strong> hakkında model seçenekleri, traktör uyumu veya güncel fiyat öğrenmek için yazabilirsiniz.
             </p>
           </div>
           <InquiryForm />

@@ -24,11 +24,11 @@ export function ProductCard({ product, className, preload = false }: ProductCard
       className
     )}>
       {/* Image Area */}
-      <Link href={`/urunler/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-[#deddd7]">
+      <Link href={`/urunler/${product.slug}/`} className="relative block aspect-[4/3] overflow-hidden bg-[#deddd7]">
         {hasImage ? (
           <Image
             src={product.images[0]}
-            alt={product.title}
+            alt={`${product.title} - ${isAnkurt ? 'ANKURT İmalatı' : product.brand} Serik Antalya`}
             fill
             preload={preload}
             className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
@@ -62,7 +62,7 @@ export function ProductCard({ product, className, preload = false }: ProductCard
           </div>
 
           <h3 className="font-editorial mb-3 line-clamp-2 text-[28px] uppercase leading-[1.02] text-[#1c211d] transition-colors group-hover:text-[#0f5d35]">
-            <Link href={`/urunler/${product.slug}`}>
+            <Link href={`/urunler/${product.slug}/`}>
               {product.title}
             </Link>
           </h3>
@@ -75,7 +75,7 @@ export function ProductCard({ product, className, preload = false }: ProductCard
         {/* Bottom Actions */}
         <div className="flex items-center justify-between border-t border-[#1c211d]/10 pt-4">
           <Link 
-            href={`/urunler/${product.slug}`}
+            href={`/urunler/${product.slug}/`}
             className="inline-flex items-center text-[11px] font-bold uppercase tracking-[.08em] text-[#0f5d35] transition-colors group-hover:text-[#121713]"
           >
             <span>Detayları İncele</span>

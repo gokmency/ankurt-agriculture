@@ -6,12 +6,13 @@ export const company = {
   name: 'ANKURT MÜHENDİSLİK VE TARIM MAKİNALARI',
   nameShort: 'ANKURT',
   nameFull: 'Ankurt Mühendislik ve Tarım Makinaları',
-  tagline: 'Tarla, Bahçe ve Sera İçin Doğru Ekipman',
+  tagline: 'Toprağınıza ve Traktörünüze Uygun Tarım Ekipmanları',
   description:
-    'Serik / Antalya merkezli mühendislik, tarım makineleri ve ekipmanları merkezi. Römork, çizel, kazayağı, çapa, sap çıkarma, traktör sepeti ve sera ekipmanları.',
+    'Antalya Serik Yukarıkocayatak merkezli tarım makineleri imalatı ve satışı. Bahçe tipi römork, 7\'li çizel patlatma, sap toplama, kazayağı, traktör sepeti ve sera ekipmanları.',
   logo: '/images/brand/ankurt_official_logo.png',
   logoPlate: '/images/brand/ankurt_cizel_uzerindeki_logo_referansi.png',
-  heroImage: '/images/hero/ankurt-industrial-hero-v2.jpg',
+  heroImage: '/images/hero/ankurt-storefront-hero.jpg',
+  heroImageVertical: '/images/hero/ankurt-storefront-hero-vertical.jpg',
   workshopImage: '/images/products/ankurt_bahce_romork.jpg',
 
   // Location
@@ -58,20 +59,25 @@ export const company = {
   // SEO
   seo: {
     siteUrl: 'https://ankurt.com',
-    defaultTitle: 'ANKURT Mühendislik ve Tarım Makinaları | Serik / Antalya',
-    titleSuffix: ' | ANKURT Mühendislik ve Tarım Makinaları',
+    defaultTitle: 'ANKURT Tarım Makinaları | Serik Antalya İmalat ve Satış',
+    titleSuffix: ' | ANKURT Tarım Makinaları',
     defaultDescription:
-      'ANKURT Mühendislik ve Tarım Makinaları — Yukarıkocayatak, Serik / Antalya. Bahçe tipi römork, çizel, kazayağı, çapa, sap çıkarma, traktör sepeti ve sera ekipmanları.',
+      'ANKURT Tarım Makinaları — Yukarıkocayatak, Serik / Antalya. Bahçe tipi römork, 7\'li çizel patlatma, kazayağı, sap çıkarma, traktör sepeti ve sera ekipmanları imalatı ve satışı.',
     defaultKeywords: [
       'tarım makinaları',
       'serik tarım makinaları',
       'antalya tarım makinaları',
+      'ankurt tarım',
+      'ankurt tarım market',
       'bahçe tipi römork',
       'çizel patlatma',
+      '7li patlatma',
       'kazayağı',
-      'çapa makinesi',
+      'sap çıkarma',
+      'pasaf toplama',
       'sera ekipmanları',
-      'traktör sepeti',
+      'devirmeli traktör sepeti',
+      'yukarıkocayatak tarım',
       'ankurt',
     ],
     ogImage: '/opengraph-image',

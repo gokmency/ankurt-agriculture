@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
+
+export const metadata: Metadata = {
+  title: 'Sayfa Bulunamadı',
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (
@@ -15,7 +21,7 @@ export default function NotFound() {
             <Link href="/">Ana Sayfaya Dön</Link>
           </Button>
           <Button asChild variant="outline" size="md">
-            <Link href="/urunler">Ürünler</Link>
+            <Link href="/urunler/">Ürünler</Link>
           </Button>
         </div>
       </div>
