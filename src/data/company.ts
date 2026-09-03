@@ -86,7 +86,7 @@ export const company = {
 
   // Analytics — Replace with actual IDs when ready
   analytics: {
-    gaId: '', // e.g. 'G-XXXXXXXXXX'
+    gaId: 'G-EGSH9FKMWM',
     gadsId: '', // e.g. 'AW-XXXXXXXXXX'
     gadsPhoneConversion: '', // e.g. 'AW-XXXXXXXXXX/XXXXXXXXXXXX'
     metaPixelId: '', // e.g. '1234567890'

@@ -129,6 +129,24 @@ export default function RootLayout({
         >
           {extensionAttributeGuard}
         </Script>
+        {company.analytics.gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${company.analytics.gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-tag-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${company.analytics.gaId}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
       </head>
       <body className="min-h-screen flex flex-col bg-[#f2f0e9] text-[#1c211d] antialiased" suppressHydrationWarning>
         <a
