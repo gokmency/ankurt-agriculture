@@ -9,7 +9,7 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /images/*
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+  Cache-Control: public, max-age=31536000, immutable
 
 /opengraph-image
   Content-Type: image/png
@@ -19,13 +19,13 @@
   Content-Type: image/png
   Cache-Control: public, max-age=86400
 
-/icon
+/icon*
   Content-Type: image/png
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
 
-/apple-icon
+/apple-icon*
   Content-Type: image/png
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
 
 /manifest.webmanifest
   Content-Type: application/manifest+json

@@ -5,7 +5,7 @@ export function WhatsAppLogoImage({ className = "w-5 h-5", size = 24 }: { classN
   return (
     <div className={`relative inline-flex shrink-0 items-center justify-center ${className}`}>
       <Image
-        src="/images/brand/whatsapp_logo.png"
+        src="/images/brand/whatsapp_logo.webp"
         alt="WhatsApp"
         width={size}
         height={size}

@@ -9,11 +9,12 @@ export const company = {
   tagline: 'Toprağınıza ve Traktörünüze Uygun Tarım Ekipmanları',
   description:
     'Antalya Serik Yukarıkocayatak merkezli tarım makineleri imalatı ve satışı. Bahçe tipi römork, 7\'li çizel patlatma, sap toplama, kazayağı, traktör sepeti ve sera ekipmanları.',
-  logo: '/images/brand/ankurt_official_logo.png',
+  logo: '/images/brand/ankurt_official_logo.webp',
   logoPlate: '/images/brand/ankurt_cizel_uzerindeki_logo_referansi.png',
-  heroImage: '/images/hero/ankurt-storefront-hero.jpg',
+  heroImage: '/images/hero/ankurt-storefront-hero.webp',
+  heroImageMobile: '/images/hero/ankurt-storefront-hero-mobile.webp',
   heroImageVertical: '/images/hero/ankurt-storefront-hero-vertical.jpg',
-  workshopImage: '/images/products/ankurt_bahce_romork.jpg',
+  workshopImage: '/images/products/ankurt_bahce_romork.webp',
 
   // Location
   location: {

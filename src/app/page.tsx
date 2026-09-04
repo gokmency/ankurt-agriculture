@@ -33,16 +33,40 @@ export default function Home() {
   return (
     <main className="overflow-hidden bg-[#f2f0e9]">
       <JsonLd data={websiteJsonLd()} />
+      <link
+        rel="preload"
+        as="image"
+        type="image/avif"
+        href="/images/hero/ankurt-storefront-hero-mobile.avif"
+        media="(max-width: 768px)"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        type="image/webp"
+        href="/images/hero/ankurt-storefront-hero.webp"
+        media="(min-width: 769px)"
+        fetchPriority="high"
+      />
       <section className="relative min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] flex items-center bg-[#0e1410] text-white overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 border-b border-white/10">
-        {/* Direct Full-Bleed Background Image */}
-        <Image
-          src={company.heroImage}
-          alt="ANKURT Tarım Market ve Tarım Makineleri İmalatı - Serik Antalya"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[78%_center] lg:object-[72%_center]"
-        />
+        {/* Direct Full-Bleed Background Image (Responsive & Instant LCP) */}
+        <picture className="absolute inset-0 block h-full w-full pointer-events-none">
+          <source media="(max-width: 768px)" type="image/avif" srcSet="/images/hero/ankurt-storefront-hero-mobile.avif" />
+          <source media="(max-width: 768px)" type="image/webp" srcSet="/images/hero/ankurt-storefront-hero-mobile.webp" />
+          <source media="(min-width: 769px)" type="image/avif" srcSet="/images/hero/ankurt-storefront-hero.avif" />
+          <source media="(min-width: 769px)" type="image/webp" srcSet="/images/hero/ankurt-storefront-hero.webp" />
+          <img
+            src="/images/hero/ankurt-storefront-hero-mobile.webp"
+            srcSet="/images/hero/ankurt-storefront-hero-mobile.webp 768w, /images/hero/ankurt-storefront-hero.webp 1440w"
+            sizes="100vw"
+            alt="ANKURT Tarım Market ve Tarım Makineleri İmalatı - Serik Antalya"
+            className="h-full w-full object-cover object-[78%_center] lg:object-[72%_center]"
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
 
         {/* Directional Daylight-Preserving Gradient: Dark on text area, 100% transparent over the building & machines */}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,#0e1410_0%,rgba(14,20,16,0.95)_34%,rgba(14,20,16,0.60)_52%,rgba(14,20,16,0.15)_70%,transparent_85%)] max-lg:bg-[linear-gradient(180deg,#0e1410_0%,rgba(14,20,16,0.92)_50%,rgba(14,20,16,0.40)_80%,transparent_100%)]" />
@@ -121,6 +145,7 @@ export default function Home() {
               <Link
                 key={category.id}
                 href={`/urunler?kategori=${category.slug}`}
+                prefetch={false}
                 className="group flex min-h-28 flex-col justify-between border-r border-[#1c211d]/10 p-4 transition-colors last:border-r-0 hover:bg-[#e7b23f] sm:p-6"
               >
                 <span className="text-[10px] font-bold uppercase tracking-[.09em] text-[#626760] group-hover:text-[#121713]/65">
@@ -207,7 +232,7 @@ export default function Home() {
           <div className="lg:col-span-5">
             <div className="relative min-h-[520px] overflow-hidden rounded-[8px] bg-[#d8d6cf]">
               <Image
-                src="/images/products/ankurt_cizel_patlatma_1246074839.jpg"
+                src="/images/products/ankurt_cizel_patlatma_1246074839.webp"
                 alt="ANKURT çizel patlatma ekipmanları"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"
@@ -262,7 +287,7 @@ export default function Home() {
           <div className="flex items-center gap-5">
             <CheckCircle2 className="hidden h-9 w-9 text-[#121713] sm:block" />
             <div>
-              <p className="eyebrow-label text-[#121713]/60">Atölyemiz her zaman açık</p>
+              <p className="eyebrow-label text-[#121713] font-bold">Atölyemiz her zaman açık</p>
               <h2 className="mt-1 text-4xl uppercase leading-none text-[#121713]">Makineleri yerinde görmek ister misiniz?</h2>
             </div>
           </div>

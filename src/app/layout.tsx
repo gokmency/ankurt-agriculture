@@ -16,7 +16,7 @@ const manrope = Manrope({
 const barlowCondensed = Barlow_Condensed({
   subsets: ['latin'],
   variable: '--font-barlow-condensed',
-  weight: ['500', '600', '700'],
+  weight: ['600', '700'],
   display: 'swap',
 });
 
@@ -61,60 +61,6 @@ export const viewport: Viewport = {
   colorScheme: 'light',
 };
 
-// Some browser security extensions add these attributes before React hydrates.
-// Remove only the known extension-owned attributes; do not suppress genuine
-// application hydration errors.
-const extensionAttributeGuard = `
-(() => {
-  const isExtensionAttribute = (name) =>
-    name === 'bis_skin_checked' ||
-    name === 'bis_register';
-
-  const cleanElement = (element) => {
-    for (const attribute of Array.from(element.attributes || [])) {
-      if (isExtensionAttribute(attribute.name)) {
-        element.removeAttribute(attribute.name);
-      }
-    }
-  };
-
-  cleanElement(document.documentElement);
-
-  const observer = new MutationObserver((records) => {
-    for (const record of records) {
-      if (
-        record.type === 'attributes' &&
-        record.attributeName &&
-        isExtensionAttribute(record.attributeName)
-      ) {
-        record.target.removeAttribute(record.attributeName);
-      }
-
-      if (record.type === 'childList') {
-        for (const node of record.addedNodes) {
-          if (!(node instanceof Element)) continue;
-          cleanElement(node);
-          for (const element of node.querySelectorAll('*')) cleanElement(element);
-        }
-      }
-    }
-  });
-
-  observer.observe(document.documentElement, {
-    attributes: true,
-    childList: true,
-    subtree: true,
-    attributeFilter: ['bis_skin_checked', 'bis_register'],
-  });
-
-  window.addEventListener('DOMContentLoaded', () => {
-    for (const element of document.querySelectorAll('*')) {
-      cleanElement(element);
-    }
-  }, { once: true });
-})();
-`;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -123,19 +69,15 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${barlowCondensed.variable} ${manrope.variable} font-sans`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        <Script
-          id="extension-attribute-guard"
-          strategy="beforeInteractive"
-        >
-          {extensionAttributeGuard}
-        </Script>
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         {company.analytics.gaId && (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${company.analytics.gaId}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
-            <Script id="google-tag-analytics" strategy="afterInteractive">
+            <Script id="google-tag-analytics" strategy="lazyOnload">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}

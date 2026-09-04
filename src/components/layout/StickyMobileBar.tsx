@@ -25,7 +25,7 @@ export function StickyMobileBar() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={trackWhatsAppClick}
-          className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] text-white font-semibold py-2.5 px-3 rounded-[4px] text-xs transition-colors hover:bg-[#20bd5a] shadow-xs"
+          className="flex-1 flex items-center justify-center gap-2 bg-[#075e54] text-white font-semibold py-2.5 px-3 rounded-[4px] text-xs transition-colors hover:bg-[#054c44] shadow-xs"
         >
           <WhatsAppIcon className="w-4 h-4 fill-white" />
           <span>WhatsApp</span>

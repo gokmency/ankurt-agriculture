@@ -80,9 +80,10 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
         <div className="flex items-center justify-between p-5 border-b border-[#121713]/10">
           <div className="relative h-10 w-44">
             <Image
-              src="/images/brand/ankurt_official_logo.png"
+              src="/images/brand/ankurt_official_logo.webp"
               alt={company.nameFull}
               fill
+              loading="lazy"
               className="object-contain object-left"
               sizes="180px"
             />

@@ -37,12 +37,13 @@ export function Header() {
         <div className="section-shell flex h-[72px] items-center justify-between">
           <Link href="/" className="relative h-11 w-[152px] shrink-0 sm:w-[178px]" aria-label="ANKURT ana sayfa">
             <Image
-              src="/images/brand/ankurt_official_logo.png"
+              src="/images/brand/ankurt_official_logo.webp"
               alt={company.nameFull}
               fill
               className="object-contain object-left"
               sizes="178px"
-              priority
+              priority={false}
+              loading="eager"
             />
           </Link>
 

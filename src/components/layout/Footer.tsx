@@ -23,9 +23,10 @@ export function Footer() {
           <div className="lg:col-span-5 space-y-4">
             <div className="relative h-12 w-52">
               <Image
-                src="/images/brand/ankurt_official_logo.png"
+                src="/images/brand/ankurt_official_logo.webp"
                 alt={company.nameFull}
                 fill
+                loading="lazy"
                 className="object-contain object-left brightness-0 invert"
                 sizes="208px"
               />
@@ -69,7 +70,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={trackWhatsAppClick}
-                    className="inline-flex items-center px-3.5 py-1.5 rounded-[4px] bg-[#25D366] text-white text-xs font-semibold hover:bg-[#20bd5a] transition-colors shadow-xs"
+                    className="inline-flex items-center px-3.5 py-1.5 rounded-[4px] bg-[#075e54] text-white text-xs font-semibold hover:bg-[#054c44] transition-colors shadow-xs"
                   >
                     <WhatsAppLogoImage className="w-4 h-4 mr-1.5" size={18} />
                     WhatsApp

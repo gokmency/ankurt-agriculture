@@ -24,16 +24,18 @@ export function ProductCard({ product, className, preload = false }: ProductCard
       className
     )}>
       {/* Image Area */}
-      <Link href={`/urunler/${product.slug}/`} className="relative block aspect-[4/3] overflow-hidden bg-[#deddd7]">
+      <Link href={`/urunler/${product.slug}/`} prefetch={false} className="relative block aspect-[4/3] overflow-hidden bg-[#deddd7]">
         {hasImage ? (
-          <Image
-            src={product.images[0]}
-            alt={`${product.title} - ${isAnkurt ? 'ANKURT İmalatı' : product.brand} Serik Antalya`}
-            fill
-            preload={preload}
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+            <Image
+              src={product.images[0]}
+              alt={`${product.title} - ${isAnkurt ? 'ANKURT İmalatı' : product.brand} Serik Antalya`}
+              fill
+              preload={preload}
+              loading={preload ? "eager" : "lazy"}
+              decoding="async"
+              className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 360px"
+            />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#deddd7] p-6 text-center">
             <span className="eyebrow-label text-[#0f5d35]">{category?.name || 'Tarım Ekipmanı'}</span>
@@ -62,7 +64,7 @@ export function ProductCard({ product, className, preload = false }: ProductCard
           </div>
 
           <h3 className="font-editorial mb-3 line-clamp-2 text-[28px] uppercase leading-[1.02] text-[#1c211d] transition-colors group-hover:text-[#0f5d35]">
-            <Link href={`/urunler/${product.slug}/`}>
+            <Link href={`/urunler/${product.slug}/`} prefetch={false}>
               {product.title}
             </Link>
           </h3>
@@ -76,6 +78,7 @@ export function ProductCard({ product, className, preload = false }: ProductCard
         <div className="flex items-center justify-between border-t border-[#1c211d]/10 pt-4">
           <Link 
             href={`/urunler/${product.slug}/`}
+            prefetch={false}
             className="inline-flex items-center text-[11px] font-bold uppercase tracking-[.08em] text-[#0f5d35] transition-colors group-hover:text-[#121713]"
           >
             <span>Detayları İncele</span>
