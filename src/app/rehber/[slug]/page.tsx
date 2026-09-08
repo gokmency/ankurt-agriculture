@@ -8,7 +8,7 @@ import {
 import { getProductBySlug } from '@/data/products';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { ProductCard } from '@/components/products/ProductCard';
-import { JsonLd, articleJsonLd, breadcrumbJsonLd } from '@/components/seo/JsonLd';
+import { JsonLd, articleJsonLd, breadcrumbJsonLd, faqJsonLd } from '@/components/seo/JsonLd';
 import {
   ArrowLeft,
   ArrowRight,
@@ -27,6 +27,7 @@ import { createPageMetadata, absoluteUrl } from '@/lib/seo';
 import {
   ArticleContent,
   extractTableOfContents,
+  extractFaqFromContent,
 } from '@/components/guides/ArticleContent';
 import { ArticleShareBar } from '@/components/guides/ArticleShareBar';
 
@@ -89,6 +90,7 @@ export default async function GuideArticlePage({ params }: Props) {
     .filter((p): p is NonNullable<typeof p> => p !== undefined);
 
   const toc = extractTableOfContents(guide.content);
+  const faqItems = extractFaqFromContent(guide.content);
   const pageUrl = absoluteUrl(`/rehber/${guide.slug}/`);
 
   return (
@@ -100,8 +102,10 @@ export default async function GuideArticlePage({ params }: Props) {
           description: guide.shortDescription,
           slug: guide.slug,
           publishedDate: guide.publishedDate,
+          image: relatedProducts[0]?.images[0],
         })}
       />
+      {faqItems.length > 0 && <JsonLd data={faqJsonLd(faqItems)} />}
 
       <div className="section-shell">
         {/* Top Navigation */}

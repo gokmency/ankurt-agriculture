@@ -16,8 +16,31 @@ import { ProductCard } from '@/components/products/ProductCard';
 import { categories } from '@/data/categories';
 import { getAnkurtProducts, getProductsByCategory } from '@/data/products';
 import { company } from '@/data/company';
-import { JsonLd, websiteJsonLd } from '@/components/seo/JsonLd';
+import { JsonLd, websiteJsonLd, faqJsonLd } from '@/components/seo/JsonLd';
 import { createPageMetadata } from '@/lib/seo';
+
+const homeFaqs = [
+  {
+    question: 'Özel ölçüye ve seraya göre tarım makinesi imalatı yapıyor musunuz?',
+    answer:
+      'Evet. Antalya ve Serik bölgesindeki seraların direk aralıkları, bahçelerin sıra genişliği ve arazilerin toprak yapısı farklıdır. Traktörünüzün beygir gücüne, sera direk açıklığına ve arazinize tam uyumlu özel ölçüde bahçe römorku, sera sürgüsü, çizel patlatma ve traktör sepeti imalatı yapıyoruz.',
+  },
+  {
+    question: 'ANKURT ekipmanları hangi traktör modelleri ve beygir güçleri ile uyumludur?',
+    answer:
+      '20-40 HP arası bahçe tipi mini traktörlerden 70-110+ HP tarla traktörlerine kadar tüm segmentlere uygun modellerimiz mevcuttur. Traktörünüzün modelini, çeker durumunu ve arazi koşullarını belirttiğinizde ustalarımız en verimli ekipman ölçüsünü belirler.',
+  },
+  {
+    question: 'Antalya ve Serik dışına teslimat yapıyor musunuz?',
+    answer:
+      'Evet. Serik Yukarıkocayatak merkezli atölyemizden Antalya\'nın tüm ilçelerine (Kumluca, Finike, Manavgat, Aksu, Alanya) ve Türkiye genelindeki tarım bölgelerine anlaşmalı nakliye ile güvenli teslimat sağlıyoruz.',
+  },
+  {
+    question: 'İmalat garantisi ve yedek parça desteğiniz var mı?',
+    answer:
+      'Atölyemizde ürettiğimiz tüm ANKURT tarım makineleri ağır hizmet çelik şasi ve kaliteli dikiş kaynak standartlarıyla üretilir. İmalat kaynaklı durumlarda doğrudan atölye garantisi, kullanım desteği ve yedek parça temini sunuyoruz.',
+  },
+];
 
 export const metadata: Metadata = createPageMetadata({
   title: 'ANKURT Tarım Makinaları | Serik Antalya İmalat ve Satış',
@@ -33,6 +56,7 @@ export default function Home() {
   return (
     <main className="overflow-hidden bg-[#f2f0e9]">
       <JsonLd data={websiteJsonLd()} />
+      <JsonLd data={faqJsonLd(homeFaqs)} />
       <link
         rel="preload"
         as="image"
@@ -85,6 +109,7 @@ export default function Home() {
 
             {/* Main Headline - Sade, Güçlü, Net */}
             <h1 className="text-[46px] sm:text-[66px] lg:text-[84px] font-semibold uppercase leading-[.88] tracking-[-.035em] text-white">
+              <span className="sr-only">ANKURT Tarım Makinaları — Serik Antalya İmalat ve Satış: </span>
               Toprağınıza uygun.
               <span className="block text-[#e7b23f]">Yıllarca çalışır.</span>
             </h1>
@@ -278,6 +303,44 @@ export default function Home() {
               <Button asChild size="lg" variant="secondary"><Link href="/iletisim">Fiyat ve Bilgi Alın</Link></Button>
               <Button asChild size="lg" variant="outline"><Link href="/urunler">Tüm Makineleri Gör</Link></Button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SSS / FAQ Section for Rich Results & Farmer Trust */}
+      <section className="py-20 sm:py-28 border-t border-[#1c211d]/12 bg-[#f2f0e9]">
+        <div className="section-shell">
+          <div className="max-w-2xl">
+            <span className="eyebrow-label text-[#0f5d35]">Sıkça Sorulan Sorular</span>
+            <h2 className="mt-4 text-[42px] uppercase leading-[.92] text-[#1c211d] sm:text-[56px]">
+              Çiftçilerimizin En Çok Merak Ettiği Konular
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-[#626760] sm:text-base">
+              Özel ölçü imalatı, traktör beygir gücü uyumu, Antalya ve çevre bölgelere sevkiyat süreçleri hakkında merak edilenler.
+            </p>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {homeFaqs.map((faq, index) => (
+              <div
+                key={index}
+                className="rounded-[12px] border border-[#1c211d]/12 bg-[#fbfaf6] p-6 sm:p-8 shadow-xs flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-baseline gap-3 mb-3">
+                    <span className="text-[11px] font-bold text-[#0f5d35] uppercase tracking-wider">
+                      Soru 0{index + 1}
+                    </span>
+                  </div>
+                  <h3 className="font-editorial text-2xl uppercase leading-snug text-[#1c211d]">
+                    {faq.question}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#626760]">
+                    {faq.answer}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

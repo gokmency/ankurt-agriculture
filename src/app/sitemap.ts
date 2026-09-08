@@ -7,37 +7,37 @@ export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = company.seo.siteUrl;
-  const siteReleaseDate = new Date('2026-08-27T00:00:00+03:00');
+  const buildDate = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
-      lastModified: siteReleaseDate,
+      lastModified: buildDate,
       changeFrequency: 'weekly',
       priority: 1,
       images: [`${baseUrl}${company.heroImage}`],
     },
     {
       url: `${baseUrl}/urunler/`,
-      lastModified: siteReleaseDate,
+      lastModified: buildDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/hakkimizda/`,
-      lastModified: siteReleaseDate,
+      lastModified: buildDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/iletisim/`,
-      lastModified: siteReleaseDate,
+      lastModified: buildDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/rehber/`,
-      lastModified: siteReleaseDate,
+      lastModified: buildDate,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
@@ -46,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const products = getActiveProducts();
   const productPages: MetadataRoute.Sitemap = products.map((product) => ({
     url: `${baseUrl}/urunler/${product.slug}/`,
-    lastModified: siteReleaseDate,
+    lastModified: buildDate,
     changeFrequency: 'weekly',
     priority: 0.8,
     images: (product.images || []).map((image) => `${baseUrl}${image}`),

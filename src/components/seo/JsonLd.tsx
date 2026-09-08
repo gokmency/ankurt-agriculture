@@ -78,9 +78,18 @@ export function websiteJsonLd() {
         '@id': `${company.seo.siteUrl}/#website`,
         url: company.seo.siteUrl,
         name: company.nameFull,
+        alternateName: ['ANKURT', 'Ankurt Tarım', 'Ankurt Tarım Makinaları', 'Ankurt Tarım Market'],
         description: company.seo.defaultDescription,
         inLanguage: 'tr-TR',
         publisher: { '@id': `${company.seo.siteUrl}/#business` },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${company.seo.siteUrl}/urunler/?q={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
       },
       localBusinessNode(),
     ],
@@ -97,7 +106,7 @@ export function productJsonLd(product: Product) {
     '@id': `${company.seo.siteUrl}/urunler/${product.slug}/#product`,
     url: `${company.seo.siteUrl}/urunler/${product.slug}/`,
     sku: product.id,
-    image: images.length ? images : undefined,
+    image: images.length ? images : [`${company.seo.siteUrl}${company.heroImage}`],
     description: product.description,
     category: product.categoryId,
     brand: {
@@ -108,8 +117,6 @@ export function productJsonLd(product: Product) {
       '@type': 'Offer',
       url: `${company.seo.siteUrl}/urunler/${product.slug}/`,
       priceCurrency: 'TRY',
-      price: '0',
-      priceValidUntil: '2026-12-31',
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
       seller: {
@@ -151,7 +158,12 @@ export function articleJsonLd(article: {
   description: string;
   slug: string;
   publishedDate: string;
+  image?: string;
 }) {
+  const imageUrl = article.image
+    ? (article.image.startsWith('http') ? article.image : `${company.seo.siteUrl}${article.image}`)
+    : `${company.seo.siteUrl}${company.heroImage}`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -159,6 +171,7 @@ export function articleJsonLd(article: {
     mainEntityOfPage: `${company.seo.siteUrl}/rehber/${article.slug}/`,
     headline: article.title,
     description: article.description,
+    image: [imageUrl],
     datePublished: article.publishedDate,
     dateModified: article.publishedDate,
     inLanguage: 'tr-TR',
@@ -182,13 +195,13 @@ export function faqJsonLd(items: { question: string; answer: string }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: items.map(item => ({
+    mainEntity: items.map((item) => ({
       '@type': 'Question',
       name: item.question,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: item.answer
-      }
-    }))
+        text: item.answer,
+      },
+    })),
   };
 }

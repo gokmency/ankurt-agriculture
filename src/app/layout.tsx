@@ -23,7 +23,7 @@ const barlowCondensed = Barlow_Condensed({
 export const metadata: Metadata = {
   metadataBase: new URL(company.seo.siteUrl),
   title: {
-    template: `%s | ${company.name}`,
+    template: `%s | ANKURT Tarım Makinaları`,
     default: `${company.name} | ${company.tagline}`,
   },
   description: company.seo.defaultDescription,

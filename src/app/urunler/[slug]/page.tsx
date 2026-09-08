@@ -2,15 +2,16 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getProductBySlug, getActiveProducts, getRelatedProducts } from '@/data/products';
 import { getCategoryById } from '@/data/categories';
+import { getAllGuides } from '@/data/guides';
 import { company } from '@/data/company';
 import { ProductGallery } from '@/components/products/ProductGallery';
 import { ProductCard } from '@/components/products/ProductCard';
 import { InquiryForm } from '@/components/contact/InquiryForm';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { Badge } from '@/components/ui/Badge';
-import { JsonLd, productJsonLd, breadcrumbJsonLd } from '@/components/seo/JsonLd';
+import { JsonLd, productJsonLd, breadcrumbJsonLd, faqJsonLd } from '@/components/seo/JsonLd';
 import Link from 'next/link';
-import { Phone, ShieldCheck, CheckCircle2, ArrowLeft, Compass } from 'lucide-react';
+import { Phone, ShieldCheck, CheckCircle2, ArrowLeft, Compass, BookOpen, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppIcon, SahibindenBadge } from '@/components/ui/BrandIcons';
 import { createPageMetadata } from '@/lib/seo';
@@ -75,12 +76,32 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     { label: product.title, href: `/urunler/${product.slug}` }
   ];
 
+  const relatedGuides = getAllGuides()
+    .filter((g) => g.relatedProductSlugs && g.relatedProductSlugs.includes(product.slug))
+    .slice(0, 3);
+
+  const productFaqs = [
+    {
+      question: `${product.title} için traktör beygir gücü ve ölçü uyumu nasıl belirlenir?`,
+      answer: `Traktörünüzün beygir gücüne (HP), çift/tek çeker durumuna ve çalışma alanınıza (sera direk aralığı veya tarla yapısı) göre en uygun ölçü ve şasi tipi belirlenir. Detaylar için doğrudan Serik atölyemizle görüşebilirsiniz.`,
+    },
+    {
+      question: `${product.title} teslimatı nasıl yapılır?`,
+      answer: `Serik / Yukarıkocayatak atölyemizden Antalya içi ve tüm çevre tarım bölgelerine anlaşmalı nakliye ve araçlarımızla güvenli sevkiyat sağlıyoruz.`,
+    },
+    {
+      question: `${product.title} için servis ve yedek parça desteği var mı?`,
+      answer: `Evet, ANKURT güvencesiyle üretilen veya satışı yapılan tüm tarım ekipmanlarımızda doğrudan atölye teknik desteği ve yedek parça temini sağlanmaktadır.`,
+    },
+  ];
+
   const whatsappMessage = encodeURIComponent(`Merhaba, ${product.title} hakkında teknik detay ve fiyat bilgisi almak istiyorum.`);
 
   return (
     <div className="bg-[#f2f0e9] min-h-screen py-8 sm:py-12">
       <JsonLd data={productJsonLd(product)} />
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
+      <JsonLd data={faqJsonLd(productFaqs)} />
       
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-4">
@@ -251,6 +272,50 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedProducts.map(related => (
                 <ProductCard key={related.id} product={related} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Related Technical Guides (Bidirectional SEO Link Network) */}
+        {relatedGuides.length > 0 && (
+          <div className="mt-16 sm:mt-20">
+            <div className="flex items-end justify-between mb-8 pb-3 border-b border-[#121713]/8">
+              <div>
+                <span className="eyebrow-label text-[#0f5d35]">Uzman Tavsiyesi</span>
+                <h2 className="font-editorial text-[28px] text-[#0f5d35] tracking-[-0.02em] mt-0.5">
+                  Bu Ekipmanla İlgili Rehberler ve Kullanım Yazıları
+                </h2>
+              </div>
+              <Link href="/rehber/" className="text-xs font-medium text-[#0f5d35] hover:underline">
+                Tüm Rehberler &rarr;
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              {relatedGuides.map((guide) => (
+                <Link
+                  key={guide.id}
+                  href={`/rehber/${guide.slug}/`}
+                  className="group rounded-[12px] border border-[#121713]/10 bg-[#fbfaf6] p-6 transition-all hover:border-[#0f5d35]/40 hover:shadow-sm flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#0f5d35] mb-2">
+                      <BookOpen className="h-3.5 w-3.5" />
+                      <span>{guide.category}</span>
+                    </div>
+                    <h3 className="font-editorial text-xl uppercase leading-snug text-[#121713] transition-colors group-hover:text-[#0f5d35]">
+                      {guide.title}
+                    </h3>
+                    <p className="mt-2 text-xs text-[#626760] line-clamp-2 leading-relaxed">
+                      {guide.shortDescription}
+                    </p>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between border-t border-[#121713]/8 pt-3 text-[11px] font-semibold text-[#0f5d35]">
+                    <span>Rehberi Oku</span>
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
