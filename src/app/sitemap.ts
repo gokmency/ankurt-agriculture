@@ -53,12 +53,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const guides = getAllGuides();
-  const guidePages: MetadataRoute.Sitemap = guides.map((guide) => ({
-    url: `${baseUrl}/rehber/${guide.slug}/`,
-    lastModified: new Date(`${guide.publishedDate}T00:00:00+03:00`),
-    changeFrequency: 'monthly',
-    priority: 0.6,
-  }));
+  const guidePages: MetadataRoute.Sitemap = guides.map((guide) => {
+    const relatedProduct = guide.relatedProductSlugs?.[0]
+      ? products.find((p) => p.slug === guide.relatedProductSlugs[0])
+      : undefined;
+    const guideImage = relatedProduct?.images?.[0] || company.heroImage;
+
+    return {
+      url: `${baseUrl}/rehber/${guide.slug}/`,
+      lastModified: new Date(`${guide.publishedDate}T00:00:00+03:00`),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+      images: [`${baseUrl}${guideImage}`],
+    };
+  });
 
   return [...staticPages, ...productPages, ...guidePages];
 }

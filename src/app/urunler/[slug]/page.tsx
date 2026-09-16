@@ -71,9 +71,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   const breadcrumbItems = [
     { label: 'Ana Sayfa', href: '/' },
-    { label: 'Ürünler', href: '/urunler' },
-    ...(category ? [{ label: category.name, href: `/urunler?kategori=${category.slug}` }] : []),
-    { label: product.title, href: `/urunler/${product.slug}` }
+    { label: 'Ürünler', href: '/urunler/' },
+    ...(category ? [{ label: category.name, href: `/urunler/?kategori=${category.slug}` }] : []),
+    { label: product.title, href: `/urunler/${product.slug}/` }
   ];
 
   const relatedGuides = getAllGuides()
@@ -107,7 +107,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         <div className="flex items-center justify-between mb-4">
           <Breadcrumb items={breadcrumbItems} />
           <Link 
-            href="/urunler" 
+            href="/urunler/" 
             className="hidden sm:inline-flex items-center text-xs text-[#0f5d35] hover:underline font-medium"
           >
             <ArrowLeft className="w-3.5 h-3.5 mr-1 stroke-[1.5]" /> TÜM KATALOG
@@ -264,7 +264,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   İlgili Diğer Tarım Makineleri
                 </h2>
               </div>
-              <Link href="/urunler" className="text-xs font-medium text-[#0f5d35] hover:underline">
+              <Link href="/urunler/" className="text-xs font-medium text-[#0f5d35] hover:underline">
                 Tüm Ürünler &rarr;
               </Link>
             </div>

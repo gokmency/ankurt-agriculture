@@ -75,7 +75,7 @@ export function Header() {
               {company.contact.phone}
             </a>
             <Link
-              href="/iletisim"
+              href="/iletisim/"
               className="inline-flex h-10 items-center gap-2 rounded-[6px] bg-[#0f5d35] px-4 text-[11px] font-bold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#184f31]"
             >
               Teklif Al <ArrowUpRight className="h-3.5 w-3.5" />

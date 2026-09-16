@@ -72,7 +72,7 @@ function ProductListContent() {
 export default function ProductsPage() {
   const breadcrumbItems = [
     { label: 'Ana Sayfa', href: '/' },
-    { label: 'Ürünler', href: '/urunler' }
+    { label: 'Ürünler', href: '/urunler/' }
   ];
 
   return (

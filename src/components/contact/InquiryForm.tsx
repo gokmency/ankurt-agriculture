@@ -128,7 +128,7 @@ export function InquiryForm() {
         />
         <span>
           İletişim bilgilerimin talebime yanıt verilmesi amacıyla kullanılmasını kabul ediyorum.{' '}
-          <Link href="/kvkk" className="font-bold text-[#0f5d35] underline underline-offset-2">
+          <Link href="/kvkk/" className="font-bold text-[#0f5d35] underline underline-offset-2">
             KVKK Aydınlatma Metni
           </Link>
         </span>

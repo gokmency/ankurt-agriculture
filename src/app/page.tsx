@@ -122,12 +122,12 @@ export default function Home() {
             {/* Action Buttons */}
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button asChild size="lg">
-                <Link href="/urunler">
+                <Link href="/urunler/">
                   Ürünleri İncele <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="ghost-dark">
-                <Link href="/iletisim">Ustamıza Danışın</Link>
+                <Link href="/iletisim/">Ustamıza Danışın</Link>
               </Button>
             </div>
 
@@ -199,7 +199,7 @@ export default function Home() {
               <p className="max-w-md text-sm leading-6 text-[#626760]">
                 Bahçe römorku, 7&apos;li çizel patlatma, traktör sepeti ve sap toplama başta olmak üzere atölyemizde ürettiğimiz modelleri inceleyin.
               </p>
-              <Link href="/urunler?marka=ankurt" className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35] hover:text-[#121713]">
+              <Link href="/urunler/?marka=ankurt" className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35] hover:text-[#121713]">
                 Tüm ANKURT modelleri ({ankurtProducts.length}) <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -225,7 +225,7 @@ export default function Home() {
               Her arazinin toprağı, her seranın direk aralığı ve her traktörün gücü farklıdır. İhtiyacınıza tam uyan doğru ölçüyü belirleyip öyle imalat yapıyoruz.
             </p>
             <Button asChild variant="ghost-dark" size="md" className="mt-8">
-              <Link href="/hakkimizda">Atölyemiz ve Çalışma Şeklimiz</Link>
+              <Link href="/hakkimizda/">Atölyemiz ve Çalışma Şeklimiz</Link>
             </Button>
           </div>
 
@@ -300,8 +300,8 @@ export default function Home() {
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" variant="secondary"><Link href="/iletisim">Fiyat ve Bilgi Alın</Link></Button>
-              <Button asChild size="lg" variant="outline"><Link href="/urunler">Tüm Makineleri Gör</Link></Button>
+              <Button asChild size="lg" variant="secondary"><Link href="/iletisim/">Fiyat ve Bilgi Alın</Link></Button>
+              <Button asChild size="lg" variant="outline"><Link href="/urunler/">Tüm Makineleri Gör</Link></Button>
             </div>
           </div>
         </div>
@@ -354,7 +354,7 @@ export default function Home() {
               <h2 className="mt-1 text-4xl uppercase leading-none text-[#121713]">Makineleri yerinde görmek ister misiniz?</h2>
             </div>
           </div>
-          <Link href="/iletisim" className="inline-flex h-14 shrink-0 items-center justify-center gap-3 rounded-[6px] bg-[#121713] px-7 text-xs font-bold uppercase tracking-[.08em] text-white transition-colors hover:bg-[#0f5d35]">
+          <Link href="/iletisim/" className="inline-flex h-14 shrink-0 items-center justify-center gap-3 rounded-[6px] bg-[#121713] px-7 text-xs font-bold uppercase tracking-[.08em] text-white transition-colors hover:bg-[#0f5d35]">
             Bize Ulaşın <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

@@ -136,7 +136,7 @@ export default function AboutPage() {
                   </a>
                 </Button>
                 <Button asChild variant="outline" size="md">
-                  <Link href="/iletisim">Fiyat ve Bilgi Alın</Link>
+                  <Link href="/iletisim/">Fiyat ve Bilgi Alın</Link>
                 </Button>
               </div>
             </div>

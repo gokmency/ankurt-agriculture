@@ -32,7 +32,7 @@ export function StickyMobileBar() {
         </a>
       ) : (
         <Link
-          href="/iletisim"
+          href="/iletisim/"
           className="flex-1 flex items-center justify-center gap-2 bg-[#e7b23f] text-[#121713] font-medium py-2.5 px-3 rounded-[4px] text-xs transition-colors"
         >
           <span>Bilgi Al</span>

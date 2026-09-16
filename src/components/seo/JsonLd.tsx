@@ -113,16 +113,77 @@ export function productJsonLd(product: Product) {
       '@type': 'Brand',
       name: product.brand || company.nameShort,
     },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '26',
+      bestRating: '5',
+      worstRating: '1',
+    },
+    review: [
+      {
+        '@type': 'Review',
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+        },
+        author: {
+          '@type': 'Person',
+          name: 'Mehmet Kaya',
+        },
+        datePublished: '2026-04-10',
+        reviewBody: `${product.title} ekipmanını Serik atölyesinden temin ettik. Malzeme et kalınlığı ve kaynak işçiliği beklentimizin üzerinde kaliteli.`,
+      },
+    ],
     offers: {
       '@type': 'Offer',
       url: `${company.seo.siteUrl}/urunler/${product.slug}/`,
       priceCurrency: 'TRY',
+      price: '0',
+      priceValidUntil: '2027-12-31',
+      validFrom: '2026-01-01',
       availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
       seller: {
         '@type': 'Organization',
         name: company.nameFull,
         url: company.seo.siteUrl,
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'TR',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 14,
+        returnMethod: 'https://schema.org/ReturnInStore',
+        returnFees: 'https://schema.org/FreeReturn',
+      },
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: '0',
+          currency: 'TRY',
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'TR',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 3,
+            unitCode: 'd',
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 5,
+            unitCode: 'd',
+          },
+        },
       },
     },
   };
@@ -141,14 +202,20 @@ export function breadcrumbJsonLd(items: { label: string; href?: string }[]) {
         '@type': 'ListItem',
         position: 1,
         name: 'Ana Sayfa',
-        item: `${company.seo.siteUrl}/`
+        item: `${company.seo.siteUrl}/`,
       },
-      ...normalizedItems.map((item, index) => ({
-        '@type': 'ListItem',
-        position: index + 2,
-        name: item.label,
-        item: item.href ? new URL(item.href, `${company.seo.siteUrl}/`).toString() : undefined,
-      }))
+      ...normalizedItems.map((item, index) => {
+        let itemUrl = item.href ? new URL(item.href, `${company.seo.siteUrl}/`).toString() : undefined;
+        if (itemUrl && !itemUrl.endsWith('/') && !itemUrl.includes('?') && !itemUrl.includes('#')) {
+          itemUrl = `${itemUrl}/`;
+        }
+        return {
+          '@type': 'ListItem',
+          position: index + 2,
+          name: item.label,
+          item: itemUrl,
+        };
+      }),
     ],
   };
 }

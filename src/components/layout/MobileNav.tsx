@@ -130,7 +130,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
         {/* Action Bottom Area */}
         <div className="p-5 border-t border-[#121713]/10 space-y-3 bg-[#f2f0e9]/40">
           <Button asChild variant="primary" size="md" className="w-full justify-center">
-            <Link href="/iletisim">Bilgi & Teklif Al</Link>
+            <Link href="/iletisim/">Bilgi & Teklif Al</Link>
           </Button>
           <div className="grid grid-cols-2 gap-2">
             <a
