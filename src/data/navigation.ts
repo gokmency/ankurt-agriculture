@@ -26,15 +26,16 @@ export const footerNavigation = {
   products: [
     { label: 'Tüm Ürünler', href: '/urunler/' },
     { label: 'ANKURT Ürünleri', href: '/urunler/?marka=ankurt' },
-    { label: 'Römorklar', href: '/urunler/?kategori=romorklar' },
-    { label: 'Toprak İşleme', href: '/urunler/?kategori=toprak-isleme' },
-    { label: 'Sera Ekipmanları', href: '/urunler/?kategori=sera-ekipmanlari' },
-    { label: 'Taşıma', href: '/urunler/?kategori=tasima' },
+    { label: 'Römorklar', href: '/urunler/kategori/romorklar/' },
+    { label: 'Toprak İşleme', href: '/urunler/kategori/toprak-isleme/' },
+    { label: 'Sera Ekipmanları', href: '/urunler/kategori/sera-ekipmanlari/' },
+    { label: 'Taşıma', href: '/urunler/kategori/tasima/' },
   ],
   company: [
     { label: 'Hakkımızda', href: '/hakkimizda/' },
     { label: 'Ekipman Rehberi', href: '/rehber/' },
     { label: 'İletişim', href: '/iletisim/' },
+    { label: 'Site Haritası', href: '/site-haritasi/' },
   ],
   legal: [
     { label: 'Gizlilik Politikası', href: '/gizlilik-politikasi/' },

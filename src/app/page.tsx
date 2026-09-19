@@ -15,9 +15,11 @@ import { Button } from '@/components/ui/Button';
 import { ProductCard } from '@/components/products/ProductCard';
 import { categories } from '@/data/categories';
 import { getAnkurtProducts, getProductsByCategory } from '@/data/products';
+import { getAllGuides } from '@/data/guides';
 import { company } from '@/data/company';
 import { JsonLd, websiteJsonLd, faqJsonLd } from '@/components/seo/JsonLd';
 import { createPageMetadata } from '@/lib/seo';
+import { BookOpen, Clock, Layers } from 'lucide-react';
 
 const homeFaqs = [
   {
@@ -52,6 +54,8 @@ export const metadata: Metadata = createPageMetadata({
 export default function Home() {
   const ankurtProducts = getAnkurtProducts();
   const featuredProducts = ankurtProducts.slice(0, 3);
+  const allGuides = getAllGuides();
+  const featuredGuides = allGuides.slice(0, 4);
 
   return (
     <main className="overflow-hidden bg-[#f2f0e9]">
@@ -169,7 +173,7 @@ export default function Home() {
             {categories.map((category) => (
               <Link
                 key={category.id}
-                href={`/urunler?kategori=${category.slug}`}
+                href={`/urunler/kategori/${category.slug}/`}
                 prefetch={false}
                 className="group flex min-h-28 flex-col justify-between border-r border-[#1c211d]/10 p-4 transition-colors last:border-r-0 hover:bg-[#e7b23f] sm:p-6"
               >
@@ -303,6 +307,57 @@ export default function Home() {
               <Button asChild size="lg" variant="secondary"><Link href="/iletisim/">Fiyat ve Bilgi Alın</Link></Button>
               <Button asChild size="lg" variant="outline"><Link href="/urunler/">Tüm Makineleri Gör</Link></Button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Technical Guides (Internal PageRank & Crawl Hub) */}
+      <section className="py-20 sm:py-28 border-t border-[#1c211d]/12 bg-[#fbfaf6]">
+        <div className="section-shell">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 pb-4 border-b border-[#121713]/10">
+            <div>
+              <span className="eyebrow-label text-[#0f5d35]">Çiftçi & Üretici Rehberi</span>
+              <h2 className="mt-3 font-editorial text-[38px] sm:text-[50px] uppercase leading-tight text-[#1c211d]">
+                Ekipman Seçim ve Bakım Rehberleri
+              </h2>
+              <p className="mt-2 text-sm text-[#626760] max-w-xl">
+                Serik ve Antalya tarım koşullarına özel toprak işleme zamanlaması, bahçe römorku seçim kriterleri ve traktör uyum tavsiyeleri.
+              </p>
+            </div>
+            <Link
+              href="/rehber/"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35] hover:text-[#121713] transition-colors"
+            >
+              Tüm Rehberleri Gör (30 Yazı) <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredGuides.map((guide) => (
+              <article
+                key={guide.slug}
+                className="group flex flex-col justify-between rounded-[12px] border border-[#121713]/12 bg-[#f2f0e9]/50 p-6 transition-all hover:bg-white hover:border-[#0f5d35]/40 hover:shadow-md"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#0f5d35] mb-3">
+                    <span className="bg-[#0f5d35]/10 px-2 py-0.5 rounded-[4px]">{guide.category}</span>
+                    <span className="text-[#626760] flex items-center gap-1">
+                      <Clock className="w-3 h-3" /> {guide.readingTime}
+                    </span>
+                  </div>
+                  <h3 className="font-editorial text-xl uppercase leading-snug text-[#1c211d] group-hover:text-[#0f5d35] transition-colors mb-2">
+                    <Link href={`/rehber/${guide.slug}/`}>{guide.title}</Link>
+                  </h3>
+                  <p className="text-xs text-[#626760] line-clamp-3 leading-relaxed">
+                    {guide.shortDescription}
+                  </p>
+                </div>
+                <div className="mt-5 pt-3 border-t border-[#121713]/8 flex items-center justify-between text-xs font-bold text-[#0f5d35]">
+                  <span>Rehberi Oku</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>

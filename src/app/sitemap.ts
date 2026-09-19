@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { company } from '@/data/company';
 import { getActiveProducts } from '@/data/products';
 import { getAllGuides } from '@/data/guides';
+import { categories } from '@/data/categories';
 
 export const dynamic = 'force-static';
 
@@ -39,9 +40,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/rehber/`,
       lastModified: buildDate,
       changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/site-haritasi/`,
+      lastModified: buildDate,
+      changeFrequency: 'weekly',
       priority: 0.7,
     },
   ];
+
+  const categoryPages: MetadataRoute.Sitemap = categories.map((category) => ({
+    url: `${baseUrl}/urunler/kategori/${category.slug}/`,
+    lastModified: buildDate,
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
 
   const products = getActiveProducts();
   const productPages: MetadataRoute.Sitemap = products.map((product) => ({
@@ -68,5 +82,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...staticPages, ...productPages, ...guidePages];
+  return [...staticPages, ...categoryPages, ...productPages, ...guidePages];
 }

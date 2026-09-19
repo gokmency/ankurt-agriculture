@@ -72,7 +72,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   const breadcrumbItems = [
     { label: 'Ana Sayfa', href: '/' },
     { label: 'Ürünler', href: '/urunler/' },
-    ...(category ? [{ label: category.name, href: `/urunler/?kategori=${category.slug}` }] : []),
+    ...(category ? [{ label: category.name, href: `/urunler/kategori/${category.slug}/` }] : []),
     { label: product.title, href: `/urunler/${product.slug}/` }
   ];
 
@@ -139,7 +139,13 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 <Badge variant={isAnkurt ? 'chartreuse' : 'sage'}>
                   {isAnkurt ? 'ANKURT İMALATI' : product.brand}
                 </Badge>
-                {category && <Badge variant="outline">{category.name}</Badge>}
+                {category && (
+                  <Link href={`/urunler/kategori/${category.slug}/`}>
+                    <Badge variant="outline" className="hover:border-[#0f5d35] hover:text-[#0f5d35] transition-colors cursor-pointer">
+                      {category.name}
+                    </Badge>
+                  </Link>
+                )}
               </div>
               
               <h1 className="font-editorial text-[32px] sm:text-[40px] text-[#0f5d35] tracking-[-0.02em] leading-[1.05] mb-3">
@@ -164,7 +170,13 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 </div>
                 <div className="p-3 bg-[#fbfaf6] rounded-[4px] border border-[#121713]/6">
                   <span className="text-[#464c47]/60 block text-[10px] uppercase font-medium">KATEGORİ</span>
-                  <span className="font-medium text-[#0f5d35]">{category?.name || 'Tarım Ekipmanı'}</span>
+                  {category ? (
+                    <Link href={`/urunler/kategori/${category.slug}/`} className="font-medium text-[#0f5d35] hover:underline">
+                      {category.name}
+                    </Link>
+                  ) : (
+                    <span className="font-medium text-[#0f5d35]">Tarım Ekipmanı</span>
+                  )}
                 </div>
                 <div className="p-3 bg-[#fbfaf6] rounded-[4px] border border-[#121713]/6">
                   <span className="text-[#464c47]/60 block text-[10px] uppercase font-medium">SEVKİYAT NOKTASI</span>
