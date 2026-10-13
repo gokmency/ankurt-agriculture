@@ -1,7 +1,8 @@
 // ANKURT TARIM MAKİNALARI — Complete Product Database
-// All 20 products populated with rich image assets and verified factual data
+// Catalog records; model-specific dimensions and compatibility require confirmation.
 
-export type ProductBrandType = 'ankurt' | 'other';
+import { matchesSearch } from '../lib/search';
+export type ProductBrandType = 'ankurt' | 'other' | 'unconfirmed';
 export type ProductStatus = 'active' | 'inactive';
 
 export interface Product {
@@ -16,13 +17,14 @@ export interface Product {
   features: string[];
   usageAreas: string[];
   images: string[];
+  imageKind?: 'reference' | 'product';
   status: ProductStatus;
   sahibindenUrl?: string;
   relatedSlugs: string[];
   order: number;
 }
 
-export const products: Product[] = [
+const catalogProducts: Product[] = [
   // ═══════════════════════════════════════════
   // ANKURT BRANDED PRODUCTS
   // ═══════════════════════════════════════════
@@ -37,7 +39,7 @@ export const products: Product[] = [
     shortDescription:
       'Dar bahçe yolları ve sera girişlerinde rahat manevra yapan 2,5–3 tonluk sağlam bahçe römorku.',
     description:
-      'Dar bahçe araları ve sera girişlerinde traktörü yormadan çalışan, 2,5–3 ton kapasiteli sağlam bahçe römorkumuz. Meyve-sebze hasadı, gübre ve tarla malzemesi taşımada pratik devirmeli kasası ve sağlam dingil yapısıyla uzun yıllar sorunsuz hizmet verir. İsteğe ve traktör modeline göre ölçü uyarlaması yapılabilmektedir.',
+      'Dar bahçe araları ve sera girişlerinde traktörü yormadan çalışan, 2,5–3 ton kapasiteli sağlam bahçe römorkumuz. Meyve-sebze hasadı, gübre ve tarla malzemesi taşımada pratik devirmeli kasası ve sağlam dingil yapısıyla günlük taşıma işlerinde kullanılır. İsteğe ve traktör modeline göre ölçü uyarlaması yapılabilmektedir.',
     features: [
       'Dar bahçe araları ve seraya uygun kompakt ölçüler',
       '2,5–3 ton taşıma kapasitesi',
@@ -67,7 +69,7 @@ export const products: Product[] = [
     shortDescription:
       'Sera ve bahçede taban taşını yırtan, kök bölgesini havalandıran 7 ayaklı sağlam patlatma.',
     description:
-      'Sera ve bahçe toprağının zamanla sertleşip su geçirmeyen alt tabakasını (taban taşı) yırtarak havalandıran 7 ayaklı patlatma ekipmanımız. Toprağın üst verimli katmanını devirmeden derinlemesine işler; köklerin rahat yayılmasını ve sulama suyunun toprağa eşit işlemesini sağlar. Ağır hizmet profili ve sağlam ayak yapısıyla taşlı topraklarda esneme yapmaz.',
+      'Sera ve bahçe toprağının zamanla sertleşip su geçirmeyen alt tabakasını (taban taşı) yırtarak havalandıran 7 ayaklı patlatma ekipmanımız. Toprağın üst verimli katmanını devirmeden derinlemesine işler; köklerin rahat yayılmasını ve sulama suyunun toprağa eşit işlemesini sağlar. Ağır hizmet profili ve sağlam ayak yapısıyla için geliştirilmiştir.',
     features: [
       '7 adet ısıl işlemli dayanıklı ayak',
       'Sera ve bahçeye uygun çalışma genişliği',
@@ -203,7 +205,7 @@ export const products: Product[] = [
       'Sebze bahçesi düzenleme',
       'Su drenajı iyileştirme',
     ],
-    images: ['/images/products/ankurt_sirt_yapma.webp'],
+    images: [],
     status: 'active',
     sahibindenUrl:
       'https://www.sahibinden.com/ilan/is-makineleri-sanayi-tarim-makineleri-toprak-isleme-ankurt-sirt-yapma-makinesi-1310484546/detay',
@@ -229,7 +231,7 @@ export const products: Product[] = [
       'Tarla toprak işleme',
       'Toprak hazırlığı',
     ],
-    images: ['/images/products/ankurt_tir_makinasi.webp'],
+    images: [],
     status: 'active',
     sahibindenUrl:
       'https://www.sahibinden.com/ilan/1294290775/detay',
@@ -295,14 +297,14 @@ export const products: Product[] = [
   {
     id: 'ankurt-malc',
     slug: 'malc-makinesi',
-    title: 'ANKURT Malç Makinesi',
-    brand: 'ANKURT',
-    brandType: 'ankurt',
+    title: 'Malç Makinesi',
+    brand: '',
+    brandType: 'unconfirmed',
     categoryId: 'toprak-isleme',
     shortDescription:
       'Bitki artıkları ve sapları öğüterek toprağa karıştıran malç makinesi.',
     description:
-      'Malç Makinesi, hasat sonrası kalan bitki artıklarını, sapları ve atıkları öğüterek toprağa karıştırır. Araştırmada ürün görselleri üzerinde ANKURT markası görülmüştür, ancak üretici bilgisi kesinleştirilmelidir. Toprağın organik madde içeriğini artırmaya ve bir sonraki ekime hazırlığa katkı sağlar.',
+      'Malç Makinesi, hasat sonrası kalan bitki artıklarını, sapları ve atıkları öğüterek toprağa karıştırır. Marka ve model seçenekleri için atölyemizle görüşebilirsiniz. Toprağın organik madde içeriğini artırmaya ve bir sonraki ekime hazırlığa katkı sağlar.',
     features: [
       'Bitki artığı öğütme',
       'Toprağa karıştırma',
@@ -315,7 +317,7 @@ export const products: Product[] = [
       'Organik madde geri dönüşümü',
       'Ekim öncesi tarla hazırlığı',
     ],
-    images: ['/images/products/ankurt_malc.webp'],
+    images: [],
     status: 'active',
     sahibindenUrl:
       'https://www.sahibinden.com/ilan/is-makineleri-sanayi-tarim-makineleri-toprak-isleme-malcmakinesi-1235929319/detay',
@@ -366,7 +368,7 @@ export const products: Product[] = [
     shortDescription:
       '3 yana (sağa, sola, arkaya) hidrolik devirmeli damper sistemiyle dar alanda üstün boşaltma kolaylığı sağlayan 3,5 tonluk tarım römorku.',
     description:
-      'Öz-Akın 3 Yana Devirmeli Römork, dar bahçe yollarında veya yanaşmanın güç olduğu sera ve depo girişlerinde manevra yapmaya gerek kalmadan sağa, sola ve geriye döküm yapabilen özel damper geometrisine sahiptir. Çift mafsallı emniyet kilitleri ve güçlü teleskopik hidrolik pistonu yükün güvenle ve dengeli şekilde tahliye edilmesini garanti eder. Yüksek kapak dayanımı ve sızdırmaz kasa yapısıyla hem dökme yükte hem de kasalı hasat taşımacılığında uzun ömürlü kullanım sunar.',
+      'Öz-Akın 3 Yana Devirmeli Römork, dar bahçe yollarında veya yanaşmanın güç olduğu sera ve depo girişlerinde manevra yapmaya gerek kalmadan sağa, sola ve geriye döküm yapabilen özel damper geometrisine sahiptir. Çift mafsallı emniyet kilitleri ve güçlü teleskopik hidrolik pistonu yükün kontrollü tahliyeye yardımcı olur. Yüksek kapak dayanımı ve sızdırmaz kasa yapısıyla hem dökme yükte hem de kasalı hasat taşımacılığında uzun ömürlü kullanım sunar.',
     features: [
       '3 yöne (sağ, sol ve arka) hidrolik damperli devirme mekanizması',
       '3,5 - 4 ton nominal taşıma kapasitesi',
@@ -401,7 +403,7 @@ export const products: Product[] = [
       'Asılır (3 nokta askı) ve çekilir tip hibrit kullanım imkanı',
       'Yüksek kaliteli bor çeliği, ısıl işlemli çentikli ve düz disk kombinasyonu',
       'Toz ve çamur sızdırmaz çift rulmanlı ağır yataklama grubu',
-      '75 HP ile 120 HP arası tarla traktörleriyle kusursuz çekiş dengesi',
+      '75 HP ile 120 HP arası tarla traktörleriyle çekiş gereksinimi (model bazında teyit edilmelidir)',
     ],
     usageAreas: [
       'Hububat, mısır ve ayçiçeği anızını kırma ve toprağa gömme',
@@ -409,7 +411,7 @@ export const products: Product[] = [
       'Yabancı ot kontrolü ve toprak havalandırma',
       'Geniş tarla arazilerinde hızlı toprak işleme',
     ],
-    images: ['/images/products/sevsan_ofset_diskaro.webp'],
+    images: [],
     status: 'active',
     relatedSlugs: ['sevsan-sabit-diskaro', 'sevsan-tandem-diskaro', 'torunoglu-rotovator'],
     order: 13,
@@ -429,7 +431,7 @@ export const products: Product[] = [
       '16, 18 ve 20 diskli kompakt şasi alternatifleri',
       'Ağaç gövdelerine takılmayan pürüzsüz dış hatlar ve sabit açı ayarı',
       'Yağ banyolu, keçeli sağlam porya ve disk rulman yapısı',
-      '45-70 HP bahçe ve tarla traktörleri ile mükemmel eşleşme',
+      '45-70 HP bahçe ve tarla traktörleri ile uyum değerlendirmesi (model bazında teyit edilmelidir)',
       'Minimum traktör çeki kuvvetiyle maksimum kesme derinliği',
     ],
     usageAreas: [
@@ -438,7 +440,7 @@ export const products: Product[] = [
       'İlkbahar ve sonbahar yabancı ot mücadelesi',
       'Hafif ve orta bünyeli topraklarda yüzlek sürüm',
     ],
-    images: ['/images/products/sevsan_sabit_diskaro.webp'],
+    images: [],
     status: 'active',
     sahibindenUrl:
       'https://www.sahibinden.com/ilan/1334259008/detay',
@@ -469,7 +471,7 @@ export const products: Product[] = [
       'Hassas tohum yatağı hazırlığı ve ot temizliği',
       'Düzgün yüzey gerektiren damlama sulamalı sıra altları',
     ],
-    images: ['/images/products/sevsan_tandem_diskaro.webp'],
+    images: [],
     status: 'active',
     relatedSlugs: ['sevsan-ofset-diskaro', 'sevsan-sabit-diskaro', 'torunoglu-rotovator'],
     order: 15,
@@ -490,7 +492,7 @@ export const products: Product[] = [
       'Ağır hizmet tipi döküm şanzıman ve güçlü dişli aktarma organları',
       'Aşınmaya dayanıklı alaşımlı ısıl işlem görmüş çelik bıçaklar',
       'Yükseklik ve baskı ayarlı arka tesviye ve bastırma sacı',
-      '60-95 HP arası traktörlerle tam uyumlu çalışma devri',
+      '60-95 HP arası traktörlerle uyum değerlendirmesi (PTO devri ayrıca teyit edilmelidir)',
     ],
     usageAreas: [
       'Fide dikimi ve hassas tohum ekimi öncesi tohum yatağı hazırlığı',
@@ -498,7 +500,7 @@ export const products: Product[] = [
       'Mısır ve pamuk hasadı sonrası köklerin ufalanması',
       'Çeltik, sebze ve bostan arazilerinde tek geçişte zemin hazırlığı',
     ],
-    images: ['/images/products/torunoglu_rotovator.webp'],
+    images: [],
     status: 'active',
     relatedSlugs: ['ata-rotovator', 'sevsan-ofset-diskaro'],
     order: 16,
@@ -542,13 +544,13 @@ export const products: Product[] = [
     shortDescription:
       'Kuyruk mili tahrikli, sağlam şanzımanlı, bahçe ve tarla alanlarında toprağı kabartan ve kesekleri incelten dayanıklı rotovatör.',
     description:
-      'Ata Rotovatör, tarla ve açık bahçe zeminlerinin havalandırılması, taban taşının kırılması sonrası tohum yatağının en ideal granül yapısına getirilmesi için üretilmiş sağlam bir freze makinesidir. Bıçakların dönüş hareketi toprağı geriye doğru fırlatarak arka kapağa çarptırır; böylece iri kesekler parçalanır ve yüzey pürüzsüz hale gelir. ANKURT güvencesiyle çiftçilerimize sunulan bu makine, uzun sezonlar boyunca arızasız çalışma performansı sergiler.',
+      'Ata Rotovatör, tarla ve açık bahçe zeminlerinin havalandırılması, taban taşının kırılması sonrası tohum yatağının en ideal granül yapısına getirilmesi için üretilmiş sağlam bir freze makinesidir. Bıçakların dönüş hareketi toprağı geriye doğru fırlatarak arka kapağa çarptırır; böylece iri kesekler parçalanır ve yüzey pürüzsüz hale gelir. ANKURT güvencesiyle çiftçilerimize sunulan bu makine, düzenli bakım ve uygun kullanım gerektirir.',
     features: [
       'Güçlendirilmiş dişli yan aktarma sistemi',
       'Aşınmaya dayanıklı kavisli C tipi dövme çelik bıçak grubu',
       'Tozlu ve çamurlu ortamlarda sızdırmaz özel keçe yataklama',
       'Yaylı baskı sacı ile pürüzsüz zemin tesviyesi',
-      '50-80 HP arası bahçe ve tarla traktörlerine tam mekanik uyum',
+      '50-80 HP arası bahçe ve tarla traktörlerine mekanik uyum değerlendirmesi (model bazında teyit edilmelidir)',
     ],
     usageAreas: [
       'Sera ve açık tarla fide yatağı hazırlığı',
@@ -580,7 +582,7 @@ export const products: Product[] = [
       'Ağır yüke dayanıklı dingil ve geniş taban tarla lastikleri',
     ],
     usageAreas: [
-      'Uzak tarlalara ve bahçelere içme ve sulama suyu nakliyesi',
+      'Uzak tarlalara ve bahçelere sulama suyu nakliyesi (içme suyu uygunluğu teyit edilmemiştir)',
       'Sera pülverizatör ve ilaçlama makinelerine su ikmali',
       'Çiftlik, ağıl ve kümes alanlarının tazyikli yıkanması',
       'Yaz aylarında yangın ve kuraklık önleyici acil su rezervi',
@@ -602,7 +604,7 @@ export const products: Product[] = [
     shortDescription:
       'Hassas lazer vericili ve hidrolik kontrollü tesviye bıçağıyla su tasarrufu sağlayan profesyonel arazi düzleme ekipmanı.',
     description:
-      'Lazer Kontrollü Arazi Tesviye Makinesi, tarla yüzeyindeki kot farklarını milimetrik hassasiyetle düzelterek sulama suyunun tüm parsele eşit dağılmasını sağlayan yüksek teknolojili bir tarım makinesidir. Traktör üzerine monte edilen alıcı ünite, tarlanın merkezine kurulan lazer vericisinden gelen sinyallerle hidrolik bıçak yüksekliğini anlık olarak ayarlar. Su birikintilerini ve kurak kalan tepecikleri ortadan kaldırarak tohum çimlenme oranını artırır, salma ve damla sulamada %35\'e varan su ve enerji tasarrufu sağlar.',
+      'Lazer Kontrollü Arazi Tesviye Makinesi, tarla yüzeyindeki kot farklarını milimetrik hassasiyetle düzelterek sulama suyunun tüm parsele eşit dağılmasını sağlayan yüksek teknolojili bir tarım makinesidir. Traktör üzerine monte edilen alıcı ünite, tarlanın merkezine kurulan lazer vericisinden gelen sinyallerle hidrolik bıçak yüksekliğini anlık olarak ayarlar. Su birikintilerini ve kurak kalan tepecikleri ortadan kaldırarak tohum çimlenme oranını artırır, sulama yönetimine yardımcı olur; sonuçlar arazi koşullarına bağlıdır.',
     features: [
       'Milimetrik kot hassasiyeti sunan çift eğimli lazer kontrol sistemi',
       'Ağır hizmet tipi geniş kazıyıcı ve taşıyıcı çelik tesviye bıçağı',
@@ -622,6 +624,11 @@ export const products: Product[] = [
     order: 20,
   },
 ];
+
+export const products: Product[] = catalogProducts.map(product => ({
+  ...product,
+  imageKind: ['ankurt-cizel-patlatma', 'ankurt-traktor-sepeti'].includes(product.id) ? 'product' : 'reference',
+}));
 
 // Helper functions
 export function getProductBySlug(slug: string): Product | undefined {
@@ -665,10 +672,7 @@ export function searchProducts(query: string): Product[] {
   if (!q) return getActiveProducts();
   return getActiveProducts().filter(
     (p) =>
-      p.title.toLowerCase().includes(q) ||
-      p.brand.toLowerCase().includes(q) ||
-      p.shortDescription.toLowerCase().includes(q) ||
-      p.categoryId.toLowerCase().includes(q)
+      matchesSearch([p.title, p.brand, p.shortDescription, p.description, p.categoryId].join(' '), q)
   );
 }
 

@@ -16,6 +16,8 @@ export interface Guide {
   category: string;
   readingTime: string;
   publishedDate: string;
+  updatedDate?: string;
+  sources?: { title: string; url: string }[];
   relatedProductSlugs: string[];
   content: string;
 }

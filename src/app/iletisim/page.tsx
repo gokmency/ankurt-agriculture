@@ -1,5 +1,7 @@
 'use client';
 
+import { WorkshopMap } from '@/components/contact/WorkshopMap';
+
 import { company } from '@/data/company';
 import { InquiryForm } from '@/components/contact/InquiryForm';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
@@ -95,8 +97,8 @@ export default function ContactPage() {
                     href={company.contact.whatsappUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    onClick={trackWhatsAppClick}
-                    className="inline-flex items-center justify-center px-4 py-2.5 rounded-[4px] bg-[#25D366] text-white text-sm font-semibold hover:bg-[#20bd5a] transition-colors shadow-xs"
+                    onClick={() => trackWhatsAppClick()}
+                    className="inline-flex items-center justify-center px-4 py-2.5 rounded-[4px] bg-[#075e54] text-white text-sm font-semibold hover:bg-[#054c44] transition-colors shadow-xs"
                   >
                     <WhatsAppLogoImage className="w-4 h-4 mr-1.5" size={18} />
                     WhatsApp İletişim
@@ -208,13 +210,7 @@ export default function ContactPage() {
               </div>
 
               <div className="relative rounded-[10px] overflow-hidden aspect-[16/9] w-full border border-[#fbfaf6]/20">
-                <iframe
-                  title="ANKURT İletişim Haritası"
-                  src={company.location.mapEmbedUrl}
-                  className="w-full h-full border-0 opacity-90 hover:opacity-100 transition-opacity"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+                <WorkshopMap />
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">

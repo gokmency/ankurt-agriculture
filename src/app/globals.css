@@ -117,3 +117,13 @@
   background-color: #e7b23f;
   color: #121713;
 }
+
+/* Shared keyboard, anchor and motion behavior. */
+:focus-visible { outline: 3px solid #0f5d35; outline-offset: 3px; }
+[id] { scroll-margin-top: 6rem; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+* { scrollbar-width: thin; scrollbar-color: #626760 #f2f0e9; }

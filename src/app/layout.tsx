@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Barlow_Condensed, Manrope } from 'next/font/google';
-import Script from 'next/script';
+import { ConsentAnalytics } from '@/components/layout/ConsentAnalytics';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -68,28 +68,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className={`${barlowCondensed.variable} ${manrope.variable} font-sans`} data-scroll-behavior="smooth" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        {company.analytics.gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${company.analytics.gaId}`}
-              strategy="lazyOnload"
-            />
-            <Script id="google-tag-analytics" strategy="lazyOnload">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${company.analytics.gaId}', {
-                  page_path: window.location.pathname,
-                });
-              `}
-            </Script>
-          </>
-        )}
-      </head>
       <body className="min-h-screen flex flex-col bg-[#f2f0e9] text-[#1c211d] antialiased" suppressHydrationWarning>
         <a
           href="#main-content"
@@ -103,6 +81,7 @@ export default function RootLayout({
         </div>
         <Footer />
         <StickyMobileBar />
+        <ConsentAnalytics />
       </body>
     </html>
   );

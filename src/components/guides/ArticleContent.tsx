@@ -1,4 +1,6 @@
+import { TrackedContactLink } from '@/components/contact/TrackedContactLink';
 import React from 'react';
+import { normalizeSearch } from '@/lib/search';
 import Link from 'next/link';
 import { CheckCircle2, Circle, Phone, ShieldCheck } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/ui/BrandIcons';
@@ -9,8 +11,7 @@ interface ArticleContentProps {
 }
 
 export function slugifyHeading(text: string): string {
-  return text
-    .toLowerCase()
+  return normalizeSearch(text)
     .replace(/[^\w\s-]/g, '')
     .replace(/ğ/g, 'g')
     .replace(/ü/g, 'u')
@@ -205,20 +206,20 @@ export function ArticleContent({ content }: ArticleContentProps) {
                     Sera kapı genişliği, ağaç sıra aralığı veya traktörünüzün beygir gücüne tam uyacak şasi ve ekipman ölçüsünü ustamızla doğrudan görüşerek belirleyebilirsiniz.
                   </p>
                   <div className="mt-5 flex flex-wrap items-center gap-3">
-                    <a
+                    <TrackedContactLink
                       href={company.contact.phoneHref}
                       className="inline-flex items-center gap-2 rounded-[6px] bg-[#0f5d35] px-4 py-2.5 text-xs font-bold uppercase tracking-[.06em] text-white hover:bg-[#184f31] transition-colors"
                     >
                       <Phone className="h-3.5 w-3.5" /> Ustayı Ara: {company.contact.phone}
-                    </a>
-                    <a
+                    </TrackedContactLink>
+                    <TrackedContactLink
                       href={company.contact.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-[6px] bg-[#25d366] px-4 py-2.5 text-xs font-bold uppercase tracking-[.06em] text-white hover:bg-[#20bd5a] transition-colors"
+                      className="inline-flex items-center gap-2 rounded-[6px] bg-[#25d366] px-4 py-2.5 text-xs font-bold uppercase tracking-[.06em] text-white hover:bg-[#054c44] transition-colors"
                     >
                       <WhatsAppIcon className="h-3.5 w-3.5 fill-current" /> WhatsApp Danışma
-                    </a>
+                    </TrackedContactLink>
                   </div>
                 </div>
               )}

@@ -1,3 +1,4 @@
+import { TrackedContactLink } from '@/components/contact/TrackedContactLink';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getProductBySlug, getActiveProducts, getRelatedProducts } from '@/data/products';
@@ -9,7 +10,7 @@ import { ProductCard } from '@/components/products/ProductCard';
 import { InquiryForm } from '@/components/contact/InquiryForm';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { Badge } from '@/components/ui/Badge';
-import { JsonLd, productJsonLd, breadcrumbJsonLd, faqJsonLd } from '@/components/seo/JsonLd';
+import { JsonLd, productJsonLd, breadcrumbJsonLd } from '@/components/seo/JsonLd';
 import Link from 'next/link';
 import { Phone, ShieldCheck, CheckCircle2, ArrowLeft, Compass, BookOpen, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -32,7 +33,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const product = getProductBySlug(resolvedParams.slug);
-  
+
   if (!product) {
     return {
       title: 'Ürün Bulunamadı',
@@ -67,7 +68,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   const category = getCategoryById(product.categoryId);
   const relatedProducts = getRelatedProducts(product.slug);
-  const isAnkurt = product.brandType === 'ankurt' || product.brand === 'ANKURT';
+  const isAnkurt = product.brandType === 'ankurt';
 
   const breadcrumbItems = [
     { label: 'Ana Sayfa', href: '/' },
@@ -80,34 +81,18 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     .filter((g) => g.relatedProductSlugs && g.relatedProductSlugs.includes(product.slug))
     .slice(0, 3);
 
-  const productFaqs = [
-    {
-      question: `${product.title} için traktör beygir gücü ve ölçü uyumu nasıl belirlenir?`,
-      answer: `Traktörünüzün beygir gücüne (HP), çift/tek çeker durumuna ve çalışma alanınıza (sera direk aralığı veya tarla yapısı) göre en uygun ölçü ve şasi tipi belirlenir. Detaylar için doğrudan Serik atölyemizle görüşebilirsiniz.`,
-    },
-    {
-      question: `${product.title} teslimatı nasıl yapılır?`,
-      answer: `Serik / Yukarıkocayatak atölyemizden Antalya içi ve tüm çevre tarım bölgelerine anlaşmalı nakliye ve araçlarımızla güvenli sevkiyat sağlıyoruz.`,
-    },
-    {
-      question: `${product.title} için servis ve yedek parça desteği var mı?`,
-      answer: `Evet, ANKURT güvencesiyle üretilen veya satışı yapılan tüm tarım ekipmanlarımızda doğrudan atölye teknik desteği ve yedek parça temini sağlanmaktadır.`,
-    },
-  ];
-
   const whatsappMessage = encodeURIComponent(`Merhaba, ${product.title} hakkında teknik detay ve fiyat bilgisi almak istiyorum.`);
 
   return (
     <div className="bg-[#f2f0e9] min-h-screen py-8 sm:py-12">
       <JsonLd data={productJsonLd(product)} />
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
-      <JsonLd data={faqJsonLd(productFaqs)} />
-      
+
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-4">
           <Breadcrumb items={breadcrumbItems} />
-          <Link 
-            href="/urunler/" 
+          <Link
+            href="/urunler/"
             className="hidden sm:inline-flex items-center text-xs text-[#0f5d35] hover:underline font-medium"
           >
             <ArrowLeft className="w-3.5 h-3.5 mr-1 stroke-[1.5]" /> TÜM KATALOG
@@ -116,10 +101,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
         {/* Main Product Box (Paper White with 16px radius, no shadow) */}
         <div className="bg-[#fbfaf6] rounded-[16px] p-6 sm:p-10 border border-[#121713]/10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-          
+
           {/* Left Column: Gallery */}
           <div className="lg:col-span-6 space-y-4">
-            <ProductGallery images={product.images} productName={product.title} />
+            <ProductGallery images={product.images} productName={product.title} reference={product.imageKind === 'reference'} />
 
             {/* Authentic Workshop Badge */}
             {isAnkurt && (
@@ -147,11 +132,12 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   </Link>
                 )}
               </div>
-              
+
               <h1 className="font-editorial text-[32px] sm:text-[40px] text-[#0f5d35] tracking-[-0.02em] leading-[1.05] mb-3">
                 {product.title}
               </h1>
-              
+                <a href="#teklif" className="mb-4 inline-flex min-h-11 items-center font-bold text-[#0f5d35] underline">Bu ürün için teklif iste</a>
+
               <p className="text-sm sm:text-base text-[#464c47] leading-relaxed">
                 {product.shortDescription}
               </p>
@@ -230,35 +216,35 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <div className="pt-4 border-t border-[#121713]/8 space-y-3">
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button asChild variant="outline" size="lg" className="flex-1">
-                  <a href={company.contact.phoneHref}>
+                  <TrackedContactLink context={product.slug} href={company.contact.phoneHref}>
                     <Phone className="w-4 h-4 mr-2 stroke-[1.5]" />
                     Sabit: {company.contact.phone}
-                  </a>
+                  </TrackedContactLink>
                 </Button>
                 {company.contact.whatsappUrl && (
-                  <a 
-                    href={`${company.contact.whatsappUrl}?text=${whatsappMessage}`} 
-                    target="_blank" 
+                  <TrackedContactLink context={product.slug}
+                    href={`${company.contact.whatsappUrl}?text=${whatsappMessage}`}
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center px-4 py-3 bg-[#25D366] text-white text-sm font-semibold rounded-[4px] hover:bg-[#20bd5a] transition-colors shadow-xs"
+                    className="flex-1 inline-flex items-center justify-center px-4 py-3 bg-[#075e54] text-white text-sm font-semibold rounded-[4px] hover:bg-[#054c44] transition-colors shadow-xs"
                   >
                     <WhatsAppIcon className="w-4 h-4 mr-2 fill-white" />
                     WhatsApp&apos;tan Fiyat ve Detay Sorun
-                  </a>
+                  </TrackedContactLink>
                 )}
               </div>
 
               <div className="flex items-center justify-between text-xs text-[#464c47] pt-1">
-                <span>Mobil Hat: <a href={company.contact.mobileHref} className="font-medium text-[#0f5d35] hover:underline">{company.contact.mobile}</a></span>
+                <span>Mobil Hat: <TrackedContactLink context={product.slug} href={company.contact.mobileHref} className="font-medium text-[#0f5d35] hover:underline">{company.contact.mobile}</TrackedContactLink></span>
                 {product.sahibindenUrl && (
-                  <a 
-                    href={product.sahibindenUrl} 
-                    target="_blank" 
+                  <TrackedContactLink context={product.slug}
+                    href={product.sahibindenUrl}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="transition-transform hover:scale-102"
                   >
                     <SahibindenBadge />
-                  </a>
+                  </TrackedContactLink>
                 )}
               </div>
             </div>
@@ -267,9 +253,31 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         </div>
 
         {/* Related Products */}
+        <section className="mt-10 rounded-xl border border-[#121713]/10 bg-[#fbfaf6] p-5 sm:p-8" aria-labelledby="uyum-baslik">
+          <h2 id="uyum-baslik" className="font-editorial text-2xl text-[#0f5d35]">Model ve traktör uyumu</h2>
+          <p className="mt-2 text-sm leading-6 text-[#464c47]">Katalogdaki ölçüler model seçeneklerini anlatır. Kesin çalışma genişliği, kapasite ve güç gereksinimini siparişten önce seçtiğiniz model için teyit edin.</p>
+          <table className="mt-4 w-full text-left text-sm"><caption className="sr-only">Teklif için paylaşılacak bilgiler</caption><tbody>
+            {[['Traktör', 'Marka, model, motor gücü ve askı kapasitesi'], ['Çalışma alanı', 'Sera direk aralığı, sıra genişliği ve toprak yapısı'], ['Bağlantı ve tahrik', 'Askı / çeki bağlantısı, hidrolik ve gerekiyorsa PTO gereksinimi'], ['Fiyat ve teslim', 'Güncel fiyat, stok, nakliye ve teslim tarihini atölyeden öğrenin']].map(([label, value]) => <tr key={label} className="border-b border-[#121713]/10"><th scope="row" className="w-1/3 py-3 pr-3 font-semibold">{label}</th><td className="py-3">{value}</td></tr>)}
+          </tbody></table>
+        </section>
+
+        {/* Inquiry Form Section */}
+        <section id="teklif" className="mt-10 sm:mt-20 max-w-3xl mx-auto bg-[#fbfaf6] p-8 sm:p-12 rounded-[16px] border border-[#121713]/10">
+          <div className="text-center mb-8">
+            <span className="eyebrow-label text-[#0f5d35]">Fiyat & Danışma</span>
+            <h2 className="font-editorial text-[32px] text-[#0f5d35] mt-1 mb-2">
+              Bu Makine İçin Fiyat ve Bilgi Alın
+            </h2>
+            <p className="text-xs sm:text-sm text-[#464c47]">
+              <strong className="text-[#0f5d35]">{product.title}</strong> hakkında model seçenekleri, traktör uyumu veya güncel fiyat öğrenmek için yazabilirsiniz.
+            </p>
+          </div>
+          <InquiryForm initialProductId={product.id} />
+        </section>
+
         {relatedProducts.length > 0 && (
           <div className="mt-16 sm:mt-20">
-            <div className="flex items-end justify-between mb-8 pb-3 border-b border-[#121713]/8">
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-8 pb-3 border-b border-[#121713]/8">
               <div>
                 <span className="eyebrow-label text-[#0f5d35]">Tamamlayıcı Ekipmanlar</span>
                 <h2 className="font-editorial text-[28px] text-[#0f5d35] tracking-[-0.02em] mt-0.5">
@@ -280,7 +288,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 Tüm Ürünler &rarr;
               </Link>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedProducts.map(related => (
                 <ProductCard key={related.id} product={related} />
@@ -292,9 +300,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         {/* Related Technical Guides (Bidirectional SEO Link Network) */}
         {relatedGuides.length > 0 && (
           <div className="mt-16 sm:mt-20">
-            <div className="flex items-end justify-between mb-8 pb-3 border-b border-[#121713]/8">
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-8 pb-3 border-b border-[#121713]/8">
               <div>
-                <span className="eyebrow-label text-[#0f5d35]">Uzman Tavsiyesi</span>
+                <span className="eyebrow-label text-[#0f5d35]">Seçim ve Kullanım</span>
                 <h2 className="font-editorial text-[28px] text-[#0f5d35] tracking-[-0.02em] mt-0.5">
                   Bu Ekipmanla İlgili Rehberler ve Kullanım Yazıları
                 </h2>
@@ -333,19 +341,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           </div>
         )}
 
-        {/* Inquiry Form Section */}
-        <div className="mt-16 sm:mt-20 max-w-3xl mx-auto bg-[#fbfaf6] p-8 sm:p-12 rounded-[16px] border border-[#121713]/10">
-          <div className="text-center mb-8">
-            <span className="eyebrow-label text-[#0f5d35]">Fiyat & Danışma</span>
-            <h2 className="font-editorial text-[32px] text-[#0f5d35] mt-1 mb-2">
-              Bu Makine İçin Fiyat ve Bilgi Alın
-            </h2>
-            <p className="text-xs sm:text-sm text-[#464c47]">
-              <strong className="text-[#0f5d35]">{product.title}</strong> hakkında model seçenekleri, traktör uyumu veya güncel fiyat öğrenmek için yazabilirsiniz.
-            </p>
-          </div>
-          <InquiryForm />
-        </div>
+
 
       </div>
     </div>

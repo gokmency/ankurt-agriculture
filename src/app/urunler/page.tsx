@@ -1,21 +1,19 @@
 'use client';
 
-import { Suspense, useMemo } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useMemo } from 'react';
+import { useCatalogFilters } from '@/lib/useCatalogFilters';
+import { matchesSearch } from '@/lib/search';
+import type { CatalogFilters } from '@/lib/catalog';
 import { getActiveProducts } from '@/data/products';
 import { ProductCard } from '@/components/products/ProductCard';
 import ProductFilter from '@/components/products/ProductFilter';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { JsonLd, breadcrumbJsonLd } from '@/components/seo/JsonLd';
 
-function ProductListContent() {
-  const searchParams = useSearchParams();
-  const categoryId = searchParams.get('category') || searchParams.get('kategori');
-  const brandType = searchParams.get('brand') || searchParams.get('marka');
-  const searchQuery = (searchParams.get('q') || searchParams.get('ara'))?.toLowerCase();
+const allProducts = getActiveProducts();
 
-  const allProducts = getActiveProducts();
-
+function ProductListContent({ filters }: { filters: CatalogFilters }) {
+  const { category: categoryId, brand: brandType, query: searchQuery } = filters;
   const filteredProducts = useMemo(() => {
     return allProducts.filter(product => {
       // Category match
@@ -27,17 +25,13 @@ function ProductListContent() {
         if (brandType === 'ankurt') {
           matchBrand = product.brandType === 'ankurt';
         } else if (brandType === 'other' || brandType === 'diger') {
-          matchBrand = product.brandType === 'other';
+          matchBrand = product.brandType !== 'ankurt';
         }
       }
 
       // Search match
-      const matchSearch = !searchQuery || 
-        product.title.toLowerCase().includes(searchQuery) || 
-        product.shortDescription?.toLowerCase().includes(searchQuery) ||
-        product.brand?.toLowerCase().includes(searchQuery) ||
-        product.description?.toLowerCase().includes(searchQuery);
-      
+      const matchSearch = !searchQuery || matchesSearch([product.title, product.shortDescription, product.brand, product.description].join(' '), searchQuery);
+
       return matchCategory && matchBrand && matchSearch;
     });
   }, [allProducts, categoryId, brandType, searchQuery]);
@@ -45,7 +39,7 @@ function ProductListContent() {
   return (
     <div>
       <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-[#121713]/8 text-xs">
-        <span className="text-[#464c47]">
+        <span role="status" className="text-[#464c47]">
           Toplam <strong className="text-[#0f5d35] text-sm font-medium">{filteredProducts.length}</strong> ekipman listeleniyor
         </span>
         <span className="text-[#464c47]/60 hidden sm:inline">
@@ -70,6 +64,7 @@ function ProductListContent() {
 }
 
 export default function ProductsPage() {
+  const { filters, updateFilters } = useCatalogFilters();
   const breadcrumbItems = [
     { label: 'Ana Sayfa', href: '/' },
     { label: 'Ürünler', href: '/urunler/' }
@@ -89,10 +84,8 @@ export default function ProductsPage() {
           </span>
         </div>
 
-        <Suspense fallback={<div className="py-8 text-center text-xs text-[#464c47]">Katalog yükleniyor...</div>}>
-          <ProductFilter />
-          <ProductListContent />
-        </Suspense>
+        <ProductFilter filters={filters} updateFilters={updateFilters} />
+        <ProductListContent filters={filters} />
       </div>
     </main>
   );
