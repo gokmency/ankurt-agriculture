@@ -34,7 +34,7 @@ function ProductListContent({ filters }: { filters: CatalogFilters }) {
 
       return matchCategory && matchBrand && matchSearch;
     });
-  }, [allProducts, categoryId, brandType, searchQuery]);
+  }, [categoryId, brandType, searchQuery]);
 
   return (
     <div>
