@@ -25,8 +25,9 @@ test('inquiry validation blocks empty, malformed and unconsented messages', () =
   assert.deepEqual(Object.keys(validateInquiry({name:'',phone:'12',location:'',message:'',consent:false})), ['name','phone','privacyConsent']);
   const valid = {name:'Test Kullanıcısı',phone:'0532 000 00 00',location:'Serik',message:'Model sorusu',consent:true};
   assert.deepEqual(validateInquiry(valid), {});
-  const message = buildInquiryMessage(valid, 'ANKURT Kazayağı');
+  const message = buildInquiryMessage(valid, 'ANKURT Kazayağı', 'https://ankurt.com/urunler/kazayagi/');
   assert.match(message, /İlgilendiğim Makine: ANKURT Kazayağı/);
+  assert.match(message, /Ürün sayfası: https:\/\/ankurt.com\/urunler\/kazayagi\//);
   assert.equal(decodeURIComponent(encodeURIComponent(message)), message);
 });
 test('all product schemas omit unsupported commercial claims', () => {

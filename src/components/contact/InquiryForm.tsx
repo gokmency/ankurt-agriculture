@@ -27,8 +27,10 @@ export function InquiryForm({ initialProductId = '' }: { initialProductId?: stri
       return;
     }
     const productId = String(data.get('product') || '');
-    const productTitle = products.find(product => product.id === productId)?.title || 'Genel bilgi';
-    const url = `${company.contact.whatsappUrl}?text=${encodeURIComponent(buildInquiryMessage(values, productTitle))}`;
+    const selectedProduct = products.find(product => product.id === productId);
+    const productTitle = selectedProduct?.title || 'Genel bilgi';
+    const productUrl = selectedProduct ? `${company.seo.siteUrl}/urunler/${selectedProduct.slug}/` : undefined;
+    const url = `${company.contact.whatsappUrl}?text=${encodeURIComponent(buildInquiryMessage(values, productTitle, productUrl))}`;
     setPreparedUrl(url);
     trackFormSubmission(productId || 'general');
     window.open(url, '_blank', 'noopener,noreferrer');

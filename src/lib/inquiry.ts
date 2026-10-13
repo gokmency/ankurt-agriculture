@@ -7,8 +7,8 @@ export function validateInquiry(values: Inquiry): Partial<Record<'name' | 'phone
   if (!values.consent) errors.privacyConsent = 'Devam etmek için iletişim bilgilerinizin kullanımını kabul edin.';
   return errors;
 }
-export function buildInquiryMessage(values: Inquiry, product: string): string {
+export function buildInquiryMessage(values: Inquiry, product: string, productUrl?: string): string {
   return ['Merhaba ANKURT, web siteniz üzerinden yazıyorum.', '', `Ad Soyad: ${values.name.trim()}`,
     `Telefon: ${values.phone.trim()}`, `Konum: ${values.location.trim() || 'Belirtilmedi'}`,
-    `İlgilendiğim Makine: ${product}`, `Not / Sorularım: ${values.message.trim() || 'Yok'}`].join('\n');
+    `İlgilendiğim Makine: ${product}`, ...(productUrl ? [`Ürün sayfası: ${productUrl}`] : []), `Not / Sorularım: ${values.message.trim() || 'Yok'}`].join('\n');
 }
