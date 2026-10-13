@@ -27,25 +27,9 @@ function localBusinessNode() {
     '@id': `${company.seo.siteUrl}/#business`,
     url: company.seo.siteUrl,
     hasMap: company.location.businessProfileUrl,
-    telephone: '+902427297256',
-    priceRange: '₺₺',
-    currenciesAccepted: 'TRY',
-    paymentAccepted: 'Nakit, Banka Havalesi, Kredi Kartı',
+    telephone: company.contact.phoneHref.replace('tel:', ''),
     description: company.seo.defaultDescription,
     sameAs,
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 36.9388,
-      longitude: 31.0256,
-    },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        opens: '08:00',
-        closes: '18:00',
-      },
-    ],
     areaServed: [
       { '@type': 'AdministrativeArea', name: 'Antalya' },
       { '@type': 'AdministrativeArea', name: 'Serik' },
@@ -97,7 +81,7 @@ export function websiteJsonLd() {
 }
 
 export function productJsonLd(product: Product) {
-  const images = (product.images || []).map((image) => `${company.seo.siteUrl}${image}`);
+  const images = (product.imageKind === 'reference' ? [] : product.images || []).map((image) => `${company.seo.siteUrl}${image}`);
 
   return {
     '@context': 'https://schema.org',
@@ -106,86 +90,10 @@ export function productJsonLd(product: Product) {
     '@id': `${company.seo.siteUrl}/urunler/${product.slug}/#product`,
     url: `${company.seo.siteUrl}/urunler/${product.slug}/`,
     sku: product.id,
-    image: images.length ? images : [`${company.seo.siteUrl}${company.heroImage}`],
+    ...(images.length ? { image: images } : {}),
     description: product.description,
     category: product.categoryId,
-    brand: {
-      '@type': 'Brand',
-      name: product.brand || company.nameShort,
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '26',
-      bestRating: '5',
-      worstRating: '1',
-    },
-    review: [
-      {
-        '@type': 'Review',
-        reviewRating: {
-          '@type': 'Rating',
-          ratingValue: '5',
-          bestRating: '5',
-        },
-        author: {
-          '@type': 'Person',
-          name: 'Mehmet Kaya',
-        },
-        datePublished: '2026-04-10',
-        reviewBody: `${product.title} ekipmanını Serik atölyesinden temin ettik. Malzeme et kalınlığı ve kaynak işçiliği beklentimizin üzerinde kaliteli.`,
-      },
-    ],
-    offers: {
-      '@type': 'Offer',
-      url: `${company.seo.siteUrl}/urunler/${product.slug}/`,
-      priceCurrency: 'TRY',
-      price: '0',
-      priceValidUntil: '2027-12-31',
-      validFrom: '2026-01-01',
-      availability: 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-      seller: {
-        '@type': 'Organization',
-        name: company.nameFull,
-        url: company.seo.siteUrl,
-      },
-      hasMerchantReturnPolicy: {
-        '@type': 'MerchantReturnPolicy',
-        applicableCountry: 'TR',
-        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-        merchantReturnDays: 14,
-        returnMethod: 'https://schema.org/ReturnInStore',
-        returnFees: 'https://schema.org/FreeReturn',
-      },
-      shippingDetails: {
-        '@type': 'OfferShippingDetails',
-        shippingRate: {
-          '@type': 'MonetaryAmount',
-          value: '0',
-          currency: 'TRY',
-        },
-        shippingDestination: {
-          '@type': 'DefinedRegion',
-          addressCountry: 'TR',
-        },
-        deliveryTime: {
-          '@type': 'ShippingDeliveryTime',
-          handlingTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 1,
-            maxValue: 3,
-            unitCode: 'd',
-          },
-          transitTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 1,
-            maxValue: 5,
-            unitCode: 'd',
-          },
-        },
-      },
-    },
+    ...(product.brand ? { brand: { '@type': 'Brand', name: product.brand } } : {}),
   };
 }
 
@@ -225,6 +133,7 @@ export function articleJsonLd(article: {
   description: string;
   slug: string;
   publishedDate: string;
+  updatedDate?: string;
   image?: string;
 }) {
   const imageUrl = article.image
@@ -240,7 +149,7 @@ export function articleJsonLd(article: {
     description: article.description,
     image: [imageUrl],
     datePublished: article.publishedDate,
-    dateModified: article.publishedDate,
+    dateModified: article.updatedDate || article.publishedDate,
     inLanguage: 'tr-TR',
     author: {
       '@type': 'Organization',

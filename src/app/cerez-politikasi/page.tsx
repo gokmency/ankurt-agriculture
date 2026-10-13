@@ -35,12 +35,12 @@ export default function CookiePolicyPage() {
 
             <h2 className="font-editorial text-[22px] text-[#0f5d35] mt-6 mb-2">2. Kullanılan Çerez Türleri</h2>
             <p>
-              Sitemizde yalnızca temel gezinme ve analiz amaçlı zorunlu ve performans çerezleri kullanılmaktadır.
+              Google Analytics, analiz tercihinizde izin verdiğinizde yüklenir. Reddederseniz analiz olayları gönderilmez. Tercihiniz tarayıcınızın yerel depolamasında saklanır. Form alanları analiz olaylarına eklenmez.
             </p>
 
             <h2 className="font-editorial text-[22px] text-[#0f5d35] mt-6 mb-2">3. Çerezlerin Yönetimi</h2>
             <p>
-              Tarayıcınızın ayarlarından çerezleri dilediğiniz zaman silebilir veya engelleyebilirsiniz.
+              Sayfanın altındaki “Analiz tercihimi değiştir” düğmesiyle izninizi değiştirebilirsiniz. İzni geri çektiğinizde yeni analiz olayları durdurulur; daha önce kaydedilmiş çerezleri tarayıcı ayarlarından silebilirsiniz. Google haritaları yalnızca “Google Haritasını yükle” düğmesine bastığınızda açılır. WhatsApp bağlantıları ayrı bir hizmete yönlendirir.
             </p>
           </div>
         </div>

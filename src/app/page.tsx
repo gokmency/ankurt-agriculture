@@ -1,3 +1,4 @@
+import { TrackedContactLink } from '@/components/contact/TrackedContactLink';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
@@ -19,7 +20,7 @@ import { getAllGuides } from '@/data/guides';
 import { company } from '@/data/company';
 import { JsonLd, websiteJsonLd, faqJsonLd } from '@/components/seo/JsonLd';
 import { createPageMetadata } from '@/lib/seo';
-import { BookOpen, Clock, Layers } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 const homeFaqs = [
   {
@@ -72,12 +73,12 @@ export default function Home() {
       <link
         rel="preload"
         as="image"
-        type="image/webp"
-        href="/images/hero/ankurt-storefront-hero.webp"
+        type="image/avif"
+        href="/images/hero/ankurt-storefront-hero.avif"
         media="(min-width: 769px)"
         fetchPriority="high"
       />
-      <section className="relative min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] flex items-center bg-[#0e1410] text-white overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 border-b border-white/10">
+      <section className="relative min-h-[520px] sm:min-h-[620px] lg:min-h-[700px] flex items-center bg-[#0e1410] text-white overflow-hidden pt-12 pb-12 lg:pt-28 lg:pb-20 border-b border-white/10">
         {/* Direct Full-Bleed Background Image (Responsive & Instant LCP) */}
         <picture className="absolute inset-0 block h-full w-full pointer-events-none">
           <source media="(max-width: 768px)" type="image/avif" srcSet="/images/hero/ankurt-storefront-hero-mobile.avif" />
@@ -285,14 +286,14 @@ export default function Home() {
             </p>
 
             <div className="mt-8 space-y-3 border-y border-[#1c211d]/15 py-6">
-              <a href={company.contact.phoneHref} className="group flex items-center justify-between py-2">
+              <TrackedContactLink href={company.contact.phoneHref} className="group flex items-center justify-between py-2">
                 <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><Phone className="h-4 w-4 text-[#0f5d35]" /> Sabit hat</span>
                 <span className="font-editorial text-2xl text-[#1c211d] group-hover:text-[#0f5d35]">{company.contact.phone}</span>
-              </a>
-              <a href={company.contact.mobileHref} className="group flex items-center justify-between py-2">
+              </TrackedContactLink>
+              <TrackedContactLink href={company.contact.mobileHref} className="group flex items-center justify-between py-2">
                 <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><Phone className="h-4 w-4 text-[#0f5d35]" /> Mobil hat & WhatsApp</span>
                 <span className="font-editorial text-2xl text-[#1c211d] group-hover:text-[#0f5d35]">{company.contact.mobile}</span>
-              </a>
+              </TrackedContactLink>
               <a href={company.location.directionsUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between py-2">
                 <span className="flex items-center gap-3 text-sm font-bold text-[#1c211d]"><MapPin className="h-4 w-4 text-[#0f5d35]" /> Atölye konumu</span>
                 <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.08em] text-[#0f5d35]">Yol tarifi al <ArrowUpRight className="h-4 w-4" /></span>

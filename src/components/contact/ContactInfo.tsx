@@ -73,10 +73,10 @@ export function ContactInfo() {
         {/* WhatsApp */}
         <div className="flex items-start pt-2 border-t border-[#121713]/8">
           <div className="flex-shrink-0 mt-0.5">
-            <WhatsAppIcon className="w-5 h-5 fill-[#25D366]" />
+            <WhatsAppIcon className="w-5 h-5 fill-[#075e54]" />
           </div>
           <div className="ml-3.5">
-            <span className="eyebrow-label text-[#25D366] text-[11px] block mb-1">WhatsApp Destek</span>
+            <span className="eyebrow-label text-[#075e54] text-[11px] block mb-1">WhatsApp Destek</span>
             <p className="text-xs text-[#464c47] mb-3 leading-relaxed">
               Hızlı fiyat ve teknik şartname sorularınız için doğrudan WhatsApp hattımızdan yazabilirsiniz.
             </p>
@@ -84,8 +84,8 @@ export function ContactInfo() {
               href={contact.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={trackWhatsAppClick}
-              className="inline-flex items-center px-4 py-2 bg-[#25D366] text-white text-xs font-semibold rounded-[4px] hover:bg-[#20bd5a] transition-colors shadow-xs"
+              onClick={() => trackWhatsAppClick()}
+              className="inline-flex items-center px-4 py-2 bg-[#075e54] text-white text-xs font-semibold rounded-[4px] hover:bg-[#054c44] transition-colors shadow-xs"
             >
               <WhatsAppIcon className="w-4 h-4 mr-1.5 fill-white" />
               WhatsApp&apos;tan Mesaj Gönder

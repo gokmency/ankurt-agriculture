@@ -15,7 +15,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, className, preload = false }: ProductCardProps) {
   const hasImage = product.images && product.images.length > 0;
-  const isAnkurt = product.brandType === 'ankurt' || product.brand === 'ANKURT';
+  const isAnkurt = product.brandType === 'ankurt';
   const category = getCategoryById(product.categoryId);
 
   return (
@@ -28,12 +28,12 @@ export function ProductCard({ product, className, preload = false }: ProductCard
         {hasImage ? (
             <Image
               src={product.images[0]}
-              alt={`${product.title} - ${isAnkurt ? 'ANKURT İmalatı' : product.brand} Serik Antalya`}
+              alt={product.imageKind === 'reference' ? `${category?.name || 'Ekipman'} için temsili kullanım görseli` : product.title}
               fill
               preload={preload}
               loading={preload ? "eager" : "lazy"}
               decoding="async"
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+              className="object-contain transition-transform duration-700 group-hover:scale-[1.035]"
               sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 360px"
             />
         ) : (
@@ -50,12 +50,13 @@ export function ProductCard({ product, className, preload = false }: ProductCard
             </Badge>
           ) : (
             <Badge variant="sage">
-              {product.brand}
+              {product.brand || 'Model için görüşün'}
             </Badge>
           )}
         </div>
       </Link>
 
+      {hasImage && product.imageKind === 'reference' && <p className="bg-[#f2f0e9] px-4 py-2 text-[11px] leading-4 text-[#464c47]">Temsili kullanım görseli. Güncel ürün fotoğrafını isteyin.</p>}
       {/* Card Content */}
       <div className="flex flex-1 flex-col justify-between p-6">
         <div>

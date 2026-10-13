@@ -23,6 +23,8 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const dialogRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       closeButtonRef.current?.focus();
@@ -53,7 +55,8 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow;
+      if (isOpen) previousFocus?.focus();
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -130,12 +133,12 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
         {/* Action Bottom Area */}
         <div className="p-5 border-t border-[#121713]/10 space-y-3 bg-[#f2f0e9]/40">
           <Button asChild variant="primary" size="md" className="w-full justify-center">
-            <Link href="/iletisim/">Bilgi & Teklif Al</Link>
+            <Link href="/iletisim/" onClick={onClose}>Bilgi & Teklif Al</Link>
           </Button>
           <div className="grid grid-cols-2 gap-2">
             <a
               href={company.contact.phoneHref}
-              onClick={() => trackPhoneClick('main')}
+              onClick={() => { onClose(); trackPhoneClick('main'); }}
               className="flex items-center justify-center px-3 py-2 text-xs text-[#0f5d35] font-medium border border-[#121713]/15 rounded-[4px] hover:bg-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5 mr-1 stroke-[1.5]" />
@@ -146,8 +149,8 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                 href={company.contact.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={trackWhatsAppClick}
-                className="flex items-center justify-center px-3 py-2 text-xs bg-[#25D366] text-white font-semibold rounded-[4px] hover:bg-[#20bd5a] transition-colors shadow-xs"
+                onClick={() => { onClose(); trackWhatsAppClick(); }}
+                className="flex items-center justify-center px-3 py-2 text-xs bg-[#075e54] text-white font-semibold rounded-[4px] hover:bg-[#054c44] transition-colors shadow-xs"
               >
                 <WhatsAppIcon className="w-4 h-4 mr-1.5 fill-white" />
                 WhatsApp

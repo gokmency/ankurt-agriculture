@@ -6,6 +6,7 @@ import { company } from '@/data/company';
 // Track phone click
 export function trackPhoneClick(phoneType: 'main' | 'mobile') {
   if (typeof window === 'undefined') return;
+  try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   const label = phoneType === 'main' ? company.contact.phone : company.contact.mobile;
 
   // GA4
@@ -31,11 +32,13 @@ export function trackPhoneClick(phoneType: 'main' | 'mobile') {
 }
 
 // Track WhatsApp click
-export function trackWhatsAppClick() {
+export function trackWhatsAppClick(context: string = 'general') {
   if (typeof window === 'undefined') return;
+  try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'whatsapp_click', {
       event_category: 'contact',
+      product_slug: context,
     });
   }
   if (company.analytics.metaPixelId && typeof window.fbq === 'function') {
@@ -46,25 +49,27 @@ export function trackWhatsAppClick() {
 // Track inquiry form submission
 export function trackFormSubmission(productInterest?: string) {
   if (typeof window === 'undefined') return;
+  try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
-    window.gtag('event', 'form_submission', {
-      event_category: 'lead',
+    window.gtag('event', 'whatsapp_handoff', {
+      event_category: 'contact_intent',
       event_label: productInterest || 'general',
     });
   }
   if (company.analytics.metaPixelId && typeof window.fbq === 'function') {
-    window.fbq('track', 'Lead', { content_name: productInterest || 'general' });
+    window.fbq('trackCustom', 'WhatsAppHandoff', { content_name: productInterest || 'general' });
   }
 }
 
 // Track product view
 export function trackProductView(productTitle: string, productSlug: string) {
   if (typeof window === 'undefined') return;
+  try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'view_item', {
       event_category: 'product',
       event_label: productTitle,
-      product_slug: productSlug,
+      items: [{ item_id: productSlug, item_name: productTitle }],
     });
   }
   if (company.analytics.metaPixelId && typeof window.fbq === 'function') {
@@ -75,6 +80,7 @@ export function trackProductView(productTitle: string, productSlug: string) {
 // Track Sahibinden outbound click
 export function trackSahibindenClick(productTitle: string = 'general') {
   if (typeof window === 'undefined') return;
+  try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'sahibinden_click', {
       event_category: 'outbound',
@@ -86,6 +92,7 @@ export function trackSahibindenClick(productTitle: string = 'general') {
 // Track contact page visit
 export function trackContactPageVisit() {
   if (typeof window === 'undefined') return;
+  try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'contact_page_visit', {
       event_category: 'engagement',
@@ -96,6 +103,7 @@ export function trackContactPageVisit() {
 // Track navigation/directions request
 export function trackDirectionsRequest() {
   if (typeof window === 'undefined') return;
+  try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'directions_request', {
       event_category: 'contact',

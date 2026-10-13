@@ -1,5 +1,7 @@
 'use client';
 
+import { WorkshopMap } from '@/components/contact/WorkshopMap';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -69,7 +71,7 @@ export function Footer() {
                     href={company.contact.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={trackWhatsAppClick}
+                    onClick={() => trackWhatsAppClick()}
                     className="inline-flex items-center px-3.5 py-1.5 rounded-[4px] bg-[#075e54] text-white text-xs font-semibold hover:bg-[#054c44] transition-colors shadow-xs"
                   >
                     <WhatsAppLogoImage className="w-4 h-4 mr-1.5" size={18} />
@@ -188,13 +190,7 @@ export function Footer() {
             <div>
               <h3 className="text-[#e7b23f] text-xs font-semibold uppercase tracking-widest mb-3">Atölye & Konum</h3>
               <div className="relative rounded-[12px] overflow-hidden border border-[#fbfaf6]/20 bg-[#121713] aspect-[16/10] w-full mb-3">
-                <iframe
-                  title="ANKURT Tarım Makinaları Konumu"
-                  src={company.location.mapEmbedUrl}
-                  className="w-full h-full border-0 opacity-90 hover:opacity-100 transition-opacity"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+                <WorkshopMap />
               </div>
             </div>
 

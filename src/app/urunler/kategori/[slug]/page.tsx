@@ -8,8 +8,8 @@ import { company } from '@/data/company';
 import { ProductCard } from '@/components/products/ProductCard';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { JsonLd, breadcrumbJsonLd, faqJsonLd } from '@/components/seo/JsonLd';
-import { createPageMetadata, absoluteUrl } from '@/lib/seo';
-import { Phone, ArrowLeft, ArrowRight, ShieldCheck, BookOpen, Compass, Sparkles } from 'lucide-react';
+import { createPageMetadata } from '@/lib/seo';
+import { ArrowLeft, ArrowRight, ShieldCheck, BookOpen, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppIcon } from '@/components/ui/BrandIcons';
 
@@ -384,7 +384,7 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-3.5 bg-[#25D366] text-white text-xs font-bold uppercase tracking-wider rounded-[6px] hover:bg-[#20bd5a] transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3.5 bg-[#075e54] text-white text-xs font-bold uppercase tracking-wider rounded-[6px] hover:bg-[#054c44] transition-colors"
               >
                 <WhatsAppIcon className="w-4 h-4 mr-2 fill-white" />
                 WhatsApp İle Yazın

@@ -1,59 +1,14 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import type { CatalogFilters } from '@/lib/catalog';
 import { categories } from '@/data/categories';
 import { Search, X } from 'lucide-react';
 
-export default function ProductFilter() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const currentCategory = searchParams.get('kategori') || searchParams.get('category') || 'all';
-  const currentBrand = searchParams.get('marka') || searchParams.get('brand') || 'all';
-  const currentSearch = searchParams.get('ara') || searchParams.get('q') || '';
-
-  const [searchValue, setSearchValue] = useState(currentSearch);
-
-  const updateFilters = useCallback((updates: Record<string, string | null>) => {
-    const params = new URLSearchParams(searchParams.toString());
-    
-    Object.entries(updates).forEach(([key, value]) => {
-      if (key === 'kategori' || key === 'category') {
-        params.delete('kategori');
-        params.delete('category');
-        if (value && value !== 'all') params.set('kategori', value);
-      } else if (key === 'marka' || key === 'brand') {
-        params.delete('marka');
-        params.delete('brand');
-        if (value && value !== 'all') params.set('marka', value);
-      } else if (key === 'ara' || key === 'q') {
-        params.delete('ara');
-        params.delete('q');
-        if (value && value.trim()) params.set('q', value.trim());
-      } else {
-        if (value === null || value === 'all') {
-          params.delete(key);
-        } else {
-          params.set(key, value);
-        }
-      }
-    });
-
-    const newUrl = `${pathname}${params.toString() ? `?${params.toString()}` : ''}`;
-    router.push(newUrl, { scroll: false });
-  }, [searchParams, pathname, router]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (searchValue !== currentSearch) {
-        updateFilters({ q: searchValue || null });
-      }
-    }, 200);
-    return () => clearTimeout(timer);
-  }, [searchValue, currentSearch, updateFilters]);
-
+export default function ProductFilter({ filters, updateFilters }: {
+  filters: CatalogFilters;
+  updateFilters: (updates: Partial<CatalogFilters>, replace?: boolean) => void;
+}) {
+  const { category: currentCategory, brand: currentBrand, query: searchValue } = filters;
   const isFiltered = currentCategory !== 'all' || currentBrand !== 'all' || searchValue !== '';
 
   return (
@@ -65,15 +20,15 @@ export default function ProductFilter() {
             type="text"
             placeholder="Makine adı veya özellik ara (örn. römork, çizel, sepet, diskaro)..."
             value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={(e) => updateFilters({ query: e.target.value }, true)}
+            aria-label="Ürünlerde ara"
             className="h-11 w-full rounded-[6px] border border-[#121713]/15 bg-[#f2f0e9]/40 px-10 text-sm text-[#0f5d35] placeholder:text-[#464c47]/60 focus:border-[#0f5d35] focus:outline-none"
           />
           <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-[#0f5d35]/60 stroke-[1.5]" />
           {searchValue && (
             <button
               onClick={() => {
-                setSearchValue('');
-                updateFilters({ q: null });
+                updateFilters({ query: '' }, true);
               }}
               className="absolute right-1 top-1 inline-flex h-9 w-9 items-center justify-center rounded-[4px] text-[#464c47] hover:bg-[#f2f0e9] hover:text-[#0f5d35]"
               aria-label="Aramayı temizle"
@@ -86,8 +41,7 @@ export default function ProductFilter() {
         {isFiltered && (
           <button
             onClick={() => {
-              setSearchValue('');
-              router.push(pathname, { scroll: false });
+              updateFilters({ category: 'all', brand: 'all', query: '' });
             }}
             className="flex h-11 shrink-0 items-center justify-center rounded-[6px] border border-[#121713]/15 px-4 text-xs font-bold text-[#0f5d35] transition-colors hover:bg-[#f2f0e9]"
           >
@@ -100,7 +54,7 @@ export default function ProductFilter() {
         <span className="eyebrow-label mb-2 block text-[#626760]">Üretim türü</span>
         <div className="flex flex-wrap gap-2">
         <button
-          onClick={() => updateFilters({ kategori: 'all', marka: 'all' })}
+          onClick={() => updateFilters({ category: 'all', brand: 'all' })}
           aria-pressed={currentCategory === 'all' && currentBrand === 'all'}
           className={`min-h-10 rounded-[6px] px-4 text-xs font-bold transition-colors ${
             currentCategory === 'all' && currentBrand === 'all'
@@ -112,7 +66,7 @@ export default function ProductFilter() {
         </button>
 
         <button
-          onClick={() => updateFilters({ marka: 'ankurt' })}
+          onClick={() => updateFilters({ brand: 'ankurt' })}
           aria-pressed={currentBrand === 'ankurt'}
           className={`min-h-10 rounded-[6px] px-4 text-xs font-bold transition-colors ${
             currentBrand === 'ankurt'
@@ -124,7 +78,7 @@ export default function ProductFilter() {
         </button>
 
         <button
-          onClick={() => updateFilters({ marka: 'diger' })}
+          onClick={() => updateFilters({ brand: 'diger' })}
           aria-pressed={currentBrand === 'diger' || currentBrand === 'other'}
           className={`min-h-10 rounded-[6px] px-4 text-xs font-bold transition-colors ${
             currentBrand === 'diger' || currentBrand === 'other'
@@ -132,7 +86,7 @@ export default function ProductFilter() {
               : 'bg-[#f2f0e9] text-[#0f5d35] hover:bg-[#f2f0e9]/80'
           }`}
         >
-          Diğer Markalar
+          Diğer Ürünler
         </button>
         </div>
       </div>
@@ -145,7 +99,7 @@ export default function ProductFilter() {
             return (
               <button
                 key={cat.id}
-                onClick={() => updateFilters({ kategori: cat.slug })}
+                onClick={() => updateFilters({ category: cat.slug })}
                 aria-pressed={isActive}
                 className={`min-h-10 shrink-0 snap-start rounded-[6px] px-4 text-xs font-bold transition-colors ${
                   isActive

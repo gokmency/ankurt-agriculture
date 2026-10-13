@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Search, ArrowUpRight, Clock, Calendar, BookOpen, X, Sparkles } from 'lucide-react';
+import { matchesSearch, formatDate } from '@/lib/search';
 import { Guide } from '@/data/guides';
 
 interface GuideHubProps {
@@ -19,17 +20,10 @@ export function GuideHub({ initialGuides, categories }: GuideHubProps) {
       const matchesCategory =
         selectedCategory === 'Tümü' || guide.category === selectedCategory;
 
-      const q = searchQuery.toLowerCase().trim();
-      if (!q) return matchesCategory;
+      if (!searchQuery.trim()) return matchesCategory;
+      const matchesQuery = matchesSearch([guide.title, guide.shortDescription, guide.focusKeyword, ...(guide.secondaryKeywords || [])].join(' '), searchQuery);
 
-      const matchesSearch =
-        guide.title.toLowerCase().includes(q) ||
-        guide.shortDescription.toLowerCase().includes(q) ||
-        (guide.focusKeyword && guide.focusKeyword.toLowerCase().includes(q)) ||
-        (guide.secondaryKeywords &&
-          guide.secondaryKeywords.some((k) => k.toLowerCase().includes(q)));
-
-      return matchesCategory && matchesSearch;
+      return matchesCategory && matchesQuery;
     });
   }, [initialGuides, selectedCategory, searchQuery]);
 
@@ -44,7 +38,8 @@ export function GuideHub({ initialGuides, categories }: GuideHubProps) {
           <div className="relative flex-1 max-w-lg">
             <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#121713]/40" />
             <input
-              type="text"
+              type="search"
+              aria-label="Rehberlerde ara"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Rehberlerde ara (ör. römork, çizel, sera, rotovatör)..."
@@ -54,6 +49,7 @@ export function GuideHub({ initialGuides, categories }: GuideHubProps) {
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
+                aria-label="Rehber aramasını temizle"
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[#121713]/40 hover:text-[#121713]"
               >
                 <X className="h-4 w-4" />
@@ -62,7 +58,7 @@ export function GuideHub({ initialGuides, categories }: GuideHubProps) {
           </div>
 
           {/* Results Count */}
-          <div className="text-xs font-semibold uppercase tracking-[.06em] text-[#626760]">
+          <div role="status" className="text-xs font-semibold uppercase tracking-[.06em] text-[#626760]">
             {filteredGuides.length} rehber listeleniyor
           </div>
         </div>
@@ -79,6 +75,7 @@ export function GuideHub({ initialGuides, categories }: GuideHubProps) {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
+                aria-pressed={isActive}
                 className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
                   isActive
                     ? 'bg-[#0f5d35] text-white shadow-sm'
@@ -142,7 +139,7 @@ export function GuideHub({ initialGuides, categories }: GuideHubProps) {
                   Serik / Antalya Sahası
                 </div>
                 <div className="mt-1 text-xs text-white/60">
-                  Toprak, sera ve bahçe koşullarına göre doğrudan atölye tecrübesiyle derlenmiştir.
+                  Toprak, sera ve bahçe koşullarına göre ekipman seçimine yardımcı olan genel bilgiler sunar.
                 </div>
               </div>
             </div>
@@ -173,7 +170,7 @@ export function GuideHub({ initialGuides, categories }: GuideHubProps) {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredGuides.map((guide, idx) => (
+          {filteredGuides.map((guide) => (
             <article
               key={guide.slug}
               className="group flex flex-col justify-between overflow-hidden rounded-[12px] border border-[#121713]/12 bg-[#fbfaf6] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#0f5d35]/40 hover:shadow-md"
@@ -207,7 +204,7 @@ export function GuideHub({ initialGuides, categories }: GuideHubProps) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5 text-[11px] text-[#626760]/70">
                     <Calendar className="h-3 w-3" />
-                    <span>{guide.publishedDate}</span>
+                    <span>{formatDate(guide.updatedDate || guide.publishedDate)}</span>
                   </div>
                   <Link
                     href={`/rehber/${guide.slug}/`}

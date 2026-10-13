@@ -3,7 +3,7 @@
   "name": "ankurt-agriculture",
   "compatibility_date": "2024-09-23",
   "assets": {
-    "directory": "./out"
-  },
-  "pages_build_output_dir": "out"
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
 }

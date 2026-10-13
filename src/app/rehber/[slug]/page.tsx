@@ -1,3 +1,4 @@
+import { formatDate } from '@/lib/search';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -18,7 +19,6 @@ import {
   Compass,
   MapPin,
   Wrench,
-  ChevronRight,
   Hash,
 } from 'lucide-react';
 import { company } from '@/data/company';
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     type: 'article',
     keywords,
     publishedTime: guide.publishedDate,
-    modifiedTime: guide.publishedDate,
+    modifiedTime: guide.updatedDate || guide.publishedDate,
   });
 }
 
@@ -102,6 +102,7 @@ export default async function GuideArticlePage({ params }: Props) {
           description: guide.shortDescription,
           slug: guide.slug,
           publishedDate: guide.publishedDate,
+          updatedDate: guide.updatedDate,
           image: relatedProducts[0]?.images[0],
         })}
       />
@@ -138,7 +139,7 @@ export default async function GuideArticlePage({ params }: Props) {
                   <span className="text-[#121713]/30">•</span>
                   <span className="inline-flex items-center gap-1 text-[#626760]">
                     <Calendar className="h-3.5 w-3.5" />
-                    {guide.publishedDate}
+                    Güncelleme: {formatDate(guide.updatedDate || guide.publishedDate)}
                   </span>
                 </div>
 
@@ -197,6 +198,10 @@ export default async function GuideArticlePage({ params }: Props) {
 
               {/* Rendered Markdown Body */}
               <ArticleContent content={guide.content} />
+              <aside className="mt-8 border-t border-[#121713]/10 pt-5 text-sm leading-6 text-[#464c47]" aria-label="Yayın bilgisi">
+                <p>Yayıncı: ANKURT Tarım Makinaları. Genel seçim bilgileri için hazırlanmıştır; modelin üretici kılavuzu ve yerinde teknik değerlendirme esas alınır.</p>
+                {guide.sources && <><h2 className="mt-3 font-bold text-[#0f5d35]">Kaynaklar</h2><ul className="list-disc pl-5">{guide.sources.map(source => <li key={source.url}><a className="underline" href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a></li>)}</ul></>}
+              </aside>
 
               {/* Share & Feedback Bar */}
               <div className="mt-12 pt-8 border-t border-[#121713]/10">
@@ -312,7 +317,7 @@ export default async function GuideArticlePage({ params }: Props) {
                     href={company.contact.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full rounded-[6px] bg-[#25d366] py-2.5 text-xs font-bold uppercase tracking-[.06em] text-white hover:bg-[#20bd5a] transition-colors shadow-xs"
+                    className="flex items-center justify-center gap-2 w-full rounded-[6px] bg-[#25d366] py-2.5 text-xs font-bold uppercase tracking-[.06em] text-white hover:bg-[#054c44] transition-colors shadow-xs"
                   >
                     <WhatsAppIcon className="h-3.5 w-3.5 fill-current" /> WhatsApp Danışma
                   </a>
