@@ -3,6 +3,13 @@
 
 import { company } from '@/data/company';
 
+// Exclude search strings and form fields from measurement context.
+function eventContext() {
+  const page = window.location.pathname;
+  const product = page.match(/^\/urunler\/(?!kategori\/)([^/]+)\/$/);
+  return { page_path: page, ...(product ? { product_slug: product[1] } : {}) };
+}
+
 // Track phone click
 export function trackPhoneClick(phoneType: 'main' | 'mobile') {
   if (typeof window === 'undefined') return;
@@ -12,6 +19,7 @@ export function trackPhoneClick(phoneType: 'main' | 'mobile') {
   // GA4
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'phone_click', {
+      ...eventContext(),
       event_category: 'contact',
       event_label: label,
       phone_type: phoneType,
@@ -37,8 +45,9 @@ export function trackWhatsAppClick(context: string = 'general') {
   try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'whatsapp_click', {
+      ...eventContext(),
       event_category: 'contact',
-      product_slug: context,
+      ...(context !== 'general' ? { product_slug: context } : {}),
     });
   }
   if (company.analytics.metaPixelId && typeof window.fbq === 'function') {
@@ -52,6 +61,7 @@ export function trackFormSubmission(productInterest?: string) {
   try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'whatsapp_handoff', {
+      ...eventContext(),
       event_category: 'contact_intent',
       event_label: productInterest || 'general',
     });
@@ -67,6 +77,7 @@ export function trackProductView(productTitle: string, productSlug: string) {
   try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'view_item', {
+      ...eventContext(),
       event_category: 'product',
       event_label: productTitle,
       items: [{ item_id: productSlug, item_name: productTitle }],
@@ -83,6 +94,7 @@ export function trackSahibindenClick(productTitle: string = 'general') {
   try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'sahibinden_click', {
+      ...eventContext(),
       event_category: 'outbound',
       event_label: productTitle,
     });
@@ -95,6 +107,7 @@ export function trackContactPageVisit() {
   try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'contact_page_visit', {
+      ...eventContext(),
       event_category: 'engagement',
     });
   }
@@ -106,6 +119,7 @@ export function trackDirectionsRequest() {
   try { if (localStorage.getItem('ankurt:analytics-consent:v1') !== 'accepted') return; } catch { return; }
   if (company.analytics.gaId && typeof window.gtag === 'function') {
     window.gtag('event', 'directions_request', {
+      ...eventContext(),
       event_category: 'contact',
     });
   }
